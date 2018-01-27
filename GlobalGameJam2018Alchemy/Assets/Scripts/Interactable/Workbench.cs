@@ -8,22 +8,28 @@ public class Workbench : MonoBehaviour, IInteractable
     /// <summary>
     /// The recipes that will be accepted by the workshop
     /// </summary>
-    private List<Recipe> myRecipes;
+    public List<Recipe> MyRecipes {
+        set;
+        private get;
+    }
 
     /// <summary>
     /// Items that are ingoing
     /// </summary>
-    private List<IItem> inItems;
+    private List<IItem> InItems;
 
     /// <summary>
     /// Item that is produced
     /// </summary>
-    private IItem outItem;
+    private IItem OutItem;
 
     /// <summary>
     /// The efficiency of the workbench, determines the production speed
     /// </summary>
-    private int efficiency = 1;
+    public int Efficiency{
+        set;
+        private get;
+    }
 
     /// <summary>
     /// Initial State : The workbench is currently free of work, and can be used by an interaction
@@ -36,22 +42,6 @@ public class Workbench : MonoBehaviour, IInteractable
     private bool output = false;
 
 
-    /// <summary>
-    /// Sets the efficiency of the workbench
-    /// </summary>
-    /// <param name="efficiency"></param>
-    private void SetEfficiency(int efficiency)
-    {
-        this.efficiency = efficiency;
-    }
-
-    /// <summary>
-    /// Sets the Recipes that can be used.
-    /// </summary>
-    /// <param name="myRecipes"></param>
-    private void SetMyRecipes(List<Recipe> myRecipes) {
-        this.myRecipes = myRecipes;
-    }
 
     /// <summary>
     /// Decider if the machine can be started
@@ -92,7 +82,7 @@ public class Workbench : MonoBehaviour, IInteractable
         if (CanStartup()){
 
         available = false;
-            Invoke("OnFinish", this.efficiency);//TODO RECIPE TIME DIFFICULTY);
+            Invoke("OnFinish", this.Efficiency);//TODO RECIPE TIME DIFFICULTY);
         }
 
     }
@@ -135,7 +125,7 @@ public class Workbench : MonoBehaviour, IInteractable
         if (CanInteract(item)) {
 
             //add the item to the workshop
-            inItems.Add(item);
+            InItems.Add(item);
             Startup();
             //Player has to drop the item to the workshop
             return true;
@@ -151,8 +141,8 @@ public class Workbench : MonoBehaviour, IInteractable
     public IItem GetItem()
     {
         if (CanInteract(null)) {
-            IItem itemReturn = outItem;
-            outItem = null;
+            IItem itemReturn = OutItem;
+            OutItem = null;
             return itemReturn;
         }
         return null;
@@ -161,6 +151,7 @@ public class Workbench : MonoBehaviour, IInteractable
     // Use this for initialization
     void Start()
     {
+        Efficiency = 1;
         //load recipes by call to SetMyRecipes
     }
 
