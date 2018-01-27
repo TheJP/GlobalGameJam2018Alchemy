@@ -8,11 +8,61 @@ using UnityEngine;
 
 public class RecipeCreator
 {
-    Recipe[] myRecipes;
+    /// <summary>
+    /// ALL THE RECIPES
+    /// </summary>
+    private List<Recipe> MyRecipes;
+
+    /// <summary>
+    /// Recipes for baking
+    /// </summary>
+    public List<Recipe> BakeRecipes
+    {
+        get;
+        private set;
+    }
+
+    /// <summary>
+    /// Recipes for destillation
+    /// </summary>
+    public List<Recipe> DestillRecipes
+    {
+        get;
+        private set;
+    }
+
+    /// <summary>
+    /// Recipes for destillation
+    /// </summary>
+    public List<Recipe> CauldronRecipes
+    {
+        get;
+        private set;
+    }
+
+    /// <summary>
+    /// Recipes for mixxing
+    /// </summary>
+    public List<Recipe> MortarRecipes
+    {
+        get;
+        private set;
+    }
+
+    /// <summary>
+    /// Recipes for Teas, gold source
+    /// </summary>
+    public List<Recipe> TeaRecipes
+    {
+        get;
+        private set;
+    }
+
 
     RecipeCreator()
     {
         //myRecipes = createRandomRecipes();
+
     }
 
     //Creating RandomRecipes, is calling createRecipe
@@ -23,26 +73,19 @@ public class RecipeCreator
 
 
     //Creating Recipes
-    Recipe CreateRecipe()
+    public Recipe CreateRecipe()
     {
-        var inList = new List<Ingredient> {
+        var inList = new List<IItem> {
             new Ingredient(ItemType.Liquid, IngredientColour.Black)
         };
-        return null;     
+        
+
+        IItem outItem = (IItem) new MoneyMaker("Chocolate", 100);
+
+        return new Recipe(inList, outItem, 5);
+
     }
      
-
-    public List<Recipe> getBurnRecipes() {
-        return null;
-    }
-
-    public List<Recipe> getCutRecipes() {
-        return null;
-    }
-
-    public List<Recipe> getMixRecipes() {
-        return null;
-    }
 
 
 }
