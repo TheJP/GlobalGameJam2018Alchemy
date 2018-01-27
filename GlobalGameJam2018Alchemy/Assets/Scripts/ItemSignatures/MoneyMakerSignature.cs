@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GlobalGameJam2018Networking;
 
-namespace Assets.Scripts.Recipe
+namespace Assets.Scripts.ItemSignatures
 {
     class MoneyMakerSignature : ItemSignature
     {

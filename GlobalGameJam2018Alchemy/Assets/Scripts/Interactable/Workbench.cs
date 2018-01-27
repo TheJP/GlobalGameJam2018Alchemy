@@ -4,9 +4,22 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Assets.Scripts.ItemSignatures;
 
 public class Workbench : MonoBehaviour, IInteractable
 {
+    [Tooltip("Where the current input-objects dhould be spawned.")]
+    public Transform[] InputItemLocations;
+
+    [Tooltip("Where the produced item should be placed upon completion.")]
+    public Transform OutputItemLocation;
+
+    [Tooltip("The element displaying the working effect to be displayed.")]
+    public GameObject ActiveObject;
+
+    [Tooltip("The Gameobject responsible for providing the correct Prefabs for displaying items.")]
+    public PrefabLibraryBase PrefabLibrary;
+
     /// <summary>
     /// The recipes that will be accepted by the workshop
     /// </summary>
@@ -19,7 +32,7 @@ public class Workbench : MonoBehaviour, IInteractable
     /// <summary>
     /// Current items in the input-pipeline
     /// </summary>
-    private List<IItem> InItems;
+    private readonly List<IItem> InItems = new List<IItem>();
 
     /// <summary>
     /// Current Item in the output-pipeline
@@ -39,6 +52,8 @@ public class Workbench : MonoBehaviour, IInteractable
     /// Initial State : The workbench is currently free of work, so no recipe is worked on
     /// </summary>
     private Recipe currentRecipe = null;
+
+    private readonly List<GameObject> temporaryObjects = new List<GameObject>();
 
     /// <summary>
     /// Decider if the machine can be started
@@ -121,8 +136,11 @@ public class Workbench : MonoBehaviour, IInteractable
         if (recipe != null)
         {
             currentRecipe = recipe;
+            InItems.Clear();
             StartAnimation();
             Invoke("OnFinish", recipe.Complexity/this.Efficiency);
+
+            DestroyTempObjects();
         }
 
     }
@@ -133,18 +151,37 @@ public class Workbench : MonoBehaviour, IInteractable
     private void OnFinish()
     {
         StopAnimation();
+        DestroyTempObjects();
+        // ToDo: this
+
         OutItem = currentRecipe.CreateItem();
+        temporaryObjects.Add(Instantiate(PrefabLibrary.GetPrefab(OutItem), OutputItemLocation.transform));
         currentRecipe = null;
+    }
+
+    private void DestroyTempObjects()
+    {
+        foreach (var o in temporaryObjects)
+        {
+            Destroy(o);
+        }
+        temporaryObjects.Clear();
     }
 
     private void StartAnimation()
     {
-        // ToDo: animate some fancy shit
+        if (ActiveObject != null)
+        {
+            this.ActiveObject.SetActive(true);
+        }
     }
 
     private void StopAnimation()
     {
-        // stop animating shit
+        if (ActiveObject != null)
+        {
+            this.ActiveObject.SetActive(false);
+        }
     }
 
     /// <summary>
@@ -172,10 +209,12 @@ public class Workbench : MonoBehaviour, IInteractable
     /// <returns></returns>
     public bool PutItem(IItem item)
     {
-        if (CanInteract(item)) {
-
+        if (CanInteract(item))
+        {
             //add the item to the workshop
             InItems.Add(item);
+            temporaryObjects.Add(Instantiate(PrefabLibrary.GetPrefab(item), InputItemLocations[InItems.Count - 1].transform));
+
             Startup();
             //Player has to drop the item to the workshop
             return true;
@@ -191,6 +230,7 @@ public class Workbench : MonoBehaviour, IInteractable
     public IItem GetItem()
     {
         if (CanInteract(null)) {
+            DestroyTempObjects();
             IItem itemReturn = OutItem;
             OutItem = null;
             return itemReturn;
