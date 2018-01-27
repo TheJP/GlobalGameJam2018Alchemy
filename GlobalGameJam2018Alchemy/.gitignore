@@ -28,5 +28,6 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+/.vs/
 
 Sprites/.DS_Store
