@@ -60,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if(Input.GetButtonDown("Jump"))
         {
-            Workbench bench = other.GetComponentInParent<Workbench>();
+            IInteractable bench = other.GetComponentInParent<IInteractable>();
 
             if(currentItem == null)
             {
@@ -74,7 +74,9 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
 
-            foreach (SpriteRenderer renderer in bench.GetComponentsInChildren<SpriteRenderer>())
+            var benchBehaviour = bench as MonoBehaviour;
+
+            foreach (SpriteRenderer renderer in benchBehaviour?.GetComponentsInChildren<SpriteRenderer>())
             {
                 renderer.enabled = true;
             }
