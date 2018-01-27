@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
     public float Speed = 6.0F;
@@ -16,14 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private const float EPSILON = 1e-3f;
     private IItem currentItem;
 
-    // Use this for initialization
-    void Start ()
-    {
-		
-	}
-	
-	// Update is called once per frame
-	void Update ()
+    private void Update()
     {
         Move();
     }
