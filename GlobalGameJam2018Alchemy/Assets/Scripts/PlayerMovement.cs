@@ -67,20 +67,25 @@ public class PlayerMovement : MonoBehaviour
                 bench.PutItem(null);
             }
 
+            foreach (SpriteRenderer renderer in bench.GetComponentsInChildren<SpriteRenderer>())
+            {
+                renderer.enabled = true;
+            }
+
             // ToDo: temporary code to simulate interaction
             Vector3 offset;
             switch(lookingDir)
             {
-                case -1:
+                case 0:
                     offset = Vector3.left;
                     break;
-                case 0:
+                case 1:
                     offset = Vector3.down;
                     break;
-                case 1:
+                case 2:
                     offset = Vector3.right;
                     break;
-                case 2:
+                case 3:
                     offset = Vector3.up;
                     break;
                 default:
@@ -90,7 +95,7 @@ public class PlayerMovement : MonoBehaviour
             }
             offset *= 1.5f;
 
-            Instantiate(test, transform.position + offset, Quaternion.identity);
+            // Instantiate(test, transform.position + offset, Quaternion.identity);
         }
     }
 }
