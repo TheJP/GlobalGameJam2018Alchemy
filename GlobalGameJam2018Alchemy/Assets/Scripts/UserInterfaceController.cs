@@ -8,6 +8,8 @@ using UnityEngine.UI;
 [RequireComponent(typeof(GameController))]
 public class UserInterfaceController : MonoBehaviour
 {
+    public bool onlySinglePlayer = false;
+
     public InputField usernameInput;
     public InputField addressInput;
     public InputField portInput;
@@ -16,7 +18,7 @@ public class UserInterfaceController : MonoBehaviour
 
     public Image background;
     public CanvasScaler canvas;
-    private float target;
+    private float target = 1f;
     private float startTime;
 
     private void Start()
@@ -32,6 +34,8 @@ public class UserInterfaceController : MonoBehaviour
         GetComponent<GameController>().GameOver += success => {
             if (!GetComponent<NetworkController>().Connected) { ShowUi(); }
         };
+
+        if (onlySinglePlayer) { ClickedSinglePlayer(); startTime = -10f; }
     }
 
     private void HideUi() { target = 0f; startTime = Time.time; }

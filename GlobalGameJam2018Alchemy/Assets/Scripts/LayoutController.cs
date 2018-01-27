@@ -15,6 +15,9 @@ public class LayoutController : MonoBehaviour
     [Tooltip("Defines how much vertical distance will be put between two pipes.")]
     public float pipeVerticalSpacing = 2f;
 
+    [Tooltip("Prefabs that are used to build straight walls.")]
+    public GameObject[] wallPrefabs;
+
     public void CreatePipes(LevelConfig levelConfig)
     {
         var position = pipes.position;
@@ -25,4 +28,5 @@ public class LayoutController : MonoBehaviour
             position += Vector3.down * pipeVerticalSpacing;
         }
     }
+    
 }

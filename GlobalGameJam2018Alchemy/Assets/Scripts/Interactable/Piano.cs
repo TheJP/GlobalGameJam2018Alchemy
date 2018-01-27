@@ -28,7 +28,8 @@ public class Piano : MonoBehaviour, IInteractable {
     }
 
     public void PlayMusic() {
-        int test = (int)Mathf.Floor(Random.Range(0.0f, (float)myAudioClips.Length + 0.99f));
+        audioSource.Stop();
+        int test = (int)Mathf.Floor(Random.Range(0.0f, (float)myAudioClips.Length -0.01f));
         Debug.Log(test);
         audioSource.PlayOneShot(myAudioClips[test]);
     }
@@ -36,11 +37,16 @@ public class Piano : MonoBehaviour, IInteractable {
     // Use this for initialization
     void Start () {
         audioSource = this.gameObject.AddComponent<AudioSource>();
-        PlayMusic();
+        //PlayMusic();
     }
 	
 
-	// Update is called once per frame
-	void Update () {
-	}
+        public void Update()
+        {
+            if (Input.GetButtonDown("Fire1"))
+            {
+            PlayMusic();
+            }
+        }
+
 }

@@ -28,7 +28,10 @@ public class NetworkController : MonoBehaviour
             Level = levelConfig;
             GetComponent<LayoutController>().CreatePipes(levelConfig);
         };
+    }
 
+    private void Start()
+    {
         GetComponent<GameController>().GameOver += Network.GameOver;
     }
 
