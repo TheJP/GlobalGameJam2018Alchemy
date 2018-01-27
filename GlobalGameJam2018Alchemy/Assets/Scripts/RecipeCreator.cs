@@ -79,8 +79,11 @@ public class RecipeCreator
         {
             new Tuple<ItemType, IngredientColour>(ItemType.Liquid, IngredientColour.Black)
         };
-        
 
+        // Code for processed Items:
+        return new Recipe(inList, () => new ProcessedItem(ProcessedItem.ProcessedItemType.Fairiedust, ProcessedItem.ProcessedItemColor.Black), 100);
+
+        // Code for MoneMaker Items:
         return new Recipe(inList, () => new MoneyMaker("Chocolate", 100, ItemType.Processed), 5);
     }
      
