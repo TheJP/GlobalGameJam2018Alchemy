@@ -25,6 +25,8 @@ public class RecipeCreator
     Recipe CreateRecipe()
     {
 
+        new Ingredient();
+
         //var inList = new List<IItem>
         //{
         //    new IItem(IItem.Type.coldLiquid, IItem.Element.blue)

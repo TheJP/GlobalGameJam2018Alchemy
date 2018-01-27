@@ -40,7 +40,7 @@ public class Workbench : MonoBehaviour, IInteractable
     /// Sets the efficiency of the workbench
     /// </summary>
     /// <param name="efficiency"></param>
-    public void SetEfficiency(int efficiency)
+    private void SetEfficiency(int efficiency)
     {
         this.efficiency = efficiency;
     }
@@ -49,7 +49,7 @@ public class Workbench : MonoBehaviour, IInteractable
     /// Sets the Recipes that can be used.
     /// </summary>
     /// <param name="myRecipes"></param>
-    public void SetMyRecipes(List<Recipe> myRecipes) {
+    private void SetMyRecipes(List<Recipe> myRecipes) {
         this.myRecipes = myRecipes;
     }
 
@@ -57,11 +57,11 @@ public class Workbench : MonoBehaviour, IInteractable
     /// Decider if the machine can be started
     /// </summary>
     /// <returns></returns>
-    public bool CanStartup() {
+    private bool CanStartup() {
         // detects if the machine is not working and the output is empty
         bool firstCondition = available && !output;
         // detects if items for a recipe exist
-        bool secondCondition = RecipeFullfilled();
+        bool secondCondition = RecipeRequirementsCheck();
         return firstCondition && secondCondition;
 
     }
@@ -70,7 +70,7 @@ public class Workbench : MonoBehaviour, IInteractable
     /// detect if an item fits in the input of a recipe
     /// </summary>
     /// <returns></returns>
-    public bool RecipeItemsAvailable(IItem item) {
+    private bool RecipeItemsAvailable(IItem item) {
         //TODO: RECIPE SYSTEM HAS TO BE FINISHED
         return true;
     }
@@ -79,7 +79,7 @@ public class Workbench : MonoBehaviour, IInteractable
     /// checks wheter any recipe available is fullfilled
     /// </summary>
     /// <returns></returns>
-    public bool RecipeFullfilled() {
+    private bool RecipeRequirementsCheck() {
         //TODO: REcipe System has to be finished
         return true;
     }
@@ -88,12 +88,11 @@ public class Workbench : MonoBehaviour, IInteractable
     /// <summary>
     /// Starts up the machine
     /// </summary>
-    public void Startup() {
+    private void Startup() {
         if (CanStartup()){
-        //TODO WORK HERE NOW!
-        available = false;
-        // call timer and onFinish method
 
+        available = false;
+            Invoke("OnFinish", this.efficiency);//TODO RECIPE TIME DIFFICULTY);
         }
 
     }
@@ -101,9 +100,10 @@ public class Workbench : MonoBehaviour, IInteractable
     /// <summary>
     /// onFinish Method is called when the call timer is finished 
     /// </summary>
-    public void OnFinish() {
+    private void OnFinish() {
         available = true;
         output = true;
+        //TODO set OUTPUT ITEM!
     }
 
 
@@ -151,7 +151,9 @@ public class Workbench : MonoBehaviour, IInteractable
     public IItem GetItem()
     {
         if (CanInteract(null)) {
-            return outItem;            
+            IItem itemReturn = outItem;
+            outItem = null;
+            return itemReturn;
         }
         return null;
     }
