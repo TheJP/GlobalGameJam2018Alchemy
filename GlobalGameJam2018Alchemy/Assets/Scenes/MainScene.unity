@@ -1223,8 +1223,8 @@ MonoBehaviour:
   pipes: {fileID: 1224388473}
   pipePrefab: {fileID: 114013154736857426, guid: 9413c5116dfe8714e83a15e3b559070c,
     type: 2}
-  gridWidth: 16
-  gridHeight: 9
+  gridWidth: 15
+  gridHeight: 8
   room: {fileID: 956358034}
   wallPrefabs:
   - {fileID: 1443672608937946, guid: b231b286dc373934d9eae2fc09643cf6, type: 2}
@@ -1243,6 +1243,8 @@ MonoBehaviour:
     type: 2}
   doorPrefab: {fileID: 1966291581828044, guid: 4542bf53bcfd2e443b3c0fb9c92dc61b, type: 2}
   floorPrefab: {fileID: 1998749828879610, guid: 2320cf6953f50054a957082ec394bd9d,
+    type: 2}
+  playerPrefab: {fileID: 114581941300633834, guid: ec42ae2565c149c48ab9728ddcb19cd6,
     type: 2}
 --- !u!114 &691358949
 MonoBehaviour:
@@ -1694,7 +1696,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1336384622}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.5, y: -4.5, z: -10}
+  m_LocalPosition: {x: 7.5, y: -4, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

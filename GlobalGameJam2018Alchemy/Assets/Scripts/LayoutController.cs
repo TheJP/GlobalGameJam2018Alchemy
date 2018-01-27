@@ -39,6 +39,17 @@ public class LayoutController : MonoBehaviour
     [Tooltip("Floor prefab.")]
     public GameObject floorPrefab;
 
+    [Tooltip("Player prefab.")]
+    public PlayerMovement playerPrefab;
+
+    public void CreateLevel(LevelConfig levelConfig)
+    {
+        CreatePipes(levelConfig);
+        CreateWalls();
+        CreateFloor();
+        SpawnPlayer();
+    }
+
     /// <summary>Generate input pipes using the given <see cref="LevelConfig"/>.</summary>
     public void CreatePipes(LevelConfig levelConfig)
     {
@@ -91,5 +102,15 @@ public class LayoutController : MonoBehaviour
                 Instantiate(floorPrefab, position + Vector3.down * GridSpacing * y + Vector3.right * GridSpacing * x, Quaternion.identity, room);
             }
         }
+    }
+
+    /// <summary>Spawn player in the middle of the floor.</summary>
+    public void SpawnPlayer()
+    {
+        Vector3 position = Origin +
+            Vector3.down * GridSpacing * (gridHeight / 2 + 0.5f) +
+            Vector3.right * GridSpacing * (gridWidth / 2) +
+            Vector3.back * 0.2f;
+        Instantiate(playerPrefab, position, Quaternion.identity);
     }
 }

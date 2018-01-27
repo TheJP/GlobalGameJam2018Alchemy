@@ -64,7 +64,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1855172715653138}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4202589015424762}
@@ -84,10 +84,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 6
   directions:
-  - {fileID: 21300002, guid: 09ec06913d7d3e343a485e85a46d9eb5, type: 3}
   - {fileID: 21300000, guid: 09ec06913d7d3e343a485e85a46d9eb5, type: 3}
   - {fileID: 21300004, guid: 09ec06913d7d3e343a485e85a46d9eb5, type: 3}
   - {fileID: 21300006, guid: 09ec06913d7d3e343a485e85a46d9eb5, type: 3}
+  - {fileID: 21300002, guid: 09ec06913d7d3e343a485e85a46d9eb5, type: 3}
   test: {fileID: 1188283385564250, guid: b854d69b2645d934082f532912a6e0cf, type: 2}
 --- !u!143 &143125210593159658
 CharacterController:
