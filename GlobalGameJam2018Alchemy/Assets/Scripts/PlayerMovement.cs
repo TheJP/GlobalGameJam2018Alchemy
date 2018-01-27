@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GlobalGameJam2018Networking;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private int lookingDir = 0;
 
     private const float EPSILON = 1e-3f;
+    private IItem currentItem;
 
     // Use this for initialization
     void Start ()
@@ -56,46 +58,26 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-
         if(Input.GetButtonDown("Jump"))
         {
             Workbench bench = other.GetComponentInParent<Workbench>();
 
-            // ToDo: Add parameter
-            if(bench.CanInteract(null))
+            if(currentItem == null)
             {
-                bench.PutItem(null);
+                currentItem = bench.GetItem();
+            }
+            else if(bench.CanInteract(currentItem))
+            {
+                if(bench.PutItem(currentItem))
+                {
+                    currentItem = null;
+                }
             }
 
             foreach (SpriteRenderer renderer in bench.GetComponentsInChildren<SpriteRenderer>())
             {
                 renderer.enabled = true;
             }
-
-            // ToDo: temporary code to simulate interaction
-            Vector3 offset;
-            switch(lookingDir)
-            {
-                case 0:
-                    offset = Vector3.left;
-                    break;
-                case 1:
-                    offset = Vector3.down;
-                    break;
-                case 2:
-                    offset = Vector3.right;
-                    break;
-                case 3:
-                    offset = Vector3.up;
-                    break;
-                default:
-                    offset = Vector3.zero;
-                    Debug.Log("lookingDir: " + lookingDir);
-                    break;
-            }
-            offset *= 1.5f;
-
-            // Instantiate(test, transform.position + offset, Quaternion.identity);
         }
     }
 }
