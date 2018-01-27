@@ -6,7 +6,9 @@ using UnityEngine;
 public class ProcessedItem : IItem {
 
 
-    public enum ProcessedItemType { Herbessence, Slimeessence, Powderessence, Steamessence, Fairiedust, Lightifier, Fireflies, Glowstone, Energy}
+    public enum ProcessedItemType { Herbessence, Slimeessence, Powderessence, Steamessence, Fairiedust, Lightifier, Fireflies, Glowstone, Energy,
+        HerbPowder
+    }
     public enum ProcessedItemColor { Black, Blue, Green, Orange, Yellow, Violet, Red}
 
     public ProcessedItemType ProcessedType {

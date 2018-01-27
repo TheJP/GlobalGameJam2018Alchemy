@@ -17,11 +17,7 @@ public class RecipeCreator
     /// <summary>
     /// Recipes for baking
     /// </summary>
-    public List<Recipe> BakeRecipes
-    {
-        get;
-        private set;
-    }
+    public List<Recipe> BakeRecipes { get; } = new List<Recipe>();
 
     /// <summary>
     /// Recipes for destillation
@@ -29,8 +25,7 @@ public class RecipeCreator
     public List<Recipe> DestillRecipes
     {
         get;
-        private set;
-    }
+    } = new List<Recipe>();
 
     /// <summary>
     /// Recipes for destillation
@@ -38,8 +33,7 @@ public class RecipeCreator
     public List<Recipe> CauldronRecipes
     {
         get;
-        private set;
-    }
+    } = new List<Recipe>();
 
     /// <summary>
     /// Recipes for mixxing
@@ -47,8 +41,7 @@ public class RecipeCreator
     public List<Recipe> MortarRecipes
     {
         get;
-        private set;
-    }
+    } = new List<Recipe>();
 
     /// <summary>
     /// Recipes for Teas, gold source
@@ -56,11 +49,10 @@ public class RecipeCreator
     public List<Recipe> TeaRecipes
     {
         get;
-        private set;
-    }
+    } = new List<Recipe>();
 
 
-    RecipeCreator()
+    public RecipeCreator()
     {
         //myRecipes = createRandomRecipes();
 
@@ -70,6 +62,37 @@ public class RecipeCreator
     private Recipe[] CreateRandomRecipes()
     {
         return null;
+    }
+
+    private void CreateStartRecipes()
+    {
+        foreach(IngredientColour colour in Enum.GetValues(typeof(IngredientColour)))
+        {
+            #region hush_nothing_here
+            ProcessedItem.ProcessedItemColor otherColour = (ProcessedItem.ProcessedItemColor)Enum.Parse(typeof(ProcessedItem.ProcessedItemColor), colour.ToString());
+            #endregion
+
+            MortarRecipes.Add(
+                new Recipe(new List<ItemSignature> { new IngredientSignature(ItemType.Herb, colour) }, 
+                () => new ProcessedItem(ProcessedItem.ProcessedItemType.HerbPowder, otherColour),
+                5));
+            DestillRecipes.Add(
+                new Recipe(new List<ItemSignature> { new IngredientSignature(ItemType.Liquid, colour) },
+                () => new ProcessedItem(ProcessedItem.ProcessedItemType.Slimeessence, otherColour),
+                5));
+            DestillRecipes.Add(
+                new Recipe(new List<ItemSignature> { new IngredientSignature(ItemType.Powder, colour) },
+                () => new ProcessedItem(ProcessedItem.ProcessedItemType.Powderessence, otherColour),
+                5));
+            DestillRecipes.Add(
+                new Recipe(new List<ItemSignature> { new IngredientSignature(ItemType.Steam, colour) },
+                () => new ProcessedItem(ProcessedItem.ProcessedItemType.Steamessence, otherColour),
+                5));
+            DestillRecipes.Add(
+                new Recipe(new List<ItemSignature> { new ProcessedItemSignature(ProcessedItem.ProcessedItemType.HerbPowder, otherColour) },
+                () => new ProcessedItem(ProcessedItem.ProcessedItemType.Herbessence, otherColour),
+                5));
+        }
     }
 
 
