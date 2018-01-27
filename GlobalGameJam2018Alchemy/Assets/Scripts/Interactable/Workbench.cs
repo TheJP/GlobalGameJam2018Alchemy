@@ -83,13 +83,31 @@ public class Workbench : MonoBehaviour, IInteractable
 
     private bool IsSameItemType(IItem a, IItem b)
     {
-        if(a.Type == b.Type)
+        if(a.Type == b.Type && a.GetType() == b.GetType())
         {
             // ToDo: Do only Ingredient have additional logic
+            // ToDo: change code to a.equals(b)
             var aIngredient = a as Ingredient;
-            var bIngredient = b as Ingredient;
+            if(aIngredient != null)
+            {
+                var bIngredient = b as Ingredient;
+                return aIngredient?.Colour == bIngredient?.Colour;
+            }
 
-            return aIngredient?.Colour == bIngredient?.Colour;
+            var aProcessed = a as ProcessedItem;
+            if (aProcessed != null)
+            {
+                var bProcessed = b as ProcessedItem;
+                return aProcessed?.ProcessedColor == bProcessed?.ProcessedColor
+                    && aProcessed?.ProcessedType == bProcessed?.ProcessedType;
+            }
+
+            var aMoneyMaker = a as MoneyMaker;
+            if (aMoneyMaker != null)
+            {
+                var bMoneyMaker = b as MoneyMaker;
+                return string.Equals(aMoneyMaker?.Name, bMoneyMaker?.Name);
+            }
         }
         return false;
     }
