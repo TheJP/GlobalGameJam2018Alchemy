@@ -11,7 +11,7 @@ public class NetworkController : MonoBehaviour
     private AlchemyNetwork Network { get; }
     public LevelConfig Level { get; private set; } = null;
     public string PlumberName { get; private set; } = null;
-    private bool Connected => PlumberName != null;
+    public bool Connected => PlumberName != null;
 
     public event Action ServerConnected;
     public event Action ServerStopped;
@@ -28,6 +28,8 @@ public class NetworkController : MonoBehaviour
             Level = levelConfig;
             GetComponent<LayoutController>().CreatePipes(levelConfig);
         };
+
+        GetComponent<GameController>().GameOver += Network.GameOver;
     }
 
     /// <summary>Method that is called if the user enters username and hostname [and port] in the gui and clicks on connect.</summary>

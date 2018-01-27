@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(NetworkController))]
+[RequireComponent(typeof(GameController))]
 public class UserInterfaceController : MonoBehaviour
 {
     public InputField usernameInput;
@@ -24,9 +25,17 @@ public class UserInterfaceController : MonoBehaviour
         portInput.onValidateInput += (input, characterIndex, addedChar) => int.TryParse(addedChar.ToString(), out _) ? addedChar : '\0';
         usernameInput.onValidateInput += (input, characterIndex, addedChar) => char.IsLetterOrDigit(addedChar) ? addedChar :'\0';
 
-        GetComponent<NetworkController>().ServerConnected += () => { target = 0f; startTime = Time.time; };
-        GetComponent<NetworkController>().ServerStopped += () => { target = 1f; startTime = Time.time; };
+        GetComponent<NetworkController>().ServerConnected += HideUi;
+        GetComponent<NetworkController>().ServerStopped += ShowUi;
+
+        // Show UI if the player went game over and was playing single player
+        GetComponent<GameController>().GameOver += success => {
+            if (!GetComponent<NetworkController>().Connected) { ShowUi(); }
+        };
     }
+
+    private void HideUi() { target = 0f; startTime = Time.time; }
+    private void ShowUi() { target = 1f; startTime = Time.time; }
 
     private void Update()
     {
@@ -40,6 +49,7 @@ public class UserInterfaceController : MonoBehaviour
 
     public void ClickedSinglePlayer()
     {
+        HideUi();
         GetComponent<NetworkController>().PlaySinglePlayer();
     }
 
