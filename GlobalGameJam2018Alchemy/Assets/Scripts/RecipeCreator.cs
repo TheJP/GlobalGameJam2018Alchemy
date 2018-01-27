@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,22 +15,22 @@ public class RecipeCreator
     }
 
     //Creating RandomRecipes, is calling createRecipe
-    private Recipe[] createRandomRecipes()
+    private Recipe[] CreateRandomRecipes()
     {
         return null;
     }
 
 
     //Creating Recipes
-    Recipe createRecipe()
+    Recipe CreateRecipe()
     {
 
-        List<Item> inList = new List<Item>
-        {
-            new Item(Item.Type.coldLiquid, Item.Element.blue)
-        };
-        return new Recipe(inList, new Item(Item.Type.coldLiquid, Item.Element.green), 5);
-
+        //var inList = new List<IItem>
+        //{
+        //    new IItem(IItem.Type.coldLiquid, IItem.Element.blue)
+        //};
+        //return new Recipe(inList, new Item(Item.Type.coldLiquid, Item.Element.green), 5);
+        throw new NotImplementedException();
     }
 
     public List<Recipe> getBurnRecipes() {

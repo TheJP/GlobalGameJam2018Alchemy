@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using GlobalGameJam2018Networking;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,10 +7,10 @@ public class Recipe
 {
 
     // Items used for the recipe
-    private List<Item> inItems;
+    private List<IItem> inItems;
 
     // Item received for completing the recipe
-    private Item outItem;
+    private IItem outItem;
 
     // Is used for time calculation, together with workbench efficiency
     private int complexity;
@@ -22,7 +23,7 @@ public class Recipe
     /// <param name="inItems"></param>
     /// <param name="outItem"></param>
     /// <param name="complexity"></param>
-    public Recipe(List<Item> inItems, Item outItem, int complexity)
+    public Recipe(List<IItem> inItems, IItem outItem, int complexity)
     {
         this.inItems = inItems;
         this.outItem = outItem;
