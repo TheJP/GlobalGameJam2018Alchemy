@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 65853654235832370}
   - component: {fileID: 114592843097856496}
   m_Layer: 0
-  m_Name: Workbench
+  m_Name: Kettle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

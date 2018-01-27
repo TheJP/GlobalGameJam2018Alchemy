@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 
 
@@ -55,7 +56,7 @@ public class RecipeCreator
     public RecipeCreator()
     {
         //myRecipes = createRandomRecipes();
-
+        CreateStartRecipes();
     }
 
     //Creating RandomRecipes, is calling createRecipe
@@ -66,14 +67,14 @@ public class RecipeCreator
 
     private void CreateStartRecipes()
     {
-        foreach(IngredientColour colour in Enum.GetValues(typeof(IngredientColour)))
+        foreach (IngredientColour colour in Enum.GetValues(typeof(IngredientColour)))
         {
             #region hush_nothing_here
             ProcessedItem.ProcessedItemColor otherColour = (ProcessedItem.ProcessedItemColor)Enum.Parse(typeof(ProcessedItem.ProcessedItemColor), colour.ToString());
             #endregion
 
             MortarRecipes.Add(
-                new Recipe(new List<ItemSignature> { new IngredientSignature(ItemType.Herb, colour) }, 
+                new Recipe(new List<ItemSignature> { new IngredientSignature(ItemType.Herb, colour) },
                 () => new ProcessedItem(ProcessedItem.ProcessedItemType.HerbPowder, otherColour),
                 5));
             DestillRecipes.Add(
@@ -93,24 +94,267 @@ public class RecipeCreator
                 () => new ProcessedItem(ProcessedItem.ProcessedItemType.Herbessence, otherColour),
                 5));
         }
-    }
 
+        //2nd Stage:
 
-    //Creating Recipes
-    public Recipe CreateRecipe()
-    {
-        var inList = new List<ItemSignature>
+        Array myColorArrayOne = Enum.GetValues(typeof(ProcessedItem.ProcessedItemColor));
+        List<ProcessedItem.ProcessedItemColor> lstOne = myColorArrayOne.OfType<ProcessedItem.ProcessedItemColor>().ToList();
+        List<ProcessedItem.ProcessedItemColor> lstTwo = myColorArrayOne.OfType<ProcessedItem.ProcessedItemColor>().ToList();
+        List<ProcessedItem.ProcessedItemColor> lstThree = myColorArrayOne.OfType<ProcessedItem.ProcessedItemColor>().ToList();
+
+        System.Random rnd = new System.Random();
+
+        for (int i = 0; i < myColorArrayOne.Length; i++)
         {
-            new IngredientSignature(ItemType.Liquid, IngredientColour.Black)
-        };
 
-        // Code for processed Items:
-        return new Recipe(inList, () => new ProcessedItem(ProcessedItem.ProcessedItemType.Fairiedust, ProcessedItem.ProcessedItemColor.Black), 100);
+            int intOne = rnd.Next(0, lstOne.Count);
+            int intTwo = rnd.Next(0, lstTwo.Count);
+            int intThree = rnd.Next(0, lstThree.Count);
 
-        // Code for MoneMaker Items:
-        return new Recipe(inList, () => new MoneyMaker("Chocolate", 100, ItemType.Processed), 5);
+            BakeRecipes.Add(new Recipe(new List<ItemSignature> {
+                                                new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Powderessence, lstOne[intOne]),
+                                                new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Slimeessence, lstTwo[intTwo])
+                                          }, () => new ProcessedItem(ProcessedItem.ProcessedItemType.Fairiedust, lstThree[intThree]), 10));
+
+            lstOne.RemoveAt(intOne);
+            lstTwo.RemoveAt(intTwo);
+            lstThree.RemoveAt(intThree);
+        }
+
+        myColorArrayOne = Enum.GetValues(typeof(ProcessedItem.ProcessedItemColor));
+        lstOne = myColorArrayOne.OfType<ProcessedItem.ProcessedItemColor>().ToList();
+        lstTwo = myColorArrayOne.OfType<ProcessedItem.ProcessedItemColor>().ToList();
+        lstThree = myColorArrayOne.OfType<ProcessedItem.ProcessedItemColor>().ToList();
+
+        for (int i = 0; i < myColorArrayOne.Length; i++)
+        {
+
+            int intOne = rnd.Next(0, lstOne.Count);
+            int intTwo = rnd.Next(0, lstTwo.Count);
+            int intThree = rnd.Next(0, lstThree.Count);
+
+            MortarRecipes.Add(new Recipe(new List<ItemSignature> {
+                                                new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Herbessence, lstOne[intOne]),
+                                                new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Powderessence, lstTwo[intTwo])
+                                          }, () => new ProcessedItem(ProcessedItem.ProcessedItemType.Lightifier, lstThree[intThree]), 10));
+
+            lstOne.RemoveAt(intOne);
+            lstTwo.RemoveAt(intTwo);
+            lstThree.RemoveAt(intThree);
+        }
+
+
+        myColorArrayOne = Enum.GetValues(typeof(ProcessedItem.ProcessedItemColor));
+        lstOne = myColorArrayOne.OfType<ProcessedItem.ProcessedItemColor>().ToList();
+        lstTwo = myColorArrayOne.OfType<ProcessedItem.ProcessedItemColor>().ToList();
+
+        for (int i = 0; i < myColorArrayOne.Length; i++)
+        {
+
+            int intOne = rnd.Next(0, lstOne.Count);
+            int intTwo = rnd.Next(0, lstTwo.Count);
+
+
+            TeaRecipes.Add(new Recipe(new List<ItemSignature> {
+                                                new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Herbessence, lstOne[intOne]),
+                                                new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Steamessence, lstTwo[intTwo])
+                                          }, () => new MoneyMaker("Teapot", 10, ItemType.Processed), 418));
+
+            lstOne.RemoveAt(intOne);
+            lstTwo.RemoveAt(intTwo);
+        }
+
+        myColorArrayOne = Enum.GetValues(typeof(ProcessedItem.ProcessedItemColor));
+        lstOne = myColorArrayOne.OfType<ProcessedItem.ProcessedItemColor>().ToList();
+        lstTwo = myColorArrayOne.OfType<ProcessedItem.ProcessedItemColor>().ToList();
+        lstThree = myColorArrayOne.OfType<ProcessedItem.ProcessedItemColor>().ToList();
+
+        for (int i = 0; i < myColorArrayOne.Length; i++)
+        {
+
+            int intOne = rnd.Next(0, lstOne.Count);
+            int intTwo = rnd.Next(0, lstTwo.Count);
+            int intThree = rnd.Next(0, lstThree.Count);
+
+            CauldronRecipes.Add(new Recipe(new List<ItemSignature> {
+                                                new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Slimeessence, lstOne[intOne]),
+                                                new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Steamessence, lstTwo[intTwo])
+                                          }, () => new ProcessedItem(ProcessedItem.ProcessedItemType.Glowstone, lstThree[intThree]), 10));
+
+            lstOne.RemoveAt(intOne);
+            lstTwo.RemoveAt(intTwo);
+            lstThree.RemoveAt(intThree);
+        }
+
+        myColorArrayOne = Enum.GetValues(typeof(ProcessedItem.ProcessedItemColor));
+        lstOne = myColorArrayOne.OfType<ProcessedItem.ProcessedItemColor>().ToList();
+        lstTwo = myColorArrayOne.OfType<ProcessedItem.ProcessedItemColor>().ToList();
+        lstThree = myColorArrayOne.OfType<ProcessedItem.ProcessedItemColor>().ToList();
+
+        for (int i = 0; i < myColorArrayOne.Length; i++)
+        {
+
+            int intOne = rnd.Next(0, lstOne.Count);
+            int intTwo = rnd.Next(0, lstTwo.Count);
+            int intThree = rnd.Next(0, lstThree.Count);
+
+            CauldronRecipes.Add(new Recipe(new List<ItemSignature> {
+                                                new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Slimeessence, lstOne[intOne]),
+                                                new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Steamessence, lstTwo[intTwo])
+                                          }, () => new ProcessedItem(ProcessedItem.ProcessedItemType.Glowstone, lstThree[intThree]), 10));
+
+            lstOne.RemoveAt(intOne);
+            lstTwo.RemoveAt(intTwo);
+            lstThree.RemoveAt(intThree);
+        }
+
+
+
+        //3rd Stage: Heres the Explanation: 
+        // We need 7 different energy amunition
+        // For this there are 4 different cooking variants, 2 of which are using baking! As we need 7 different energy amunition (colors), we distribute 1 color
+        // to each of the 4 cooking variants, so there are 3 colors left, which are distributed randomly, towards Baking, Mortar and Cauldron.
+
+        int baking = 0;
+        int bakingOne = 1;
+        int bakingTwo = 1;
+        int mortar = 1;
+        int cauldron = 1;
+
+        for (int i = 0; i < 3; i++)
+        {
+            switch (rnd.Next(0, 2))
+            {
+                case 0:
+                    baking++;
+                    break;
+                case 1:
+                    mortar++;
+                    break;
+                case 2:
+                    cauldron++;
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        for (int i = 0; i < baking; i++)
+        {
+            if (rnd.Next(0, 1) == 0)
+            {
+                bakingOne++;
+            }
+            else
+            {
+                bakingTwo++;
+            }
+        }
+
+
+        //FAIRIE DUST + FIREFLIES
+
+        myColorArrayOne = Enum.GetValues(typeof(ProcessedItem.ProcessedItemColor));
+        lstOne = myColorArrayOne.OfType<ProcessedItem.ProcessedItemColor>().ToList();
+        lstTwo = myColorArrayOne.OfType<ProcessedItem.ProcessedItemColor>().ToList();
+
+        //as we need all the seven colors for the energy we won't initialize lstThree again.
+        lstThree = myColorArrayOne.OfType<ProcessedItem.ProcessedItemColor>().ToList();
+
+
+        for (int i = 0; i < bakingOne; i++)
+        {
+
+            int intOne = rnd.Next(0, lstOne.Count);
+            int intTwo = rnd.Next(0, lstTwo.Count);
+            int intThree = rnd.Next(0, lstThree.Count);
+
+            BakeRecipes.Add(new Recipe(new List<ItemSignature> {
+                                                new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Fairiedust, lstOne[intOne]),
+                                                new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Fireflies, lstTwo[intTwo])
+                                          }, () => new ProcessedItem(ProcessedItem.ProcessedItemType.Energy, lstThree[intThree]), 10));
+
+            lstOne.RemoveAt(intOne);
+            lstTwo.RemoveAt(intTwo);
+            lstThree.RemoveAt(intThree);
+        }
+
+        // LIGHTIFIER + GLOWSTone
+
+        myColorArrayOne = Enum.GetValues(typeof(ProcessedItem.ProcessedItemColor));
+        lstOne = myColorArrayOne.OfType<ProcessedItem.ProcessedItemColor>().ToList();
+        lstTwo = myColorArrayOne.OfType<ProcessedItem.ProcessedItemColor>().ToList();
+
+
+        for (int i = 0; i < bakingTwo; i++)
+        {
+
+            int intOne = rnd.Next(0, lstOne.Count);
+            int intTwo = rnd.Next(0, lstTwo.Count);
+            int intThree = rnd.Next(0, lstThree.Count);
+
+            BakeRecipes.Add(new Recipe(new List<ItemSignature> {
+                                                new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Lightifier, lstOne[intOne]),
+                                                new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Glowstone, lstTwo[intTwo])
+                                          }, () => new ProcessedItem(ProcessedItem.ProcessedItemType.Energy, lstThree[intThree]), 10));
+
+            lstOne.RemoveAt(intOne);
+            lstTwo.RemoveAt(intTwo);
+            lstThree.RemoveAt(intThree);
+        }
+
+        // LIGHTIFIER + FIREFLIES
+
+        myColorArrayOne = Enum.GetValues(typeof(ProcessedItem.ProcessedItemColor));
+        lstOne = myColorArrayOne.OfType<ProcessedItem.ProcessedItemColor>().ToList();
+        lstTwo = myColorArrayOne.OfType<ProcessedItem.ProcessedItemColor>().ToList();
+
+        for (int i = 0; i < mortar; i++)
+        {
+
+            int intOne = rnd.Next(0, lstOne.Count);
+            int intTwo = rnd.Next(0, lstTwo.Count);
+            int intThree = rnd.Next(0, lstThree.Count);
+
+            MortarRecipes.Add(new Recipe(new List<ItemSignature> {
+                                                new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Lightifier, lstOne[intOne]),
+                                                new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Fireflies, lstTwo[intTwo])
+                                          }, () => new ProcessedItem(ProcessedItem.ProcessedItemType.Energy, lstThree[intThree]), 10));
+
+            lstOne.RemoveAt(intOne);
+            lstTwo.RemoveAt(intTwo);
+            lstThree.RemoveAt(intThree);
+        }
+
+
+        // FAIRIEDUST + GLOWSTone
+
+        myColorArrayOne = Enum.GetValues(typeof(ProcessedItem.ProcessedItemColor));
+        lstOne = myColorArrayOne.OfType<ProcessedItem.ProcessedItemColor>().ToList();
+        lstTwo = myColorArrayOne.OfType<ProcessedItem.ProcessedItemColor>().ToList();
+
+
+        for (int i = 0; i < cauldron; i++)
+        {
+            int intOne = rnd.Next(0, lstOne.Count);
+            int intTwo = rnd.Next(0, lstTwo.Count);
+            int intThree = rnd.Next(0, lstThree.Count);
+
+            CauldronRecipes.Add(new Recipe(new List<ItemSignature> {
+                                                new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Fairiedust, lstOne[intOne]),
+                                                new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Glowstone, lstTwo[intTwo])
+                                          }, () => new ProcessedItem(ProcessedItem.ProcessedItemType.Energy, lstThree[intThree]), 10));
+
+            lstOne.RemoveAt(intOne);
+            lstTwo.RemoveAt(intTwo);
+            lstThree.RemoveAt(intThree);
+
+        }
+
+
     }
-     
 
 
 }
+
+
