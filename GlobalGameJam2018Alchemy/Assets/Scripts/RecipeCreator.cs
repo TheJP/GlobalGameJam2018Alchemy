@@ -75,15 +75,13 @@ public class RecipeCreator
     //Creating Recipes
     public Recipe CreateRecipe()
     {
-        var inList = new List<IItem> {
-            new Ingredient(ItemType.Liquid, IngredientColour.Black)
+        var inList = new List<Tuple<ItemType, IngredientColour>>
+        {
+            new Tuple<ItemType, IngredientColour>(ItemType.Liquid, IngredientColour.Black)
         };
         
 
-        IItem outItem = (IItem) new MoneyMaker("Chocolate", 100);
-
-        return new Recipe(inList, outItem, 5);
-
+        return new Recipe(inList, () => new MoneyMaker("Chocolate", 100, ItemType.Processed), 5);
     }
      
 
