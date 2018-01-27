@@ -21,6 +21,7 @@ public class LayoutController : MonoBehaviour
         foreach (var pipeConfig in levelConfig.Pipes.OrderBy(p => p.Order))
         {
             var pipe = Instantiate(pipePrefab, position, Quaternion.identity, pipes);
+            pipe.Pipe = pipeConfig;
             position += Vector3.down * pipeVerticalSpacing;
         }
     }
