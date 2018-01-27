@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GlobalGameJam2018Networking;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,14 +25,12 @@ public class RecipeCreator
     //Creating Recipes
     Recipe CreateRecipe()
     {
-
-        //var inList = new List<IItem>
-        //{
-        //    new IItem(IItem.Type.coldLiquid, IItem.Element.blue)
-        //};
-        //return new Recipe(inList, new Item(Item.Type.coldLiquid, Item.Element.green), 5);
-        throw new NotImplementedException();
+        var inList = new List<Ingredient> {
+            new Ingredient(ItemType.Liquid, IngredientColour.Black)
+        };
+        return null;     
     }
+     
 
     public List<Recipe> getBurnRecipes() {
         return null;
