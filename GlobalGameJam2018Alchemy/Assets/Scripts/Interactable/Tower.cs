@@ -18,16 +18,21 @@ public class Tower : MonoBehaviour, IInteractable {
     private int Amunition = 0;
 
 
-    private void CanShoot() {
-        
+    private bool CanShoot() {
+        return Amunition > 0;
     }
 
     /// <summary>
     /// shooting Enemy, decreasing the Quantity of the EnergyAmunition supplied
     /// </summary>
-    /// <param name="enemy"></param>
-    public void Shoot() {
-        
+    public bool Shoot() {
+        if (CanShoot()) {
+
+            //TODO ENEMY Implementation!
+            Amunition--;
+            return true;
+        }
+        return false;
     }
 
     /// <summary>
