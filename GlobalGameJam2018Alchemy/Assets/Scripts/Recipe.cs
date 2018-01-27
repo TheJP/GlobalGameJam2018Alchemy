@@ -1,23 +1,26 @@
-﻿using GlobalGameJam2018Networking;
+﻿using Assets.Scripts.Recipe;
+using GlobalGameJam2018Networking;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Recipe
 {
 
     // Items used for the recipe
-    private List<IItem> InItems {
+    public IList<ItemSignature> InItems {
         get;
     }
 
     // Item received for completing the recipe
-    private IItem OutItem {
+    public Func<IItem> CreateItem {
         get;
     }
 
     // Is used for time calculation, together with workbench efficiency
-    private int Complexity {
+    public int Complexity {
         get;
     }
 
@@ -29,10 +32,15 @@ public class Recipe
     /// <param name="inItems"></param>
     /// <param name="outItem"></param>
     /// <param name="complexity"></param>
-    public Recipe(List<IItem> inItems, IItem outItem, int complexity)
+    public Recipe(List<ItemSignature> inItems, Func<IItem> createItem, int complexity)
     {
         this.InItems = inItems;
-        this.OutItem = outItem;
+        this.CreateItem = createItem;
         this.Complexity = complexity;
+    }
+
+    public bool AsksForInputItem(IItem item)
+    {
+        return InItems.Any(p => p.IsItemAcceptable(item));
     }
 }

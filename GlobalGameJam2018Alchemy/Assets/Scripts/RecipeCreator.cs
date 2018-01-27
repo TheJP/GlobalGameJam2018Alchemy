@@ -1,4 +1,5 @@
-﻿using GlobalGameJam2018Networking;
+﻿using Assets.Scripts.Recipe;
+using GlobalGameJam2018Networking;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -75,15 +76,16 @@ public class RecipeCreator
     //Creating Recipes
     public Recipe CreateRecipe()
     {
-        var inList = new List<IItem> {
-            new Ingredient(ItemType.Liquid, IngredientColour.Black)
+        var inList = new List<ItemSignature>
+        {
+            new IngredientSignature(ItemType.Liquid, IngredientColour.Black)
         };
-        
 
-        IItem outItem = (IItem) new MoneyMaker("Chocolate", 100);
+        // Code for processed Items:
+        return new Recipe(inList, () => new ProcessedItem(ProcessedItem.ProcessedItemType.Fairiedust, ProcessedItem.ProcessedItemColor.Black), 100);
 
-        return new Recipe(inList, outItem, 5);
-
+        // Code for MoneMaker Items:
+        return new Recipe(inList, () => new MoneyMaker("Chocolate", 100, ItemType.Processed), 5);
     }
      
 

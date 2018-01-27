@@ -5,8 +5,6 @@ using GlobalGameJam2018Networking;
 
 public class InteractivePipe : MonoBehaviour, IInteractable
 {
-    public NetworkController networkController;
-
     public Pipe Pipe { get; set; }
 
     private readonly Queue<Ingredient> waitingIngredients = new Queue<Ingredient>();
@@ -23,7 +21,7 @@ public class InteractivePipe : MonoBehaviour, IInteractable
     {
         if (item != null && CanInteract(item))
         {
-            networkController.SendMoneyMaker(item as MoneyMaker, Pipe);
+            FindObjectOfType<NetworkController>().SendMoneyMaker(item as MoneyMaker, Pipe);
             return true;
         }
         else { return false; }

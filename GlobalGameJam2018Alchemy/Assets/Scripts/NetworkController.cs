@@ -3,27 +3,36 @@ using UnityEngine;
 using GlobalGameJam2018Networking;
 using System;
 
+[RequireComponent(typeof(GameController))]
+[RequireComponent(typeof(LayoutController))]
 public class NetworkController : MonoBehaviour
 {
-    public GameController game;
-    public LayoutController layout;
-
     private readonly Queue<Action> invokes = new Queue<Action>();
     private AlchemyNetwork Network { get; }
     public LevelConfig Level { get; private set; } = null;
     public string PlumberName { get; private set; } = null;
-    private bool Connected => PlumberName != null;
+    public bool Connected => PlumberName != null;
+
+    public event Action ServerConnected;
+    public event Action ServerStopped;
 
     public NetworkController()
     {
         Action<Action> addInvoke = invoke => { lock (invokes) { invokes.Enqueue(invoke); } };
         Network = new AlchemyNetwork(addInvoke);
-        Network.Connected += plumberName => PlumberName = plumberName;;
+        Network.Connected += plumberName => PlumberName = plumberName;
+        Network.Connected += _ => ServerConnected?.Invoke();
         Network.ServerStopped += () => PlumberName = null;
+        Network.ServerStopped += () => ServerStopped?.Invoke();
         Network.LevelStarted += levelConfig => {
             Level = levelConfig;
-            layout.CreatePipes(levelConfig);
+            GetComponent<LayoutController>().CreatePipes(levelConfig);
         };
+    }
+
+    private void Start()
+    {
+        GetComponent<GameController>().GameOver += Network.GameOver;
     }
 
     /// <summary>Method that is called if the user enters username and hostname [and port] in the gui and clicks on connect.</summary>
@@ -38,7 +47,7 @@ public class NetworkController : MonoBehaviour
     /// <summary>Method that is called if the user clicks on single player.</summary>
     public void PlaySinglePlayer()
     {
-        layout.CreatePipes(LevelConfig.Builder("Singleplayer")
+        GetComponent<LayoutController>().CreatePipes(LevelConfig.Builder("Singleplayer")
             .AddPipe(PipeDirection.ToAlchemist, 0)
             .AddPipe(PipeDirection.ToAlchemist, 1)
             .AddPipe(PipeDirection.ToPipes, 2)
@@ -58,6 +67,6 @@ public class NetworkController : MonoBehaviour
     {
         // Send item to plumber if connected, just swallow it otherwise
         if (Connected) { Network.SendMoneyMaker(moneyMaker, pipe); }
-        game.Gold += moneyMaker.GoldValue;
+        GetComponent<GameController>().Gold += moneyMaker.GoldValue;
     }
 }
