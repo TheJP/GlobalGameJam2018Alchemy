@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : MonoBehaviour {
+public class Item : ScriptableObject {
 
-    enum Type { powder, herb, hotLiquid, coldLiquid, mana, steam, paste};
+    public Item(Type type, Element element) {
+        
+    }
+
+    public enum Type { powder, herb, hotLiquid, coldLiquid, mana, steam, paste};
 
     // by element the color of the type is meant.
-    enum Element { blue, green, yellow, orange, red, violet}
+    public enum Element { blue, green, yellow, orange, red, violet}
 
     private Type myType;
     private Element myElement;

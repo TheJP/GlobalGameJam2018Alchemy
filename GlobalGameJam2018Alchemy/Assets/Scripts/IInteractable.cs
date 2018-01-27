@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IInteractable{
+public interface IInteractable
+{
 
-        bool canInteract();
-        bool putItem();
-        Item useWithoutItem();
+
+    bool CanInteract();
+
+
+    bool PutItem(Item item);
+    Item GetItem();
 
 }
 
