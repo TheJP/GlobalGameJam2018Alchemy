@@ -5,6 +5,7 @@ using System;
 
 public class NetworkController : MonoBehaviour
 {
+    public GameController game;
     public LayoutController layout;
 
     private readonly Queue<Action> invokes = new Queue<Action>();
@@ -37,8 +38,11 @@ public class NetworkController : MonoBehaviour
     /// <summary>Method that is called if the user clicks on single player.</summary>
     public void PlaySinglePlayer()
     {
-        // TODO: Create random pipe layout
-        // layout.CreatePipeLayout
+        layout.CreatePipes(LevelConfig.Builder("Singleplayer")
+            .AddPipe(PipeDirection.ToAlchemist, 0)
+            .AddPipe(PipeDirection.ToAlchemist, 1)
+            .AddPipe(PipeDirection.ToPipes, 2)
+            .Create());
     }
 
     private void Update()
@@ -49,10 +53,11 @@ public class NetworkController : MonoBehaviour
         }
     }
 
+    /// <summary>Generates income by sending MoneyMaker item to plumber.</summary>
     public void SendMoneyMaker(MoneyMaker moneyMaker, Pipe pipe)
     {
-        // TODO: Generate income here
         // Send item to plumber if connected, just swallow it otherwise
         if (Connected) { Network.SendMoneyMaker(moneyMaker, pipe); }
+        game.Gold += moneyMaker.GoldValue;
     }
 }
