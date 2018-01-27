@@ -30,7 +30,6 @@ public class Piano : MonoBehaviour, IInteractable {
     public void PlayMusic() {
         audioSource.Stop();
         int test = (int)Mathf.Floor(Random.Range(0.0f, (float)myAudioClips.Length -0.01f));
-        Debug.Log(test);
         audioSource.PlayOneShot(myAudioClips[test]);
     }
 
@@ -39,14 +38,4 @@ public class Piano : MonoBehaviour, IInteractable {
         audioSource = this.gameObject.AddComponent<AudioSource>();
         //PlayMusic();
     }
-	
-
-        public void Update()
-        {
-            if (Input.GetButtonDown("Fire1"))
-            {
-            PlayMusic();
-            }
-        }
-
 }
