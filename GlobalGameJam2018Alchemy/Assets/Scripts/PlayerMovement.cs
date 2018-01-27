@@ -1,4 +1,5 @@
-﻿using GlobalGameJam2018Networking;
+﻿using Assets.Scripts.ItemSignatures;
+using GlobalGameJam2018Networking;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,8 +10,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public float Speed = 6.0F;
     public Sprite[] directions;
-
-    public GameObject test;
+    public PrefabLibraryBase PrefabLibrary;
 
     private int lookingDir = 0;
 
@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if(Input.GetButtonDown("Jump"))
+        if(Input.GetButtonUp("Jump"))
         {
             IInteractable bench = other.GetComponentInParent<IInteractable>();
 
@@ -66,13 +66,6 @@ public class PlayerMovement : MonoBehaviour
                 {
                     currentItem = null;
                 }
-            }
-
-            var benchBehaviour = bench as MonoBehaviour;
-
-            foreach (SpriteRenderer renderer in benchBehaviour?.GetComponentsInChildren<SpriteRenderer>())
-            {
-                renderer.enabled = true;
             }
         }
     }

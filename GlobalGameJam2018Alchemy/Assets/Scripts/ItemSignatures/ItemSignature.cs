@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assets.Scripts.Recipe
+namespace Assets.Scripts.ItemSignatures
 {
     public abstract class ItemSignature
     {
