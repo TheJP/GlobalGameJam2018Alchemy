@@ -26,7 +26,7 @@ public class NetworkController : MonoBehaviour
         Network.ServerStopped += () => ServerStopped?.Invoke();
         Network.LevelStarted += levelConfig => {
             Level = levelConfig;
-            GetComponent<LayoutController>().CreatePipes(levelConfig);
+            GetComponent<LayoutController>().CreateLevel(levelConfig);
         };
     }
 
@@ -47,7 +47,7 @@ public class NetworkController : MonoBehaviour
     /// <summary>Method that is called if the user clicks on single player.</summary>
     public void PlaySinglePlayer()
     {
-        GetComponent<LayoutController>().CreatePipes(LevelConfig.Builder("Singleplayer")
+        GetComponent<LayoutController>().CreateLevel(LevelConfig.Builder("Singleplayer")
             .AddPipe(PipeDirection.ToAlchemist, 0)
             .AddPipe(PipeDirection.ToAlchemist, 1)
             .AddPipe(PipeDirection.ToPipes, 2)
