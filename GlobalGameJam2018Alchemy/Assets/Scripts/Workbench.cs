@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using GlobalGameJam2018Networking;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,12 +13,12 @@ public class Workbench : MonoBehaviour, IInteractable
     /// <summary>
     /// Items that are ingoing
     /// </summary>
-    private List<Item> inItems;
+    private List<IItem> inItems;
 
     /// <summary>
     /// Item that is produced
     /// </summary>
-    private Item outItem;
+    private IItem outItem;
 
     /// <summary>
     /// The efficiency of the workbench, determines the production speed
@@ -69,7 +70,7 @@ public class Workbench : MonoBehaviour, IInteractable
     /// detect if an item fits in the input of a recipe
     /// </summary>
     /// <returns></returns>
-    public bool RecipeItemsAvailable(Item item) {
+    public bool RecipeItemsAvailable(IItem item) {
         //TODO: RECIPE SYSTEM HAS TO BE FINISHED
         return true;
     }
@@ -100,7 +101,7 @@ public class Workbench : MonoBehaviour, IInteractable
     /// <summary>
     /// onFinish Method is called when the call timer is finished 
     /// </summary>
-    public void onFinish() {
+    public void OnFinish() {
         available = true;
         output = true;
     }
@@ -113,7 +114,7 @@ public class Workbench : MonoBehaviour, IInteractable
     /// Returns if the user can interact, returns false, if it is in use.
     /// </summary>
     /// <returns></returns>
-    public bool CanInteract(Item item)
+    public bool CanInteract(IItem item)
     {
         if (item == null)
         {
@@ -129,7 +130,7 @@ public class Workbench : MonoBehaviour, IInteractable
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    public bool PutItem(Item item)
+    public bool PutItem(IItem item)
     {
         if (CanInteract(item)) {
 
@@ -147,7 +148,7 @@ public class Workbench : MonoBehaviour, IInteractable
     /// Gets the item if the output is full
     /// </summary>
     /// <returns></returns>
-    public Item GetItem()
+    public IItem GetItem()
     {
         if (CanInteract(null)) {
             return outItem;            
