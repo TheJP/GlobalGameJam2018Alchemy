@@ -52,14 +52,76 @@ public class Workbench : MonoBehaviour, IInteractable
         this.myRecipes = myRecipes;
     }
 
+    /// <summary>
+    /// Decider if the machine can be started
+    /// </summary>
+    /// <returns></returns>
+    public bool CanStartup() {
+        // detects if the machine is not working and the output is empty
+        bool firstCondition = available && !output;
+        // detects if items for a recipe exist
+        bool secondCondition = RecipeFullfilled();
+        return firstCondition && secondCondition;
+
+    }
+
+    /// <summary>
+    /// detect if an item fits in the input of a recipe
+    /// </summary>
+    /// <returns></returns>
+    public bool RecipeItemsAvailable(Item item) {
+        //TODO: RECIPE SYSTEM HAS TO BE FINISHED
+        return true;
+    }
+
+    /// <summary>
+    /// checks wheter any recipe available is fullfilled
+    /// </summary>
+    /// <returns></returns>
+    public bool RecipeFullfilled() {
+        //TODO: REcipe System has to be finished
+        return true;
+    }
+
+
+    /// <summary>
+    /// Starts up the machine
+    /// </summary>
+    public void Startup() {
+        if (CanStartup()){
+        //TODO WORK HERE NOW!
+        available = false;
+        // call timer and onFinish method
+
+        }
+
+    }
+
+    /// <summary>
+    /// onFinish Method is called when the call timer is finished 
+    /// </summary>
+    public void onFinish() {
+        available = true;
+        output = true;
+    }
+
+
+
+
 
     /// <summary>
     /// Returns if the user can interact, returns false, if it is in use.
     /// </summary>
     /// <returns></returns>
-    public bool CanInteract()
+    public bool CanInteract(Item item)
     {
-        return this.available;
+        if (item == null)
+        {
+            return this.available && this.output;
+        }
+        else {
+            return this.available && !this.output && RecipeItemsAvailable(item);
+        }
     }
 
     /// <summary>
@@ -69,11 +131,12 @@ public class Workbench : MonoBehaviour, IInteractable
     /// <returns></returns>
     public bool PutItem(Item item)
     {
-        if (!this.output) {
-            //FIGURE OUT if A Recipe is available at the workbench with the item currently holding.
-            
-            //drop the item to the workshop
-            
+        if (CanInteract(item)) {
+
+            //add the item to the workshop
+            inItems.Add(item);
+            Startup();
+            //Player has to drop the item to the workshop
             return true;
         }
         return false;
@@ -86,17 +149,16 @@ public class Workbench : MonoBehaviour, IInteractable
     /// <returns></returns>
     public Item GetItem()
     {
-        if (this.output) {
-            
+        if (CanInteract(null)) {
+            return outItem;            
         }
-
-        throw new System.NotImplementedException();
+        return null;
     }
 
     // Use this for initialization
     void Start()
     {
-
+        //load recipes by call to SetMyRecipes
     }
 
     // Update is called once per frame

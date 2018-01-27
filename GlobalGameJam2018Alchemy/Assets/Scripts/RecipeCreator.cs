@@ -4,15 +4,13 @@ using UnityEngine;
 
 
 
-public class RecipeCreator : ScriptableObject
+public class RecipeCreator
 {
     Recipe[] myRecipes;
-
 
     RecipeCreator()
     {
         //myRecipes = createRandomRecipes();
-        
     }
 
     //Creating RandomRecipes, is calling createRecipe
