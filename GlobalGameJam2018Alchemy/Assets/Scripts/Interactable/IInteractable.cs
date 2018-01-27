@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using GlobalGameJam2018Networking;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,11 +11,11 @@ public interface IInteractable
 {
 
 
-    bool CanInteract(Item item);
+    bool CanInteract(IItem item);
 
 
-    bool PutItem(Item item);
-    Item GetItem();
+    bool PutItem(IItem item);
+    IItem GetItem();
 
 }
 

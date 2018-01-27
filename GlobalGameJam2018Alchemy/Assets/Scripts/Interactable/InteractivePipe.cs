@@ -1,21 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GlobalGameJam2018Networking;
 
 public class InteractivePipe : MonoBehaviour, IInteractable
 {
+    public Pipe Pipe { get; set; }
 
-    public bool CanInteract()
-    {
-        throw new System.NotImplementedException();
-    }
+    private readonly Queue<Ingredient> waitingIngredients = new Queue<Ingredient>();
 
-    public Item GetItem()
-    {
-        throw new System.NotImplementedException();
-    }
+    public bool CanInteract(IItem item) => false;
 
-    public bool PutItem(Item item)
+    public IItem GetItem() => waitingIngredients.Count > 0 ? waitingIngredients.Dequeue() : null;
+
+    public bool PutItem(IItem item)
     {
         throw new System.NotImplementedException();
     }
