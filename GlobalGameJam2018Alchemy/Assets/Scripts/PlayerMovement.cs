@@ -24,7 +24,6 @@ public class PlayerMovement : MonoBehaviour
 	void Update ()
     {
         Move();
-        HandleActions();
     }
 
     private void Move()
@@ -42,19 +41,32 @@ public class PlayerMovement : MonoBehaviour
             controller.Move(moveDirection * Time.deltaTime);
 
             lookingDir = Mathf.RoundToInt(Vector3.SignedAngle(Vector3.down, moveDirection, Vector3.forward) / 90);
+            if (lookingDir < 0)
+            {
+                lookingDir += 4;
+            }
             //renderer.transform.localRotation = Quaternion.AngleAxis(lookingDir * 90, Vector3.forward);
 
             if(directions.Length >= 4)
             {
-                renderer.sprite = directions[lookingDir + 1];
+                renderer.sprite = directions[lookingDir];
             }
         }
     }
 
-    private void HandleActions()
+    private void OnTriggerStay(Collider other)
     {
+
         if(Input.GetButtonDown("Jump"))
         {
+            Workbench bench = other.GetComponentInParent<Workbench>();
+
+            // ToDo: Add parameter
+            if(bench.CanInteract(null))
+            {
+                bench.PutItem(null);
+            }
+
             // ToDo: temporary code to simulate interaction
             Vector3 offset;
             switch(lookingDir)
