@@ -7,13 +7,19 @@ public class Recipe
 {
 
     // Items used for the recipe
-    private List<IItem> inItems;
+    private List<IItem> InItems {
+        get;
+    }
 
     // Item received for completing the recipe
-    private IItem outItem;
+    private IItem OutItem {
+        get;
+    }
 
     // Is used for time calculation, together with workbench efficiency
-    private int complexity;
+    private int Complexity {
+        get;
+    }
 
     /// <summary>
     /// Creates a Recipe that can have multiple or just one item inItems, that will be 
@@ -25,8 +31,8 @@ public class Recipe
     /// <param name="complexity"></param>
     public Recipe(List<IItem> inItems, IItem outItem, int complexity)
     {
-        this.inItems = inItems;
-        this.outItem = outItem;
-        this.complexity = complexity;
+        this.InItems = inItems;
+        this.OutItem = outItem;
+        this.Complexity = complexity;
     }
 }
