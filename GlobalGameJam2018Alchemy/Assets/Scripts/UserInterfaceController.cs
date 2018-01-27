@@ -13,11 +13,29 @@ public class UserInterfaceController : MonoBehaviour
 
     public Text infoText;
 
+    public Image background;
+    public CanvasScaler canvas;
+    private float target;
+    private float startTime;
+
     private void Start()
     {
         int _;
         portInput.onValidateInput += (input, characterIndex, addedChar) => int.TryParse(addedChar.ToString(), out _) ? addedChar : '\0';
         usernameInput.onValidateInput += (input, characterIndex, addedChar) => char.IsLetterOrDigit(addedChar) ? addedChar :'\0';
+
+        GetComponent<NetworkController>().ServerConnected += () => { target = 0f; startTime = Time.time; };
+        GetComponent<NetworkController>().ServerStopped += () => { target = 1f; startTime = Time.time; };
+    }
+
+    private void Update()
+    {
+        // Animation transition in and transition out
+        var interpolated = Mathf.Lerp(1f - target, target, Time.time - startTime);
+        background.color = new Color(background.color.r, background.color.g, background.color.b, interpolated);
+        canvas.scaleFactor = interpolated;
+        if (canvas.gameObject.activeInHierarchy && interpolated <= 0f) { canvas.gameObject.SetActive(false); }
+        if (!canvas.gameObject.activeInHierarchy && interpolated > 0f) { canvas.gameObject.SetActive(true); }
     }
 
     public void ClickedSinglePlayer()
