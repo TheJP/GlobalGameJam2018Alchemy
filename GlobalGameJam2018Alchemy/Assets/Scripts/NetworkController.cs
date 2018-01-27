@@ -54,6 +54,7 @@ public class NetworkController : MonoBehaviour
             .AddPipe(PipeDirection.ToPipes, 2)
             .Create());
         layout.CreateWalls();
+        layout.CreateFloor();
     }
 
     private void Update()

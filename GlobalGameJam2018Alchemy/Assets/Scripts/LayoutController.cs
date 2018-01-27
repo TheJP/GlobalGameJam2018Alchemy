@@ -33,9 +33,13 @@ public class LayoutController : MonoBehaviour
     [Tooltip("Prefab for the wall with hole for the door.")]
     public GameObject doorWallPrfab;
 
+    [Tooltip("Prefab for the door.")]
+    public GameObject doorPrefab;
+
+    /// <summary>Generate input pipes using the given <see cref="LevelConfig"/>.</summary>
     public void CreatePipes(LevelConfig levelConfig)
     {
-        var position = Origin + Vector3.down * GridSpacing;
+        var position = Origin + Vector3.down * GridSpacing * 2;
         foreach (var pipeConfig in levelConfig.Pipes.OrderBy(p => p.Order))
         {
             var pipe = Instantiate(pipePrefab, position, Quaternion.identity, pipes);
@@ -43,7 +47,8 @@ public class LayoutController : MonoBehaviour
             position += Vector3.down * GridSpacing;
         }
     }
-    
+
+    /// <summary>Automatically create the walls around the lab of the lab.</summary>
     public void CreateWalls()
     {
         var position = Origin + (Vector3.down + Vector3.right) * (GridSpacing / 2f);
@@ -53,7 +58,12 @@ public class LayoutController : MonoBehaviour
         {
             for (int i = 1; i < (turn % 2 == 0 ? gridWidth : gridHeight) - 1; ++i)
             {
-                Instantiate(wallPrefabs[Random.Range(0, wallPrefabs.Length)], position, rotation, room);
+                if (turn == 1 && i == gridHeight / 2)
+                {
+                    Instantiate(doorWallPrfab, position, rotation, room);
+                    Instantiate(doorPrefab, position, rotation, room);
+                }
+                else { Instantiate(wallPrefabs[Random.Range(0, wallPrefabs.Length)], position, rotation, room); }
                 position += direction * GridSpacing;
             }
             Instantiate(cornerPrefab, position, rotation, room);
@@ -61,5 +71,10 @@ public class LayoutController : MonoBehaviour
             direction = Quaternion.Euler(Vector3.back * 90) * direction;
             position += direction * GridSpacing;
         }
+    }
+
+    public void CreateFloor()
+    {
+        // TODO: Implement
     }
 }

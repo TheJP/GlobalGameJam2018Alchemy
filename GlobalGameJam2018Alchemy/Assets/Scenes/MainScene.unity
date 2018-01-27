@@ -1224,7 +1224,7 @@ MonoBehaviour:
   pipePrefab: {fileID: 114013154736857426, guid: 9413c5116dfe8714e83a15e3b559070c,
     type: 2}
   gridWidth: 16
-  gridHeight: 10
+  gridHeight: 9
   room: {fileID: 956358034}
   wallPrefabs:
   - {fileID: 1443672608937946, guid: b231b286dc373934d9eae2fc09643cf6, type: 2}
@@ -1241,6 +1241,7 @@ MonoBehaviour:
     type: 2}
   doorWallPrfab: {fileID: 1106475118773268, guid: a46c762742477a14594d77af35a33d45,
     type: 2}
+  doorPrefab: {fileID: 1966291581828044, guid: 4542bf53bcfd2e443b3c0fb9c92dc61b, type: 2}
 --- !u!114 &691358949
 MonoBehaviour:
   m_ObjectHideFlags: 0
