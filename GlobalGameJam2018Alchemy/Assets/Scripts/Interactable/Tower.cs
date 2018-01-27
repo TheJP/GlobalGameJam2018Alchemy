@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Recipe;
 using GlobalGameJam2018Networking;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ public class Tower : MonoBehaviour, IInteractable {
     /// describes the amount of shots of the color, can be upgraded
     /// </summary>
     private int QuantityPerItem = 5;
+
+    private ProcessedItemSignature towerRequest;
 
     /// <summary>
     /// Storage of the EnergyAmunition, only one ammunition.
@@ -42,10 +45,8 @@ public class Tower : MonoBehaviour, IInteractable {
     /// <returns></returns>
     public bool CanInteract(IItem item)
     {
-        if (item is ProcessedItem) {
-            return ((ProcessedItem)item).ProcessedType == ProcessedItem.ProcessedItemType.Energy;
-        }
-        return false;
+        ProcessedItem proItem = item as ProcessedItem;
+        return proItem?.ProcessedType == ProcessedItem.ProcessedItemType.Energy;
     }
 
     /// <summary>
