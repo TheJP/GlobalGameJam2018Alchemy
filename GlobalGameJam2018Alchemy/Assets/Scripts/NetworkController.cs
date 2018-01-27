@@ -26,7 +26,10 @@ public class NetworkController : MonoBehaviour
         Network.ServerStopped += () => ServerStopped?.Invoke();
         Network.LevelStarted += levelConfig => {
             Level = levelConfig;
-            GetComponent<LayoutController>().CreatePipes(levelConfig);
+            LayoutController layout = GetComponent<LayoutController>();
+            layout.CreatePipes(levelConfig);
+            layout.CreateWalls();
+            layout.CreateFloor();
         };
     }
 

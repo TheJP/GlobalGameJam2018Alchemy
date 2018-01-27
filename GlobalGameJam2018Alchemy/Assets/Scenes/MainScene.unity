@@ -1242,6 +1242,8 @@ MonoBehaviour:
   doorWallPrfab: {fileID: 1106475118773268, guid: a46c762742477a14594d77af35a33d45,
     type: 2}
   doorPrefab: {fileID: 1966291581828044, guid: 4542bf53bcfd2e443b3c0fb9c92dc61b, type: 2}
+  floorPrefab: {fileID: 1998749828879610, guid: 2320cf6953f50054a957082ec394bd9d,
+    type: 2}
 --- !u!114 &691358949
 MonoBehaviour:
   m_ObjectHideFlags: 0

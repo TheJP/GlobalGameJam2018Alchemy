@@ -36,6 +36,9 @@ public class LayoutController : MonoBehaviour
     [Tooltip("Prefab for the door.")]
     public GameObject doorPrefab;
 
+    [Tooltip("Floor prefab.")]
+    public GameObject floorPrefab;
+
     /// <summary>Generate input pipes using the given <see cref="LevelConfig"/>.</summary>
     public void CreatePipes(LevelConfig levelConfig)
     {
@@ -54,18 +57,22 @@ public class LayoutController : MonoBehaviour
         var position = Origin + (Vector3.down + Vector3.right) * (GridSpacing / 2f);
         var direction = Vector3.right;
         var rotation = Quaternion.identity;
+        // Create 4 walls
         for (int turn = 0; turn < 4; ++turn)
         {
-            for (int i = 1; i < (turn % 2 == 0 ? gridWidth : gridHeight) - 1; ++i)
+            // Create random wall segments
+            for (int i = 1; i < (turn % 2 == 0 ? gridWidth : gridHeight); ++i)
             {
                 if (turn == 1 && i == gridHeight / 2)
                 {
+                    // Add door in the middle of the right wall
                     Instantiate(doorWallPrfab, position, rotation, room);
                     Instantiate(doorPrefab, position, rotation, room);
                 }
                 else { Instantiate(wallPrefabs[Random.Range(0, wallPrefabs.Length)], position, rotation, room); }
                 position += direction * GridSpacing;
             }
+            // Create corner
             Instantiate(cornerPrefab, position, rotation, room);
             rotation *= Quaternion.Euler(Vector3.back * 90);
             direction = Quaternion.Euler(Vector3.back * 90) * direction;
@@ -73,8 +80,16 @@ public class LayoutController : MonoBehaviour
         }
     }
 
+    /// <summary>Generate floor.</summary>
     public void CreateFloor()
     {
-        // TODO: Implement
+        var position = Origin + Vector3.down * GridSpacing;
+        for(int y = 0; y < gridHeight; ++y)
+        {
+            for(int x = 0; x < gridWidth; ++x)
+            {
+                Instantiate(floorPrefab, position + Vector3.down * GridSpacing * y + Vector3.right * GridSpacing * x, Quaternion.identity, room);
+            }
+        }
     }
 }
