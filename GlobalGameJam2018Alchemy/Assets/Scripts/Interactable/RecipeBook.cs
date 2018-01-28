@@ -3,11 +3,20 @@ using System.Collections.Generic;
 using System.Text;
 using GlobalGameJam2018Networking;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RecipeBook : MonoBehaviour, IInteractable
 {
 
-    RecipeCreator RecipeCreator;
+    public Text TextLeft;
+    public Text TextMid;
+    public Text TextRight;
+    public Canvas MyCanvas;
+
+    public RecipeCreator RecipeCreator;
+
+
+    bool ManualDisable;
 
     /// <summary>
     /// The RecipeBook should be always interactable
@@ -43,11 +52,14 @@ public class RecipeBook : MonoBehaviour, IInteractable
         this.RecipeCreator = new RecipeCreator();
 
         StringBuilder sbDestill = new StringBuilder();
+        /*
+        sbDestill.Append(this.RecipeCreator.MyToString(this.RecipeCreator.DestillRecipes));
+        */
         sbDestill.Append("Destill Recipes : ");
         sbDestill.AppendLine();
-        sbDestill.Append(this.RecipeCreator.MyToString(this.RecipeCreator.DestillRecipes));
+        sbDestill.Append("Liquid COLORX = Slimeessence COLORX\nPowder COLORX = Powderessence COLORX \nSteam COLORX = Steamessence COLORX \nHerbPowder COLORX = Herbessence COLORX");
         sbDestill.AppendLine();
-
+        
         StringBuilder sbMortar = new StringBuilder();
         sbMortar.Append("Mortar Recipes : ");
         sbMortar.AppendLine();
@@ -71,6 +83,12 @@ public class RecipeBook : MonoBehaviour, IInteractable
         sbCauldron.AppendLine();
         sbCauldron.Append(this.RecipeCreator.MyToString(this.RecipeCreator.CauldronRecipes));
         sbCauldron.AppendLine();
+
+        this.TextLeft.text = sbDestill.ToString() + "\n" + sbMortar.ToString();
+
+        this.TextMid.text = sbTea.ToString() + ""+ sbCauldron.ToString();
+
+        this.TextRight.text = sbBaking.ToString();
     }
 
     /// <summary>
@@ -78,20 +96,45 @@ public class RecipeBook : MonoBehaviour, IInteractable
     /// </summary>
     public void DisplayRecipes()
     {
-
-    
+        MyCanvas.enabled = true;
+        ManualDisable = false;
+        CancelInvoke();
+        Invoke("DisableDisplay", 10.0f);
+        
     }
 
+    public void DisableDisplay() {
+        if (!ManualDisable) {
+        MyCanvas.enabled= false;
+        }
+    }
+
+    void Awake() {
+        createRecipes();
+        MyCanvas.enabled = false;
+    }
 
     void Start()
     {
-        createRecipes();
-
+    
     }
 
     // Update is called once per frame
     void Update()
     {
+        //Test
+        if (Input.GetKeyDown(KeyCode.A)) {
+            Debug.Log("hihi");
+            DisplayRecipes();
 
+        }
+        
+
+        if (MyCanvas.isActiveAndEnabled) {
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape)){ 
+                ManualDisable = true;
+                MyCanvas.enabled = false;
+            }
+        }
     }
 }
