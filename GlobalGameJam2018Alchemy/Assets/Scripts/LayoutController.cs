@@ -10,8 +10,6 @@ public class LayoutController : MonoBehaviour
     public const float GridSpacing = 1f;
     public static readonly Vector3 Origin = new Vector3(0.5f, 0.5f, 0f);
 
-    private readonly RecipeCreator recipeCreator = new RecipeCreator();
-
     [Tooltip("GameObject that will contain all the pipes.")]
     public Transform pipes;
 
@@ -147,11 +145,20 @@ public class LayoutController : MonoBehaviour
         Vector3 position = Origin +
             Vector3.down * GridSpacing +
             Vector3.right * GridSpacing * 2;
+
+        var workBenches = new List<GameObject>();
         for (int i = 0; i < initialWorkbenches.Length; ++i)
         {
             var bench = Instantiate(initialWorkbenches[i], position, initialWorkbenches[i].transform.rotation, benches);
+            workBenches.Add(bench);
             position += Vector3.right * GridSpacing * 1.5f;
+        }
 
+        var book = workBenches.Select(b => b.GetComponent<RecipeBook>()).First(b => b != null);
+        var recipeCreator = book.RecipeCreator;
+
+        foreach (var bench in workBenches)
+        {
             Workbench workbench = bench.GetComponent<Workbench>();
             switch (workbench?.recipeKey ?? "default")
             {
@@ -172,7 +179,7 @@ public class LayoutController : MonoBehaviour
                     break;
                 case "tower":
                     break;
-                    
+
             }
         }
     }
