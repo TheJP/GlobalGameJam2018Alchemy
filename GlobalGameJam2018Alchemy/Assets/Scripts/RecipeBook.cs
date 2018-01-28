@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using GlobalGameJam2018Networking;
 using UnityEngine;
 
@@ -38,27 +39,50 @@ public class RecipeBook : MonoBehaviour, IInteractable
         return false;
     }
 
+    public void createRecipes() {
+        this.RecipeCreator = new RecipeCreator();
+
+        StringBuilder sb = new StringBuilder();
+        sb.Append("Destill Recipes : ");
+        sb.AppendLine();
+        sb.Append(this.RecipeCreator.MyToString(this.RecipeCreator.DestillRecipes));
+        sb.AppendLine();
+
+        sb.Append("Mortar Recipes : ");
+        sb.AppendLine();
+        sb.Append(this.RecipeCreator.MyToString(this.RecipeCreator.MortarRecipes));
+        sb.AppendLine();
+
+        sb.Append("Tea Recipes : ");
+        sb.AppendLine();
+        sb.Append(this.RecipeCreator.MyToString(this.RecipeCreator.TeaRecipes));
+        sb.AppendLine();
+
+        sb.Append("Baking Oven Recipes :");
+        sb.AppendLine();
+        sb.Append(this.RecipeCreator.MyToString(this.RecipeCreator.BakeRecipes));
+        sb.AppendLine();
+
+        sb.Append("Cauldron Recipes : ");
+        sb.AppendLine();
+        sb.Append(this.RecipeCreator.MyToString(this.RecipeCreator.CauldronRecipes));
+        sb.AppendLine();
+        Debug.Log(sb.ToString());
+    }
+
+    /// <summary>
+    /// Called by Interaction with RecipeBook, user can escape with space or it will go away after a time.
+    /// </summary>
     public void DisplayRecipes()
     {
 
-        Debug.Log(this.RecipeCreator.MyToString(this.RecipeCreator.BakeRecipes));
-        Debug.Log(this.RecipeCreator.MyToString(this.RecipeCreator.CauldronRecipes));
-        Debug.Log(this.RecipeCreator.MyToString(this.RecipeCreator.MortarRecipes));
-        Debug.Log(this.RecipeCreator.MyToString(this.RecipeCreator.DestillRecipes));
-        Debug.Log(this.RecipeCreator.MyToString(this.RecipeCreator.TeaRecipes));
-
-
+    
     }
-
-
 
 
     void Start()
     {
-        //Initialize Recipes
-        this.RecipeCreator = new RecipeCreator();
-        DisplayRecipes();
-
+        createRecipes();
     }
 
     // Update is called once per frame

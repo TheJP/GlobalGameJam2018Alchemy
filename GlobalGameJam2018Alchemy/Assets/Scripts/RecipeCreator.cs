@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 public class RecipeCreator
 {
@@ -57,8 +58,13 @@ public class RecipeCreator
 
         foreach (Recipe recipe in myList)
         {
+            bool addPlus = false;
             foreach (ItemSignature itemSignature in recipe.InItems)
             {
+                if (addPlus) {
+                    sb.Append("+ ");
+                }
+
                 if (itemSignature is ProcessedItemSignature)
                 {
                     ProcessedItemSignature pIS = (ProcessedItemSignature)itemSignature;
@@ -79,6 +85,7 @@ public class RecipeCreator
                     sb.Append(mMS.Type + " no Color ");
                     //Debug.Log(mMS.Type);
                 }
+                addPlus = true;
             }
 
 
@@ -118,8 +125,11 @@ public class RecipeCreator
 
     private void CreateStartRecipes()
     {
-        foreach (IngredientColour colour in Enum.GetValues(typeof(IngredientColour)))
-        {
+        List<IngredientColour> myLstOne = Enum.GetValues(typeof(IngredientColour)).OfType<IngredientColour>().ToList();
+
+        foreach(IngredientColour colour in myLstOne) {
+
+
             #region hush_nothing_here
             ProcessedItem.ProcessedItemColor otherColour = (ProcessedItem.ProcessedItemColor)Enum.Parse(typeof(ProcessedItem.ProcessedItemColor), colour.ToString());
             #endregion
