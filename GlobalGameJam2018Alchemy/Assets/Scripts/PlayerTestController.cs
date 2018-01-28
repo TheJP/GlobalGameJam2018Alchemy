@@ -38,7 +38,6 @@ public class PlayerTestController : PrefabLibraryBase
         for(int i = 0; i < Things.Length; i++)
         {
             Things[i].MyRecipes = recipeHack;
-            Things[i].Efficiency = i + 1;
         }
 	}
 }
