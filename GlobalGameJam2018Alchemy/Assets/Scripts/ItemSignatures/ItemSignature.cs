@@ -9,7 +9,7 @@ namespace Assets.Scripts.ItemSignatures
 {
     public abstract class ItemSignature
     {
-        protected ItemType Type {get;}
+        public ItemType Type { get; private set; }
 
         public ItemSignature(ItemType type)
         {

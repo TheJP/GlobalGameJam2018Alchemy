@@ -9,8 +9,8 @@ namespace Assets.Scripts.ItemSignatures
 {
     class ProcessedItemSignature : ItemSignature
     {
-        ProcessedItem.ProcessedItemType ProcessedType { get; }
-        ProcessedItem.ProcessedItemColor Colour { get; }
+        public ProcessedItem.ProcessedItemType ProcessedType { get; private set; }
+        public ProcessedItem.ProcessedItemColor Colour { get; private set; }
 
         public ProcessedItemSignature(ProcessedItem.ProcessedItemType processedType, ProcessedItem.ProcessedItemColor colour) : base(ItemType.Processed)
         {

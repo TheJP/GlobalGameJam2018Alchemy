@@ -1,12 +1,9 @@
 ﻿using Assets.Scripts.ItemSignatures;
 using GlobalGameJam2018Networking;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
-
-
+using System.Text;
 
 public class RecipeCreator
 {
@@ -16,7 +13,7 @@ public class RecipeCreator
     private List<Recipe> MyRecipes;
 
     /// <summary>
-    /// Recipes for baking
+    /// Recipes for Baking
     /// </summary>
     public List<Recipe> BakeRecipes { get; } = new List<Recipe>();
 
@@ -29,7 +26,7 @@ public class RecipeCreator
     } = new List<Recipe>();
 
     /// <summary>
-    /// Recipes for destillation
+    /// Recipes for Cauldron
     /// </summary>
     public List<Recipe> CauldronRecipes
     {
@@ -37,7 +34,7 @@ public class RecipeCreator
     } = new List<Recipe>();
 
     /// <summary>
-    /// Recipes for mixxing
+    /// Recipes for Mortar
     /// </summary>
     public List<Recipe> MortarRecipes
     {
@@ -51,6 +48,60 @@ public class RecipeCreator
     {
         get;
     } = new List<Recipe>();
+
+
+    //zuerst loggen
+    public String MyToString(List<Recipe> myList)
+    {
+        StringBuilder sb = new StringBuilder();
+
+        foreach (Recipe recipe in myList)
+        {
+            foreach (ItemSignature itemSignature in recipe.InItems)
+            {
+                if (itemSignature is ProcessedItemSignature)
+                {
+                    ProcessedItemSignature pIS = (ProcessedItemSignature)itemSignature;
+                    sb.Append(pIS.ProcessedType + " " + pIS.Colour + " ");
+                    //Debug.Log(pIS.ProcessedType);
+                    //Debug.Log(pIS.Colour);
+                }
+                else if (itemSignature is IngredientSignature)
+                {
+                    IngredientSignature iS = (IngredientSignature)itemSignature;
+                    sb.Append(iS.Type + " " + iS.Colour + " ");
+                    //Debug.Log(iS.Type);
+                    //Debug.Log(iS.Colour);
+                }
+                else if (itemSignature is MoneyMakerSignature)
+                {
+                    MoneyMakerSignature mMS = (MoneyMakerSignature)itemSignature;
+                    sb.Append(mMS.Type + " no Color ");
+                    //Debug.Log(mMS.Type);
+                }
+            }
+
+
+            if (recipe.CreateItem() is ProcessedItem)
+            {
+                ProcessedItem item = (ProcessedItem)recipe.CreateItem();
+                sb.Append("receive : " + item.ProcessedType + " " + item.ProcessedColor);
+                //Debug.Log(item.ProcessedType);
+                //Debug.Log(item.ProcessedColor);
+            }
+            else if (recipe.CreateItem() is MoneyMaker)
+            {
+                MoneyMaker item = (MoneyMaker)recipe.CreateItem();
+                sb.Append("receive : " + item.Type);
+            }
+
+            sb.Append(" " + recipe.Complexity);
+            //Debug.Log(recipe.Complexity);
+            sb.AppendLine();
+        }
+
+        return sb.ToString();
+    }
 
 
     public RecipeCreator()
@@ -93,8 +144,6 @@ public class RecipeCreator
                 new Recipe(new List<ItemSignature> { new ProcessedItemSignature(ProcessedItem.ProcessedItemType.HerbPowder, otherColour) },
                 () => new ProcessedItem(ProcessedItem.ProcessedItemType.Herbessence, otherColour),
                 5));
-
-
         }
 
         //2nd Stage:
@@ -113,10 +162,11 @@ public class RecipeCreator
             int intTwo = rnd.Next(0, lstTwo.Count);
             int intThree = rnd.Next(0, lstThree.Count);
 
+            var capture = lstThree[intThree];
             BakeRecipes.Add(new Recipe(new List<ItemSignature> {
                                                 new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Powderessence, lstOne[intOne]),
                                                 new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Slimeessence, lstTwo[intTwo])
-                                          }, () => new ProcessedItem(ProcessedItem.ProcessedItemType.Fairiedust, lstThree[intThree]), 10));
+                                          }, () => new ProcessedItem(ProcessedItem.ProcessedItemType.Fairiedust, capture), 10));
 
             lstOne.RemoveAt(intOne);
             lstTwo.RemoveAt(intTwo);
@@ -135,10 +185,11 @@ public class RecipeCreator
             int intTwo = rnd.Next(0, lstTwo.Count);
             int intThree = rnd.Next(0, lstThree.Count);
 
+            var capture = lstThree[intThree];
             MortarRecipes.Add(new Recipe(new List<ItemSignature> {
                                                 new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Herbessence, lstOne[intOne]),
                                                 new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Powderessence, lstTwo[intTwo])
-                                          }, () => new ProcessedItem(ProcessedItem.ProcessedItemType.Lightifier, lstThree[intThree]), 10));
+                                          }, () => new ProcessedItem(ProcessedItem.ProcessedItemType.Lightifier, capture), 10));
 
             lstOne.RemoveAt(intOne);
             lstTwo.RemoveAt(intTwo);
@@ -160,7 +211,7 @@ public class RecipeCreator
             TeaRecipes.Add(new Recipe(new List<ItemSignature> {
                                                 new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Herbessence, lstOne[intOne]),
                                                 new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Steamessence, lstTwo[intTwo])
-                                          }, () => new MoneyMaker("Teapot", 10, ItemType.Processed), 418));
+                                          }, () => new MoneyMaker("Teapot", 418, ItemType.Processed), 15));
 
             lstOne.RemoveAt(intOne);
             lstTwo.RemoveAt(intTwo);
@@ -178,10 +229,11 @@ public class RecipeCreator
             int intTwo = rnd.Next(0, lstTwo.Count);
             int intThree = rnd.Next(0, lstThree.Count);
 
+            var capture = lstThree[intThree];
             CauldronRecipes.Add(new Recipe(new List<ItemSignature> {
                                                 new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Slimeessence, lstOne[intOne]),
                                                 new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Steamessence, lstTwo[intTwo])
-                                          }, () => new ProcessedItem(ProcessedItem.ProcessedItemType.Glowstone, lstThree[intThree]), 10));
+                                          }, () => new ProcessedItem(ProcessedItem.ProcessedItemType.Glowstone, capture), 10));
 
             lstOne.RemoveAt(intOne);
             lstTwo.RemoveAt(intTwo);
@@ -200,10 +252,11 @@ public class RecipeCreator
             int intTwo = rnd.Next(0, lstTwo.Count);
             int intThree = rnd.Next(0, lstThree.Count);
 
+            var capture = lstThree[intThree];
             CauldronRecipes.Add(new Recipe(new List<ItemSignature> {
                                                 new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Slimeessence, lstOne[intOne]),
                                                 new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Steamessence, lstTwo[intTwo])
-                                          }, () => new ProcessedItem(ProcessedItem.ProcessedItemType.Glowstone, lstThree[intThree]), 10));
+                                          }, () => new ProcessedItem(ProcessedItem.ProcessedItemType.Glowstone, capture), 10));
 
             lstOne.RemoveAt(intOne);
             lstTwo.RemoveAt(intTwo);
@@ -271,10 +324,11 @@ public class RecipeCreator
             int intTwo = rnd.Next(0, lstTwo.Count);
             int intThree = rnd.Next(0, lstThree.Count);
 
+            var capture = lstThree[intThree];
             BakeRecipes.Add(new Recipe(new List<ItemSignature> {
                                                 new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Fairiedust, lstOne[intOne]),
                                                 new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Fireflies, lstTwo[intTwo])
-                                          }, () => new ProcessedItem(ProcessedItem.ProcessedItemType.Energy, lstThree[intThree]), 10));
+                                          }, () => new ProcessedItem(ProcessedItem.ProcessedItemType.Energy, capture), 10));
 
             lstOne.RemoveAt(intOne);
             lstTwo.RemoveAt(intTwo);
@@ -295,10 +349,11 @@ public class RecipeCreator
             int intTwo = rnd.Next(0, lstTwo.Count);
             int intThree = rnd.Next(0, lstThree.Count);
 
+            var capture = lstThree[intThree];
             BakeRecipes.Add(new Recipe(new List<ItemSignature> {
                                                 new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Lightifier, lstOne[intOne]),
                                                 new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Glowstone, lstTwo[intTwo])
-                                          }, () => new ProcessedItem(ProcessedItem.ProcessedItemType.Energy, lstThree[intThree]), 10));
+                                          }, () => new ProcessedItem(ProcessedItem.ProcessedItemType.Energy, capture), 10));
 
             lstOne.RemoveAt(intOne);
             lstTwo.RemoveAt(intTwo);
@@ -318,10 +373,11 @@ public class RecipeCreator
             int intTwo = rnd.Next(0, lstTwo.Count);
             int intThree = rnd.Next(0, lstThree.Count);
 
+            var capture = lstThree[intThree];
             MortarRecipes.Add(new Recipe(new List<ItemSignature> {
                                                 new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Lightifier, lstOne[intOne]),
                                                 new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Fireflies, lstTwo[intTwo])
-                                          }, () => new ProcessedItem(ProcessedItem.ProcessedItemType.Energy, lstThree[intThree]), 10));
+                                          }, () => new ProcessedItem(ProcessedItem.ProcessedItemType.Energy, capture), 10));
 
             lstOne.RemoveAt(intOne);
             lstTwo.RemoveAt(intTwo);
@@ -342,10 +398,11 @@ public class RecipeCreator
             int intTwo = rnd.Next(0, lstTwo.Count);
             int intThree = rnd.Next(0, lstThree.Count);
 
+            var capture = lstThree[intThree];
             CauldronRecipes.Add(new Recipe(new List<ItemSignature> {
                                                 new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Fairiedust, lstOne[intOne]),
                                                 new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Glowstone, lstTwo[intTwo])
-                                          }, () => new ProcessedItem(ProcessedItem.ProcessedItemType.Energy, lstThree[intThree]), 10));
+                                          }, () => new ProcessedItem(ProcessedItem.ProcessedItemType.Energy, capture), 10));
 
             lstOne.RemoveAt(intOne);
             lstTwo.RemoveAt(intTwo);
