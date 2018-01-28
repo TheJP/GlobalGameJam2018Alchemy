@@ -13,6 +13,7 @@ namespace Assets.Scripts.ItemSignatures
 
         public IngredientSignature(ItemType type, IngredientColour colour) : base(type)
         {
+            this.Colour = colour;
         }
 
         protected override bool CheckItemAcceptance(IItem other)
