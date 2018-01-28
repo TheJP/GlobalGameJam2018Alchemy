@@ -58,8 +58,13 @@ public class RecipeCreator
 
         foreach (Recipe recipe in myList)
         {
+            bool addPlus = false;
             foreach (ItemSignature itemSignature in recipe.InItems)
             {
+                if (addPlus) {
+                    sb.Append("+ ");
+                }
+
                 if (itemSignature is ProcessedItemSignature)
                 {
                     ProcessedItemSignature pIS = (ProcessedItemSignature)itemSignature;
@@ -80,6 +85,7 @@ public class RecipeCreator
                     sb.Append(mMS.Type + " no Color ");
                     //Debug.Log(mMS.Type);
                 }
+                addPlus = true;
             }
 
 
