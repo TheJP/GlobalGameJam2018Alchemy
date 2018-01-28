@@ -136,7 +136,7 @@ public class LayoutController : MonoBehaviour
         Vector3 position = Origin +
             Vector3.down * GridSpacing * (gridHeight / 2 + 0.5f) +
             Vector3.right * GridSpacing * (gridWidth / 2) +
-            Vector3.back * 5f;
+            Vector3.back * 25f;
         Instantiate(playerPrefab, position, Quaternion.Euler(-90f, 0f, 0f), transform.parent);
     }
 
