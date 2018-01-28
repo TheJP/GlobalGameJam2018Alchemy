@@ -2,6 +2,7 @@
 using GlobalGameJam2018Networking;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerTestController : PrefabLibraryBase
@@ -21,7 +22,7 @@ public class PlayerTestController : PrefabLibraryBase
         builder.AddPipe(PipeDirection.ToAlchemist, 0);
         var config = builder.Create();
 
-        Input.Pipe = config[1];
+        Input.Pipe = config.Pipes.First();
         Input.AddItem(new Ingredient(ItemType.Herb, IngredientColour.Green));
 
         Thing.MyRecipes = new List<Recipe> {
