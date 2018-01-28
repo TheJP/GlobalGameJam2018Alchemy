@@ -55,7 +55,7 @@ public class LayoutController : MonoBehaviour
     private void ClearLevel()
     {
         interactivePipes.Clear();
-        foreach(Transform child in pipes) { Destroy(child.gameObject); }
+        foreach (Transform child in pipes) { Destroy(child.gameObject); }
         foreach (Transform child in room) { Destroy(child.gameObject); }
         foreach (Transform child in benches) { Destroy(child.gameObject); }
         Destroy(FindObjectOfType<PlayerMovement>()?.gameObject);
@@ -119,9 +119,9 @@ public class LayoutController : MonoBehaviour
         var position = Origin +
             Vector3.down * GridSpacing +
             Vector3.forward * 0.05f;
-        for(int y = 0; y < gridHeight; ++y)
+        for (int y = 0; y < gridHeight; ++y)
         {
-            for(int x = 0; x < gridWidth; ++x)
+            for (int x = 0; x < gridWidth; ++x)
             {
                 Instantiate(floorPrefab, position + Vector3.down * GridSpacing * y + Vector3.right * GridSpacing * x, Quaternion.identity, room);
             }
@@ -143,7 +143,7 @@ public class LayoutController : MonoBehaviour
         Vector3 position = Origin +
             Vector3.down * GridSpacing +
             Vector3.right * GridSpacing * 4;
-        for(int i = 0; i < initialWorkbenches.Length; ++i)
+        for (int i = 0; i < initialWorkbenches.Length; ++i)
         {
             Instantiate(initialWorkbenches[i], position, initialWorkbenches[i].transform.rotation, benches);
             position += Vector3.right * GridSpacing * 2;
