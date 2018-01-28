@@ -11,12 +11,15 @@ public class ItemDisplay : MonoBehaviour
     public GameObject gold;
     public GameObject others;
 
+    public Color CurrentItemColor { get; private set; }
+
     public void HideAll()
     {
         herb?.SetActive(false);
         liquid?.SetActive(false);
         gold?.SetActive(false);
         others?.SetActive(false);
+        CurrentItemColor = Color.white;
     }
 
     private Color GetColour(IngredientColour colour)
@@ -36,10 +39,10 @@ public class ItemDisplay : MonoBehaviour
 
     private void SetColour(GameObject gameObject, IngredientColour colour)
     {
-        var newColour = GetColour(colour);
+        CurrentItemColor = GetColour(colour);
         foreach (var renderer in gameObject.GetComponentsInChildren<MeshRenderer>())
         {
-            renderer.material = new Material(renderer.material) { color = newColour };
+            renderer.material = new Material(renderer.material) { color = CurrentItemColor };
         }
     }
 
