@@ -27,9 +27,9 @@ public class InteractivePipe : MonoBehaviour, IInteractable
         else { return false; }
     }
 
-    //ToDo
     public void AddItem(Ingredient item)
     {
+        if (waitingIngredients.Count <= 0) { } // TODO: Show new item arrived
         waitingIngredients.Enqueue(item);
     }
 }

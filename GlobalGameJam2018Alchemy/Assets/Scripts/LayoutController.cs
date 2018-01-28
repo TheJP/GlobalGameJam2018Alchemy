@@ -1,6 +1,7 @@
 ﻿using GlobalGameJam2018Networking;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using UnityEngine;
 
@@ -42,6 +43,9 @@ public class LayoutController : MonoBehaviour
     [Tooltip("Player prefab.")]
     public PlayerMovement playerPrefab;
 
+    private readonly Dictionary<int, InteractivePipe> interactivePipes = new Dictionary<int, InteractivePipe>();
+    public IReadOnlyDictionary<int, InteractivePipe> InteractivePipes => new ReadOnlyDictionary<int, InteractivePipe>(interactivePipes);
+
     public void CreateLevel(LevelConfig levelConfig)
     {
         CreatePipes(levelConfig);
@@ -58,6 +62,7 @@ public class LayoutController : MonoBehaviour
         {
             var pipe = Instantiate(pipePrefab, position, Quaternion.identity, pipes);
             pipe.Pipe = pipeConfig;
+            this.interactivePipes.Add(pipeConfig.Id, pipe);
             position += Vector3.down * GridSpacing;
         }
     }

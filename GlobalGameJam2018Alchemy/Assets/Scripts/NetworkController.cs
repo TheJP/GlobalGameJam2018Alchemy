@@ -24,9 +24,15 @@ public class NetworkController : MonoBehaviour
         Network.Connected += _ => ServerConnected?.Invoke();
         Network.ServerStopped += () => PlumberName = null;
         Network.ServerStopped += () => ServerStopped?.Invoke();
-        Network.LevelStarted += levelConfig => {
+        Network.LevelStarted += levelConfig =>
+        {
             Level = levelConfig;
             GetComponent<LayoutController>().CreateLevel(levelConfig);
+        };
+        Network.ReceivedIngredient += (ingredient, pipe) =>
+        {
+            var pipes = GetComponent<LayoutController>().InteractivePipes;
+            if (pipes.ContainsKey(pipe.Id)) { pipes[pipe.Id].AddItem(ingredient); }
         };
     }
 
