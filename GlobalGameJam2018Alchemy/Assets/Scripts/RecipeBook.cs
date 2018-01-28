@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using GlobalGameJam2018Networking;
 using UnityEngine;
 
-public class RecipeBook : MonoBehaviour, IInteractable{
+public class RecipeBook : MonoBehaviour, IInteractable
+{
+
+    RecipeCreator RecipeCreator;
 
     /// <summary>
     /// The RecipeBook should be always interactable
@@ -35,18 +38,32 @@ public class RecipeBook : MonoBehaviour, IInteractable{
         return false;
     }
 
-    public void DisplayRecipes() {
+    public void DisplayRecipes()
+    {
 
-        // TODO: left to be implemented by a cat.
+        Debug.Log(this.RecipeCreator.MyToString(this.RecipeCreator.BakeRecipes));
+        Debug.Log(this.RecipeCreator.MyToString(this.RecipeCreator.CauldronRecipes));
+        Debug.Log(this.RecipeCreator.MyToString(this.RecipeCreator.MortarRecipes));
+        Debug.Log(this.RecipeCreator.MyToString(this.RecipeCreator.DestillRecipes));
+        Debug.Log(this.RecipeCreator.MyToString(this.RecipeCreator.TeaRecipes));
+
+
     }
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+
+
+    void Start()
+    {
+        //Initialize Recipes
+        this.RecipeCreator = new RecipeCreator();
+        DisplayRecipes();
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 }
