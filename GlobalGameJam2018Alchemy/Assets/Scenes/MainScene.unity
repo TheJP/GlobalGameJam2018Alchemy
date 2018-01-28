@@ -1189,7 +1189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63d73577a97e88f46a8e79a16417bfaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onlySinglePlayer: 0
+  onlySinglePlayer: 1
   usernameInput: {fileID: 1269888682}
   addressInput: {fileID: 582484620}
   portInput: {fileID: 516713939}
@@ -1223,7 +1223,7 @@ MonoBehaviour:
   pipes: {fileID: 1224388473}
   pipePrefab: {fileID: 114013154736857426, guid: 9413c5116dfe8714e83a15e3b559070c,
     type: 2}
-  gridWidth: 15
+  gridWidth: 13
   gridHeight: 8
   room: {fileID: 956358034}
   wallPrefabs:
@@ -1666,7 +1666,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.205018, g: 0.6544118, b: 0.120296285, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
