@@ -1438,6 +1438,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemDisplay: {fileID: 114283364013472232}
   ActiveAnimationObject: {fileID: 1990679067600980}
+  recipeKey: kettle
 --- !u!136 &136622465465271056
 CapsuleCollider:
   m_ObjectHideFlags: 1

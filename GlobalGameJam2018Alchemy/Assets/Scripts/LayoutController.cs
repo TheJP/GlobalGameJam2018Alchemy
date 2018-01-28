@@ -10,6 +10,8 @@ public class LayoutController : MonoBehaviour
     public const float GridSpacing = 1f;
     public static readonly Vector3 Origin = new Vector3(0.5f, 0.5f, 0f);
 
+    private readonly RecipeCreator recipeCreator = new RecipeCreator();
+
     [Tooltip("GameObject that will contain all the pipes.")]
     public Transform pipes;
 
@@ -46,8 +48,8 @@ public class LayoutController : MonoBehaviour
     [Tooltip("GameObject that will contain all the workbenches.")]
     public Transform benches;
 
-    [Tooltip("Set of workbenches that are initially spawned for the player for free.")]
-    public Workbench[] initialWorkbenches;
+    [Tooltip("Set of workbench prefabs that are initially spawned for the player for free.")]
+    public GameObject[] initialWorkbenches;
 
     private readonly Dictionary<int, InteractivePipe> interactivePipes = new Dictionary<int, InteractivePipe>();
     public IReadOnlyDictionary<int, InteractivePipe> InteractivePipes => new ReadOnlyDictionary<int, InteractivePipe>(interactivePipes);
@@ -144,11 +146,34 @@ public class LayoutController : MonoBehaviour
     {
         Vector3 position = Origin +
             Vector3.down * GridSpacing +
-            Vector3.right * GridSpacing * 4;
+            Vector3.right * GridSpacing * 2;
         for (int i = 0; i < initialWorkbenches.Length; ++i)
         {
-            Instantiate(initialWorkbenches[i], position, initialWorkbenches[i].transform.rotation, benches);
-            position += Vector3.right * GridSpacing * 2;
+            var bench = Instantiate(initialWorkbenches[i], position, initialWorkbenches[i].transform.rotation, benches);
+            position += Vector3.right * GridSpacing * 1.5f;
+
+            Workbench workbench = bench.GetComponent<Workbench>();
+            switch (workbench?.recipeKey ?? "default")
+            {
+                case "oven":
+                    workbench.MyRecipes = recipeCreator.BakeRecipes;
+                    break;
+                case "kettle":
+                    workbench.MyRecipes = recipeCreator.TeaRecipes;
+                    break;
+                case "cauldron":
+                    workbench.MyRecipes = recipeCreator.CauldronRecipes;
+                    break;
+                case "mortar":
+                    workbench.MyRecipes = recipeCreator.MortarRecipes;
+                    break;
+                case "dest":
+                    workbench.MyRecipes = recipeCreator.DestillRecipes;
+                    break;
+                case "tower":
+                    break;
+                    
+            }
         }
     }
 }

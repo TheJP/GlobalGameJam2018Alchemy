@@ -16421,6 +16421,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemDisplay: {fileID: 114814083130045374}
   ActiveAnimationObject: {fileID: 1359205556263642}
+  recipeKey: tower
 --- !u!114 &114814083130045374
 MonoBehaviour:
   m_ObjectHideFlags: 1

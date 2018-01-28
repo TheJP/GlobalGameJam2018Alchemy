@@ -1215,6 +1215,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemDisplay: {fileID: 114862182266544414}
   ActiveAnimationObject: {fileID: 1916500513662328}
+  recipeKey: mortar
 --- !u!114 &114862182266544414
 MonoBehaviour:
   m_ObjectHideFlags: 1

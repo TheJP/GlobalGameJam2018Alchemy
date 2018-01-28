@@ -14,6 +14,10 @@ public class Workbench : MonoBehaviour, IInteractable
     [Tooltip("The element displaying the working effect to be displayed.")]
     public GameObject ActiveAnimationObject;
 
+    public string recipeKey;
+
+
+
     /// <summary>
     /// The recipes that will be accepted by the workshop
     /// </summary>

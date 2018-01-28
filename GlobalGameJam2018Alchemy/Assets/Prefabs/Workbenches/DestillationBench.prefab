@@ -2070,6 +2070,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemDisplay: {fileID: 114476791982033806}
   ActiveAnimationObject: {fileID: 1495096215810758}
+  recipeKey: dest
 --- !u!136 &136222014130120068
 CapsuleCollider:
   m_ObjectHideFlags: 1

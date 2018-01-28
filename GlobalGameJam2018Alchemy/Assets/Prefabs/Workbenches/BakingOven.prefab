@@ -1329,6 +1329,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemDisplay: {fileID: 114559548772009626}
   ActiveAnimationObject: {fileID: 1398524761545930}
+  recipeKey: oven
 --- !u!136 &136912353151052812
 CapsuleCollider:
   m_ObjectHideFlags: 1

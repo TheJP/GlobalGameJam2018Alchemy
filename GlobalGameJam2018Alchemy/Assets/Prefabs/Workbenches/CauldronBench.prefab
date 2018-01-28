@@ -626,7 +626,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1112235516537564}
-  m_LocalRotation: {x: -0.61025494, y: -0.35719606, z: 0.35719606, w: 0.6102549}
+  m_LocalRotation: {x: -0.6102549, y: -0.35719603, z: 0.35719603, w: 0.6102548}
   m_LocalPosition: {x: -3.203085, y: 4.0520005, z: 0}
   m_LocalScale: {x: 86.67665, y: 86.67665, z: 26.590437}
   m_Children: []
@@ -1558,6 +1558,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemDisplay: {fileID: 114865001947040220}
   ActiveAnimationObject: {fileID: 1013862851789488}
+  recipeKey: cauldron
 --- !u!114 &114865001947040220
 MonoBehaviour:
   m_ObjectHideFlags: 1
