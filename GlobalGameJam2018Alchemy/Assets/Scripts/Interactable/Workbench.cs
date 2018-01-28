@@ -130,8 +130,8 @@ public class Workbench : MonoBehaviour, IInteractable
             currentRecipe = recipe;
             InItems.Clear();
             Invoke("OnFinish", recipe.Complexity/this.Efficiency);
-            StartAnimation();
-            ItemDisplay.HideAll();
+            StartAnimation(ItemDisplay?.CurrentItemColor ?? Color.white);
+            ItemDisplay?.HideAll();
         }
 
     }
@@ -149,9 +149,19 @@ public class Workbench : MonoBehaviour, IInteractable
         currentRecipe = null;
     }
 
-    private void StartAnimation()
+    private void SetColour(GameObject gameObject, Color colour)
+    {
+        foreach (var particleSystem in gameObject.GetComponentsInChildren<ParticleSystem>())
+        {
+            Renderer renderer = particleSystem.GetComponent<Renderer>();
+            renderer.material = new Material(renderer.material) { color = colour };
+        }
+    }
+
+    private void StartAnimation(Color colour)
     {
         ActiveAnimationObject?.SetActive(true);
+        SetColour(ActiveAnimationObject, colour);
     }
 
     private void StopAnimation()
