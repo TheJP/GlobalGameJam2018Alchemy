@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 23682407706457940}
   - component: {fileID: 95625998747688664}
   - component: {fileID: 114896744931526604}
+  - component: {fileID: 65355444356313010}
   m_Layer: 0
   m_Name: RecipeBook
   m_TagString: Untagged
@@ -110,7 +111,7 @@ GameObject:
   - component: {fileID: 198449030960639402}
   - component: {fileID: 199797567881765572}
   m_Layer: 0
-  m_Name: InputCollider (1)
+  m_Name: InputCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -194,7 +195,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1055404292486076}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -2.21, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.001, y: 0.001, z: 0.001}
   m_Children:
   - {fileID: 4559273637550830}
@@ -238,7 +239,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1746492694516798}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 32, y: 120, z: -760.0005}
+  m_LocalPosition: {x: 32, y: -400, z: -760}
   m_LocalScale: {x: 0.04, y: 0.04, z: 0.04}
   m_Children: []
   m_Father: {fileID: 4393181996140078}
@@ -380,6 +381,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1055404292486076}
   m_Mesh: {fileID: 4300000, guid: a29fb0b8095e71a49960940531e1825c, type: 3}
+--- !u!65 &65355444356313010
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1055404292486076}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 646.63965, y: 1447.3556, z: 564.9972}
+  m_Center: {x: 0.00008940696, y: 250.42166, z: -9.140236e-14}
 --- !u!65 &65448284118330852
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -608,8 +621,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 9.14
-  m_Height: 169.03
+  m_Radius: 5000
+  m_Height: 100000
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: -57.1}
 --- !u!198 &198405884233178798

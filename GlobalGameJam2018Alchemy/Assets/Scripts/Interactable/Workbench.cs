@@ -160,13 +160,29 @@ public class Workbench : MonoBehaviour, IInteractable
 
     private void StartAnimation(Color colour)
     {
-        ActiveAnimationObject?.SetActive(true);
-        SetColour(ActiveAnimationObject, colour);
+        if(ActiveAnimationObject != null)
+        {
+            ActiveAnimationObject.SetActive(true);
+            ActiveAnimationObject.GetComponentInChildren<ParticleSystem>()?.Play();
+            foreach (SpriteRenderer renderer in ActiveAnimationObject.GetComponentsInChildren<SpriteRenderer>())
+            {
+                renderer.enabled = true;
+            }
+            SetColour(ActiveAnimationObject, colour);
+        }
     }
 
     private void StopAnimation()
     {
-        ActiveAnimationObject?.SetActive(false);
+        if(ActiveAnimationObject != null)
+        {
+            ActiveAnimationObject.GetComponentInChildren<ParticleSystem>()?.Stop();
+            foreach(SpriteRenderer renderer in ActiveAnimationObject.GetComponentsInChildren<SpriteRenderer>())
+            {
+                renderer.enabled = false;
+            }
+        }
+        //ActiveAnimationObject?.SetActive(false);
     }
 
     /// <summary>
