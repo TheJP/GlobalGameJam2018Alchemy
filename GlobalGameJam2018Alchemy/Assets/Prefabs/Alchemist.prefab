@@ -17695,6 +17695,7 @@ GameObject:
   - component: {fileID: 136395759114336588}
   - component: {fileID: 114199186562391268}
   - component: {fileID: 114061416155417536}
+  - component: {fileID: 114910254865180364}
   m_Layer: 0
   m_Name: Alchemist
   m_TagString: Untagged
@@ -34934,6 +34935,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 521b611700410be45810047f0a74e899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114910254865180364
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1988744528698684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77962bad17fcebd42a1111661aeb68be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!136 &136395759114336588

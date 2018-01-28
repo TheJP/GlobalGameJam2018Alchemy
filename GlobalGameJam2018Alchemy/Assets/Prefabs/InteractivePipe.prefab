@@ -1422,10 +1422,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 3
-  m_Height: 10
+  m_Radius: 6.12
+  m_Height: 30
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: -3, y: 0, z: 0}
 --- !u!198 &198964716391808034
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -1486,7 +1486,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -828291078
+  randomSeed: 1163638093
   InitialModule:
     serializedVersion: 3
     enabled: 1
