@@ -92,17 +92,17 @@ public class RecipeCreator
             if (recipe.CreateItem() is ProcessedItem)
             {
                 ProcessedItem item = (ProcessedItem)recipe.CreateItem();
-                sb.Append("receive : " + item.ProcessedType + " " + item.ProcessedColor);
+                sb.Append("= " + item.ProcessedType + " " + item.ProcessedColor);
                 //Debug.Log(item.ProcessedType);
                 //Debug.Log(item.ProcessedColor);
             }
             else if (recipe.CreateItem() is MoneyMaker)
             {
                 MoneyMaker item = (MoneyMaker)recipe.CreateItem();
-                sb.Append("receive : " + item.Type);
+                sb.Append("= " + "Tea");
             }
 
-            sb.Append(" " + recipe.Complexity);
+            //sb.Append(" " + recipe.Complexity);
             //Debug.Log(recipe.Complexity);
             sb.AppendLine();
         }
