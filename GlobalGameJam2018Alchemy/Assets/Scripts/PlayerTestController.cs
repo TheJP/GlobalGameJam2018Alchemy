@@ -8,6 +8,7 @@ using UnityEngine;
 
 public class PlayerTestController : PrefabLibraryBase
 {
+    public Chest chest;
     public GameObject HerbPrefab;
     public InteractivePipe Input;
     public Workbench[] Things;
@@ -39,5 +40,8 @@ public class PlayerTestController : PrefabLibraryBase
         {
             Things[i].MyRecipes = recipeHack;
         }
-	}
+
+        chest?.PutItem(new Ingredient(ItemType.Herb, IngredientColour.Blue));
+        chest?.PutItem(new Ingredient(ItemType.Herb, IngredientColour.Violet));
+    }
 }

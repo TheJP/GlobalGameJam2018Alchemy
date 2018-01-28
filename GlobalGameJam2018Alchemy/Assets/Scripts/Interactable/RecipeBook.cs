@@ -18,6 +18,8 @@ public class RecipeBook : MonoBehaviour, IInteractable
 
     bool ManualDisable;
 
+    private bool workaround;
+
     /// <summary>
     /// The RecipeBook should be always interactable
     /// </summary>
@@ -96,6 +98,7 @@ public class RecipeBook : MonoBehaviour, IInteractable
     /// </summary>
     public void DisplayRecipes()
     {
+        workaround = !MyCanvas.enabled;
         MyCanvas.enabled = true;
         ManualDisable = false;
         CancelInvoke();
@@ -122,19 +125,13 @@ public class RecipeBook : MonoBehaviour, IInteractable
     // Update is called once per frame
     void Update()
     {
-        //Test
-        if (Input.GetKeyDown(KeyCode.A)) {
-            Debug.Log("hihi");
-            DisplayRecipes();
-
-        }
-        
-
-        if (MyCanvas.isActiveAndEnabled) {
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape)){ 
+        if (MyCanvas.isActiveAndEnabled && !workaround) {
+            if (Input.GetButtonUp("Jump") || Input.GetKeyDown(KeyCode.Escape)){ 
                 ManualDisable = true;
                 MyCanvas.enabled = false;
             }
         }
+
+        workaround = false;
     }
 }
