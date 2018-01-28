@@ -42,32 +42,35 @@ public class RecipeBook : MonoBehaviour, IInteractable
     public void createRecipes() {
         this.RecipeCreator = new RecipeCreator();
 
-        StringBuilder sb = new StringBuilder();
-        sb.Append("Destill Recipes : ");
-        sb.AppendLine();
-        sb.Append(this.RecipeCreator.MyToString(this.RecipeCreator.DestillRecipes));
-        sb.AppendLine();
+        StringBuilder sbDestill = new StringBuilder();
+        sbDestill.Append("Destill Recipes : ");
+        sbDestill.AppendLine();
+        sbDestill.Append(this.RecipeCreator.MyToString(this.RecipeCreator.DestillRecipes));
+        sbDestill.AppendLine();
 
-        sb.Append("Mortar Recipes : ");
-        sb.AppendLine();
-        sb.Append(this.RecipeCreator.MyToString(this.RecipeCreator.MortarRecipes));
-        sb.AppendLine();
+        StringBuilder sbMortar = new StringBuilder();
+        sbMortar.Append("Mortar Recipes : ");
+        sbMortar.AppendLine();
+        sbMortar.Append(this.RecipeCreator.MyToString(this.RecipeCreator.MortarRecipes));
+        sbMortar.AppendLine();
 
-        sb.Append("Tea Recipes : ");
-        sb.AppendLine();
-        sb.Append(this.RecipeCreator.MyToString(this.RecipeCreator.TeaRecipes));
-        sb.AppendLine();
+        StringBuilder sbTea = new StringBuilder();
+        sbTea.Append("Tea Recipes : ");
+        sbTea.AppendLine();
+        sbTea.Append(this.RecipeCreator.MyToString(this.RecipeCreator.TeaRecipes));
+        sbTea.AppendLine();
 
-        sb.Append("Baking Oven Recipes :");
-        sb.AppendLine();
-        sb.Append(this.RecipeCreator.MyToString(this.RecipeCreator.BakeRecipes));
-        sb.AppendLine();
+        StringBuilder sbBaking = new StringBuilder();
+        sbBaking.Append("Baking Oven Recipes :");
+        sbBaking.AppendLine();
+        sbBaking.Append(this.RecipeCreator.MyToString(this.RecipeCreator.BakeRecipes));
+        sbBaking.AppendLine();
 
-        sb.Append("Cauldron Recipes : ");
-        sb.AppendLine();
-        sb.Append(this.RecipeCreator.MyToString(this.RecipeCreator.CauldronRecipes));
-        sb.AppendLine();
-        Debug.Log(sb.ToString());
+        StringBuilder sbCauldron = new StringBuilder();
+        sbCauldron.Append("Cauldron Recipes : ");
+        sbCauldron.AppendLine();
+        sbCauldron.Append(this.RecipeCreator.MyToString(this.RecipeCreator.CauldronRecipes));
+        sbCauldron.AppendLine();
     }
 
     /// <summary>
@@ -83,6 +86,7 @@ public class RecipeBook : MonoBehaviour, IInteractable
     void Start()
     {
         createRecipes();
+
     }
 
     // Update is called once per frame
