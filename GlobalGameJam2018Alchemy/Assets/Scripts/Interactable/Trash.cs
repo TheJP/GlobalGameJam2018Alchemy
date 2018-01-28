@@ -3,12 +3,8 @@ using System.Collections.Generic;
 using GlobalGameJam2018Networking;
 using UnityEngine;
 
-public class Thrash : MonoBehaviour, IInteractable
+public class Trash : MonoBehaviour, IInteractable
 {
-
-    List<IItem> ItemsStored;
-    private int Places = 2;
-    private int Used = 0;
 
     public bool CanInteract(IItem item)
     {
