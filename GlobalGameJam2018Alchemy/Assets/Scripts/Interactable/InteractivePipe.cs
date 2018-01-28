@@ -5,9 +5,21 @@ using GlobalGameJam2018Networking;
 
 public class InteractivePipe : MonoBehaviour, IInteractable
 {
+    [Tooltip("Object that is set to active if this pipe is an input.")]
+    public GameObject inputArrow;
+
+    [Tooltip("Object that is set to active if this pipe is an output.")]
+    public GameObject outputArrow;
+
     public Pipe Pipe { get; set; }
 
     private readonly Queue<Ingredient> waitingIngredients = new Queue<Ingredient>();
+
+    private void Start()
+    {
+        if(Pipe.Direction == PipeDirection.ToAlchemist) { inputArrow?.SetActive(true); }
+        else { outputArrow?.SetActive(true); }
+    }
 
     public bool CanInteract(IItem item)
     {
