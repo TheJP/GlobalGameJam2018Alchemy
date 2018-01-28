@@ -41,7 +41,7 @@ public class LayoutController : MonoBehaviour
     public GameObject floorPrefab;
 
     [Tooltip("Player prefab.")]
-    public PlayerMovement playerPrefab;
+    public GameObject playerPrefab;
 
     [Tooltip("GameObject that will contain all the workbenches.")]
     public Transform benches;
@@ -63,12 +63,14 @@ public class LayoutController : MonoBehaviour
 
     public void CreateLevel(LevelConfig levelConfig)
     {
+        transform.parent.eulerAngles = new Vector3(0f, 0f, 0f);
         ClearLevel();
         CreatePipes(levelConfig);
         CreateWalls();
         CreateFloor();
         SpawnPlayer();
         CreateBenches();
+        transform.parent.eulerAngles = new Vector3(90f, 0f, 0f);
     }
 
     /// <summary>Generate input pipes using the given <see cref="LevelConfig"/>.</summary>
@@ -134,8 +136,8 @@ public class LayoutController : MonoBehaviour
         Vector3 position = Origin +
             Vector3.down * GridSpacing * (gridHeight / 2 + 0.5f) +
             Vector3.right * GridSpacing * (gridWidth / 2) +
-            Vector3.back * 0.2f;
-        Instantiate(playerPrefab, position, Quaternion.identity);
+            Vector3.back * 25f;
+        Instantiate(playerPrefab, position, Quaternion.Euler(-90f, 0f, 0f), transform.parent);
     }
 
     private void CreateBenches()
