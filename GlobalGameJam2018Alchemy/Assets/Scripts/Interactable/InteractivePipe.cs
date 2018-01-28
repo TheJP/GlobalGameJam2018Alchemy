@@ -11,6 +11,9 @@ public class InteractivePipe : MonoBehaviour, IInteractable
     [Tooltip("Object that is set to active if this pipe is an output.")]
     public GameObject outputArrow;
 
+    [Tooltip("GameObject to visualise the content of the interactive pipe.")]
+    public ItemDisplay itemDisplay;
+
     public Pipe Pipe { get; set; }
 
     private readonly Queue<Ingredient> waitingIngredients = new Queue<Ingredient>();
@@ -27,12 +30,22 @@ public class InteractivePipe : MonoBehaviour, IInteractable
         else { return Pipe.Direction == PipeDirection.ToPipes && item is MoneyMaker; }
     }
 
-    public IItem GetItem() => waitingIngredients.Count > 0 ? waitingIngredients.Dequeue() : null;
+    public IItem GetItem()
+    {
+        if (waitingIngredients.Count > 0)
+        {
+            var item = waitingIngredients.Dequeue();
+            itemDisplay?.Display(waitingIngredients.Count > 0 ? waitingIngredients.Peek() : null);
+            return item;
+        }
+        return null;
+    }
 
     public bool PutItem(IItem item)
     {
         if (item != null && CanInteract(item))
         {
+            itemDisplay?.Display(item);
             FindObjectOfType<NetworkController>().SendMoneyMaker(item as MoneyMaker, Pipe);
             return true;
         }
@@ -41,7 +54,10 @@ public class InteractivePipe : MonoBehaviour, IInteractable
 
     public void AddItem(Ingredient item)
     {
-        if (waitingIngredients.Count <= 0) { } // TODO: Show new item arrived
+        if (waitingIngredients.Count <= 0)
+        {
+            itemDisplay?.Display(item);
+        }
         waitingIngredients.Enqueue(item);
     }
 }

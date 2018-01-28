@@ -52,8 +52,18 @@ public class LayoutController : MonoBehaviour
     private readonly Dictionary<int, InteractivePipe> interactivePipes = new Dictionary<int, InteractivePipe>();
     public IReadOnlyDictionary<int, InteractivePipe> InteractivePipes => new ReadOnlyDictionary<int, InteractivePipe>(interactivePipes);
 
+    private void ClearLevel()
+    {
+        interactivePipes.Clear();
+        foreach(Transform child in pipes) { Destroy(child.gameObject); }
+        foreach (Transform child in room) { Destroy(child.gameObject); }
+        foreach (Transform child in benches) { Destroy(child.gameObject); }
+        Destroy(FindObjectOfType<PlayerMovement>()?.gameObject);
+    }
+
     public void CreateLevel(LevelConfig levelConfig)
     {
+        ClearLevel();
         CreatePipes(levelConfig);
         CreateWalls();
         CreateFloor();
