@@ -43,6 +43,12 @@ public class LayoutController : MonoBehaviour
     [Tooltip("Player prefab.")]
     public PlayerMovement playerPrefab;
 
+    [Tooltip("GameObject that will contain all the workbenches.")]
+    public Transform benches;
+
+    [Tooltip("Set of workbenches that are initially spawned for the player for free.")]
+    public Workbench[] initialWorkbenches;
+
     private readonly Dictionary<int, InteractivePipe> interactivePipes = new Dictionary<int, InteractivePipe>();
     public IReadOnlyDictionary<int, InteractivePipe> InteractivePipes => new ReadOnlyDictionary<int, InteractivePipe>(interactivePipes);
 
@@ -52,6 +58,7 @@ public class LayoutController : MonoBehaviour
         CreateWalls();
         CreateFloor();
         SpawnPlayer();
+        CreateBenches();
     }
 
     /// <summary>Generate input pipes using the given <see cref="LevelConfig"/>.</summary>
@@ -99,7 +106,9 @@ public class LayoutController : MonoBehaviour
     /// <summary>Generate floor.</summary>
     public void CreateFloor()
     {
-        var position = Origin + Vector3.down * GridSpacing;
+        var position = Origin +
+            Vector3.down * GridSpacing +
+            Vector3.forward * 0.05f;
         for(int y = 0; y < gridHeight; ++y)
         {
             for(int x = 0; x < gridWidth; ++x)
@@ -117,5 +126,17 @@ public class LayoutController : MonoBehaviour
             Vector3.right * GridSpacing * (gridWidth / 2) +
             Vector3.back * 0.2f;
         Instantiate(playerPrefab, position, Quaternion.identity);
+    }
+
+    private void CreateBenches()
+    {
+        Vector3 position = Origin +
+            Vector3.down * GridSpacing +
+            Vector3.right * GridSpacing * 4;
+        for(int i = 0; i < initialWorkbenches.Length; ++i)
+        {
+            Instantiate(initialWorkbenches[i], position, initialWorkbenches[i].transform.rotation, benches);
+            position += Vector3.right * GridSpacing * 2;
+        }
     }
 }
