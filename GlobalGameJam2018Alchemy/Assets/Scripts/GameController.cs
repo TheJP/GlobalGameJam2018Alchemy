@@ -23,7 +23,11 @@ public class GameController : MonoBehaviour
         var colours = System.Enum.GetValues(typeof(IngredientColour)) as IngredientColour[];
         while (true)
         {
-            if (!GetComponent<NetworkController>().IsSinglePlayer) { continue; }
+            if (!GetComponent<NetworkController>().IsSinglePlayer)
+            {
+                // we always need to return something, otherwise an endless loop might occur.
+                yield return new WaitForSeconds(singlePlayerIgredientSpawnInterval);
+            }
             var inputs = GetComponent<LayoutController>().InteractivePipes.Values
                 .Where(pipe => pipe.Pipe.Direction == PipeDirection.ToAlchemist).ToArray();
             if (inputs.Length > 0)
