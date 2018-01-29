@@ -1327,6 +1327,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e1250c50971d6c4eb17fabb79da660c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  singlePlayerIgredientSpawnInterval: 10
+  gold: 0
 --- !u!114 &691358950
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ public class NetworkController : MonoBehaviour
     public LevelConfig Level { get; private set; } = null;
     public string PlumberName { get; private set; } = null;
     public bool Connected => PlumberName != null;
+    public bool IsSinglePlayer { get; private set; } = false;
 
     public event Action ServerConnected;
     public event Action ServerStopped;
@@ -20,8 +21,12 @@ public class NetworkController : MonoBehaviour
     {
         Action<Action> addInvoke = invoke => { lock (invokes) { invokes.Enqueue(invoke); } };
         Network = new AlchemyNetwork(addInvoke);
-        Network.Connected += plumberName => PlumberName = plumberName;
-        Network.Connected += _ => ServerConnected?.Invoke();
+        Network.Connected += plumberName =>
+        {
+            PlumberName = plumberName;
+            IsSinglePlayer = false;
+            ServerConnected?.Invoke();
+        };
         Network.ServerStopped += () => PlumberName = null;
         Network.ServerStopped += () => ServerStopped?.Invoke();
         Network.LevelStarted += levelConfig =>
@@ -58,6 +63,7 @@ public class NetworkController : MonoBehaviour
             .AddPipe(PipeDirection.ToAlchemist, 1)
             .AddPipe(PipeDirection.ToPipes, 2)
             .Create());
+        IsSinglePlayer = true;
     }
 
     private void Update()
@@ -73,6 +79,6 @@ public class NetworkController : MonoBehaviour
     {
         // Send item to plumber if connected, just swallow it otherwise
         if (Connected) { Network.SendMoneyMaker(moneyMaker, pipe); }
-        GetComponent<GameController>().Gold += moneyMaker.GoldValue;
+        GetComponent<GameController>().gold += moneyMaker.GoldValue;
     }
 }
