@@ -10,6 +10,9 @@ public class GameController : MonoBehaviour
     [Tooltip("In Singleplayer: Spawn igredient every x seconds.")]
     public int singlePlayerIgredientSpawnInterval = 5;
 
+    [Tooltip("In Multiplayer: The spawn ingredient loop has to continue running to later support singleplayer.")]
+    public int multiPlayerIngredientSpawnSleepInterval = 60;
+
     [Tooltip("Gold balance of the alchemist.")]
     public int gold;
 
@@ -25,8 +28,10 @@ public class GameController : MonoBehaviour
         {
             if (!GetComponent<NetworkController>().IsSinglePlayer)
             {
-                // Ingredients are coming via network and thus we don't need this coroutine running.
-                yield break;
+                // Ingredients are coming via network and thus we only keep this coroutine running
+                // if later a singleplayer game might be started.
+                yield return new WaitForSeconds(multiPlayerIngredientSpawnSleepInterval);
+                continue;
             }
             var inputs = GetComponent<LayoutController>().InteractivePipes.Values
                 .Where(pipe => pipe.Pipe.Direction == PipeDirection.ToAlchemist).ToArray();
