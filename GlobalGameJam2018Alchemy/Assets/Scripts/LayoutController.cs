@@ -52,13 +52,15 @@ public class LayoutController : MonoBehaviour
     private readonly Dictionary<int, InteractivePipe> interactivePipes = new Dictionary<int, InteractivePipe>();
     public IReadOnlyDictionary<int, InteractivePipe> InteractivePipes => new ReadOnlyDictionary<int, InteractivePipe>(interactivePipes);
 
+    private GameObject player = null;
+
     private void ClearLevel()
     {
         interactivePipes.Clear();
         foreach (Transform child in pipes) { Destroy(child.gameObject); }
         foreach (Transform child in room) { Destroy(child.gameObject); }
         foreach (Transform child in benches) { Destroy(child.gameObject); }
-        Destroy(FindObjectOfType<PlayerMovement>()?.gameObject);
+        if (player != null) { Destroy(player); }
     }
 
     public void CreateLevel(LevelConfig levelConfig)
@@ -137,7 +139,7 @@ public class LayoutController : MonoBehaviour
             Vector3.down * GridSpacing * (gridHeight / 2 + 0.5f) +
             Vector3.right * GridSpacing * (gridWidth / 2) +
             Vector3.back * 25f;
-        Instantiate(playerPrefab, position, Quaternion.Euler(-90f, 0f, 0f), transform.parent);
+        player = Instantiate(playerPrefab, position, Quaternion.Euler(-90f, 0f, 0f), transform.parent);
     }
 
     private void CreateBenches()
