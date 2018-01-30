@@ -55,6 +55,8 @@ public class NetworkController : MonoBehaviour
         Network.Connect(username, hostname, port);
     }
 
+    public void Disconnect() => Network.Disconnect();
+
     /// <summary>Method that is called if the user clicks on single player.</summary>
     public void PlaySinglePlayer()
     {

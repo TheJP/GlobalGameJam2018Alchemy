@@ -32,13 +32,14 @@ public class UserInterfaceController : MonoBehaviour
 
         int _;
         portInput.onValidateInput += (input, characterIndex, addedChar) => int.TryParse(addedChar.ToString(), out _) ? addedChar : '\0';
-        usernameInput.onValidateInput += (input, characterIndex, addedChar) => char.IsLetterOrDigit(addedChar) ? addedChar :'\0';
+        usernameInput.onValidateInput += (input, characterIndex, addedChar) => char.IsLetterOrDigit(addedChar) ? addedChar : '\0';
 
         GetComponent<NetworkController>().ServerConnected += SwitchToIngameMenu;
         GetComponent<NetworkController>().ServerStopped += SwitchToMainMenu;
 
         // Show UI if the player went game over and was playing single player
-        GetComponent<GameController>().GameOver += success => {
+        GetComponent<GameController>().GameOver += success =>
+        {
             if (!GetComponent<NetworkController>().Connected) { SwitchToMainMenu(); }
         };
 
@@ -97,7 +98,12 @@ public class UserInterfaceController : MonoBehaviour
 
     }
 
-    public void ClickedQuitToMenu() => SwitchToMainMenu();
+    public void ClickedQuitToMenu()
+    {
+        var network = GetComponent<NetworkController>();
+        if (!network.IsSinglePlayer) { network.Disconnect(); }
+        SwitchToMainMenu();
+    }
 
     private void ShowWarning(string warning) => StartCoroutine(DisplayWarning(warning));
 
