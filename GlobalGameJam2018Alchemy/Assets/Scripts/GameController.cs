@@ -26,7 +26,7 @@ public class GameController : MonoBehaviour
             if (!GetComponent<NetworkController>().IsSinglePlayer)
             {
                 // Ingredients are coming via network and thus we only keep this coroutine running
-                // if later a singleplayer game might be started.
+                // because later a singleplayer game might be started.
                 yield return new WaitForSeconds(singlePlayerIgredientSpawnInterval);
                 continue;
             }
