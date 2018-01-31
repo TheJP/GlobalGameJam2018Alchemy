@@ -7,8 +7,20 @@ using UnityEngine;
 
 public class LayoutController : MonoBehaviour
 {
+    /// <summary>
+    /// Space between the centre of two directly adijacent grid tiles.
+    /// </summary>
     public const float GridSpacing = 1f;
-    public static readonly Vector3 Origin = new Vector3(0.5f, 0.5f, 0f);
+
+    private static readonly Vector3 DoorPosition = new Vector3(0f, 0f, 0f);
+
+    /// <summary>
+    /// Origin of the level creation.
+    /// </summary>
+    private Vector3 Origin => DoorPosition +
+            Vector3.left * GridSpacing * Mathf.Floor(gridWidth / 2f) +
+            Vector3.forward * GridSpacing * gridHeight +
+            Vector3.back * 0.5f * GridSpacing;
 
     [Tooltip("GameObject that will contain all the pipes.")]
     public Transform pipes;
@@ -65,42 +77,45 @@ public class LayoutController : MonoBehaviour
 
     public void CreateLevel(LevelConfig levelConfig)
     {
-        transform.parent.eulerAngles = new Vector3(0f, 0f, 0f);
         ClearLevel();
         CreatePipes(levelConfig);
         CreateWalls();
         CreateFloor();
         SpawnPlayer();
         CreateBenches();
-        transform.parent.eulerAngles = new Vector3(90f, 0f, 0f);
     }
 
     /// <summary>Generate input pipes using the given <see cref="LevelConfig"/>.</summary>
     public void CreatePipes(LevelConfig levelConfig)
     {
-        var position = Origin + Vector3.down * GridSpacing * 2;
+        var position = Origin +
+            Vector3.back * 3f * GridSpacing;
         foreach (var pipeConfig in levelConfig.Pipes.OrderBy(p => p.Order))
         {
-            var pipe = Instantiate(pipePrefab, position, Quaternion.identity, pipes);
+            var pipe = Instantiate(pipePrefab, position, pipePrefab.transform.rotation, pipes);
             pipe.Pipe = pipeConfig;
-            this.interactivePipes.Add(pipeConfig.Id, pipe);
-            position += Vector3.down * GridSpacing;
+            interactivePipes.Add(pipeConfig.Id, pipe);
+            position += Vector3.back * GridSpacing;
         }
     }
 
     /// <summary>Automatically create the walls around the lab of the lab.</summary>
     public void CreateWalls()
     {
-        var position = Origin + (Vector3.down + Vector3.right) * (GridSpacing / 2f);
+        var position = Origin +
+            Vector3.forward * 0.5f * GridSpacing; // 0.5 forward from origin, because the wall is at the edge of the grid
         var direction = Vector3.right;
         var rotation = Quaternion.identity;
         // Create 4 walls
         for (int turn = 0; turn < 4; ++turn)
         {
-            // Create random wall segments
-            for (int i = 1; i < (turn % 2 == 0 ? gridWidth : gridHeight); ++i)
+            // Leave space for the corner
+            position += direction * GridSpacing;
+
+            // Create wall segments
+            for (int i = 1; i < (turn % 2 == 0 ? gridWidth : gridHeight) - 1; ++i)
             {
-                if (turn == 1 && i == gridHeight / 2)
+                if (Vector3.Distance(position, DoorPosition) < 0.1f * GridSpacing)
                 {
                     // Add door in the middle of the right wall
                     Instantiate(doorWallPrfab, position, rotation, room);
@@ -109,25 +124,27 @@ public class LayoutController : MonoBehaviour
                 else { Instantiate(wallPrefabs[Random.Range(0, wallPrefabs.Length)], position, rotation, room); }
                 position += direction * GridSpacing;
             }
+
             // Create corner
             Instantiate(cornerPrefab, position, rotation, room);
-            rotation *= Quaternion.Euler(Vector3.back * 90);
-            direction = Quaternion.Euler(Vector3.back * 90) * direction;
-            position += direction * GridSpacing;
+
+            // Rotate for next wall
+            position += direction * 0.5f * GridSpacing;
+            rotation *= Quaternion.Euler(Vector3.up * 90);
+            direction = Quaternion.Euler(Vector3.up * 90) * direction;
+            position += direction * 0.5f * GridSpacing;
         }
     }
 
     /// <summary>Generate floor.</summary>
     public void CreateFloor()
     {
-        var position = Origin +
-            Vector3.down * GridSpacing +
-            Vector3.forward * 0.05f;
+        var position = Origin;
         for (int y = 0; y < gridHeight; ++y)
         {
             for (int x = 0; x < gridWidth; ++x)
             {
-                Instantiate(floorPrefab, position + Vector3.down * GridSpacing * y + Vector3.right * GridSpacing * x, Quaternion.identity, room);
+                Instantiate(floorPrefab, position + Vector3.back * GridSpacing * y + Vector3.right * GridSpacing * x, Quaternion.identity, room);
             }
         }
     }
@@ -135,54 +152,44 @@ public class LayoutController : MonoBehaviour
     /// <summary>Spawn player in the middle of the floor.</summary>
     public void SpawnPlayer()
     {
-        Vector3 position = Origin +
-            Vector3.down * GridSpacing * (gridHeight / 2 + 0.5f) +
-            Vector3.right * GridSpacing * (gridWidth / 2) +
-            Vector3.back * 25f;
-        player = Instantiate(playerPrefab, position, Quaternion.Euler(-90f, 0f, 0f), transform.parent);
+        // Spawn alchemist high up in the air. Landing near to the door
+        Vector3 position = DoorPosition +
+            Vector3.forward * 2f * GridSpacing +
+            Vector3.up * 25f;
+        player = Instantiate(playerPrefab, position, Quaternion.identity, transform.parent);
     }
 
+    /// <summary>Spawn all workbenches that are given as prefabs for initial spawning.</summary>
     private void CreateBenches()
     {
-        Vector3 position = Origin +
-            Vector3.down * GridSpacing +
-            Vector3.right * GridSpacing * 2;
-
+        var position = Origin +
+            Vector3.back * 1f * GridSpacing;
         var workBenches = new List<GameObject>();
+
+        // Spawn all workbenches
         for (int i = 0; i < initialWorkbenches.Length; ++i)
         {
-            var bench = Instantiate(initialWorkbenches[i], position, initialWorkbenches[i].transform.rotation, benches);
-            workBenches.Add(bench);
-            position += Vector3.right * GridSpacing * 1.5f;
+            var rotation = initialWorkbenches[i].transform.rotation;
+            workBenches.Add(Instantiate(initialWorkbenches[i], position, rotation, benches));
+            position += Vector3.right * GridSpacing * 2f;
         }
 
-        var book = workBenches.Select(b => b.GetComponent<RecipeBook>()).First(b => b != null);
-        var recipeCreator = book.RecipeCreator;
-
-        foreach (var bench in workBenches)
+        // Assign the correct recipes to each workbench
+        var recipeCreator = workBenches.Select(b => b.GetComponent<RecipeBook>()).First(b => b != null).RecipeCreator;
+        var recipeLists = new Dictionary<string, List<Recipe>>()
         {
-            Workbench workbench = bench.GetComponent<Workbench>();
-            switch (workbench?.recipeKey ?? "default")
-            {
-                case "oven":
-                    workbench.MyRecipes = recipeCreator.BakeRecipes;
-                    break;
-                case "kettle":
-                    workbench.MyRecipes = recipeCreator.TeaRecipes;
-                    break;
-                case "cauldron":
-                    workbench.MyRecipes = recipeCreator.CauldronRecipes;
-                    break;
-                case "mortar":
-                    workbench.MyRecipes = recipeCreator.MortarRecipes;
-                    break;
-                case "dest":
-                    workbench.MyRecipes = recipeCreator.DestillRecipes;
-                    break;
-                case "tower":
-                    break;
+            ["oven"] = recipeCreator.BakeRecipes,
+            ["kettle"] = recipeCreator.TeaRecipes,
+            ["cauldron"] = recipeCreator.CauldronRecipes,
+            ["mortar"] = recipeCreator.MortarRecipes,
+            ["dest"] = recipeCreator.DestillRecipes,
 
-            }
+        };
+        foreach (var workbench in workBenches
+            .Select(bench => bench.GetComponent<Workbench>())
+            .Where(bench => bench != null && bench.recipeKey != null && recipeLists.ContainsKey(bench.recipeKey)))
+        {
+            workbench.MyRecipes = recipeLists[workbench.recipeKey];
         }
     }
 }

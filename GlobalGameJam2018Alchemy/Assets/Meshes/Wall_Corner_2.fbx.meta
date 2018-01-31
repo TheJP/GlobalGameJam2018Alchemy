@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 0a3085a6fd04cca4e843af27767f9f05
-timeCreated: 1517065504
+guid: 30c09b3d5a23aa84991e9421c835d8e6
+timeCreated: 1517398880
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -8,11 +8,9 @@ ModelImporter:
     100000: //RootNode
     400000: //RootNode
     2100000: MAT_LabWall
-    2100002: MAT_LabWall.005
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Wall_Base
-    9500000: //RootNode
+    4300000: Wall_Corner
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -87,7 +85,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
