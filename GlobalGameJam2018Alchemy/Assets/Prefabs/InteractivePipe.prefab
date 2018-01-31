@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4583189284273504}
   - component: {fileID: 95052121160615400}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Liquid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4216755525597260}
   - component: {fileID: 33975911821664244}
   - component: {fileID: 23320638824280134}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4203289528921214}
   - component: {fileID: 95169211084638614}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Muenze
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 4040102125127512}
   - component: {fileID: 33771259419304048}
   - component: {fileID: 23590206386681650}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 4674339663221222}
   - component: {fileID: 33402858149780254}
   - component: {fileID: 23730346748534834}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,7 +171,7 @@ GameObject:
   - component: {fileID: 4289527388661700}
   - component: {fileID: 33610165802652054}
   - component: {fileID: 23737610930228122}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Sphere_001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -188,7 +188,7 @@ GameObject:
   - component: {fileID: 4180231971648246}
   - component: {fileID: 33891474113703140}
   - component: {fileID: 23513047378919412}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -204,7 +204,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4300655739654934}
   - component: {fileID: 114376298351669416}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ItemDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -237,7 +237,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4470155102438624}
   - component: {fileID: 95190075018795230}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Other
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -285,7 +285,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4576698132284412}
   - component: {fileID: 95298500243678242}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Herb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -318,7 +318,7 @@ GameObject:
   - component: {fileID: 4176615465864868}
   - component: {fileID: 33226333197854414}
   - component: {fileID: 23032681949185114}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -335,7 +335,7 @@ GameObject:
   - component: {fileID: 4982385521717816}
   - component: {fileID: 33173640147786762}
   - component: {fileID: 23157713531898248}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -352,7 +352,7 @@ GameObject:
   - component: {fileID: 4970368533879934}
   - component: {fileID: 33195622235724388}
   - component: {fileID: 23049860531800834}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cylinder1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -369,7 +369,7 @@ GameObject:
   - component: {fileID: 4760107432049530}
   - component: {fileID: 33221656733593912}
   - component: {fileID: 23461622952851138}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Text_001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -384,7 +384,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4250730749291774}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Empty
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -401,7 +401,7 @@ GameObject:
   - component: {fileID: 4698134148369818}
   - component: {fileID: 33636527097368782}
   - component: {fileID: 23990829508068414}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Glass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -417,7 +417,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4086840135737834}
   - component: {fileID: 136887541667287828}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}

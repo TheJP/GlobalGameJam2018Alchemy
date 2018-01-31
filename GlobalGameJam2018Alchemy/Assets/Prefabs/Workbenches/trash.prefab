@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 136888347535968918}
   - component: {fileID: 198042351301115148}
   - component: {fileID: 199323447178368244}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: InputCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

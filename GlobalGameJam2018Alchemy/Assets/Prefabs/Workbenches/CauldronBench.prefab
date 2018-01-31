@@ -156,7 +156,7 @@ GameObject:
   - component: {fileID: 136466514593879270}
   - component: {fileID: 198700320162662536}
   - component: {fileID: 199557533164333032}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: InputCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -626,7 +626,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1112235516537564}
-  m_LocalRotation: {x: -0.61025494, y: -0.35719606, z: 0.35719606, w: 0.6102549}
+  m_LocalRotation: {x: -0.6102549, y: -0.35719603, z: 0.35719603, w: 0.6102548}
   m_LocalPosition: {x: -3.203085, y: 4.0520005, z: 0}
   m_LocalScale: {x: 86.67665, y: 86.67665, z: 26.590437}
   m_Children: []

@@ -651,7 +651,7 @@ GameObject:
   - component: {fileID: 136004030893467802}
   - component: {fileID: 198442099481980126}
   - component: {fileID: 199193780123541136}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: InputCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
