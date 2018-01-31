@@ -12,10 +12,15 @@ public class LayoutController : MonoBehaviour
     /// </summary>
     public const float GridSpacing = 1f;
 
+    private static readonly Vector3 DoorPosition = new Vector3(0f, 0f, 0f);
+
     /// <summary>
-    /// Origin of the level creation. This is at the same time the location of the door.
+    /// Origin of the level creation.
     /// </summary>
-    public static readonly Vector3 Origin = new Vector3(0f, 0f, 0f);
+    private Vector3 Origin => DoorPosition +
+            Vector3.left * GridSpacing * Mathf.Floor(gridWidth / 2f) +
+            Vector3.forward * GridSpacing * gridHeight +
+            Vector3.back * 0.5f * GridSpacing;
 
     [Tooltip("GameObject that will contain all the pipes.")]
     public Transform pipes;
@@ -96,14 +101,18 @@ public class LayoutController : MonoBehaviour
     /// <summary>Automatically create the walls around the lab of the lab.</summary>
     public void CreateWalls()
     {
-        var position = Origin + Vector3.left * GridSpacing * (gridWidth / 2f);
+        var position = Origin +
+            Vector3.forward * 0.5f * GridSpacing; // 0.5 forward from origin, because the wall is at the edge of the grid
         var direction = Vector3.right;
         var rotation = Quaternion.identity;
         // Create 4 walls
         for (int turn = 0; turn < 4; ++turn)
         {
-            // Create random wall segments
-            for (int i = 1; i < (turn % 2 == 0 ? gridWidth : gridHeight); ++i)
+            // Leave space for the corner
+            position += direction * GridSpacing;
+
+            // Create wall segments
+            for (int i = 1; i < (turn % 2 == 0 ? gridWidth : gridHeight) - 1; ++i)
             {
                 if (turn == 1 && i == gridHeight / 2)
                 {
@@ -114,25 +123,27 @@ public class LayoutController : MonoBehaviour
                 else { Instantiate(wallPrefabs[Random.Range(0, wallPrefabs.Length)], position, rotation, room); }
                 position += direction * GridSpacing;
             }
+
             // Create corner
             Instantiate(cornerPrefab, position, rotation, room);
+
+            // Rotate for next wall
+            position += direction * 0.5f * GridSpacing;
             rotation *= Quaternion.Euler(Vector3.up * 90);
             direction = Quaternion.Euler(Vector3.up * 90) * direction;
-            position += direction * GridSpacing;
+            position += direction * 0.5f * GridSpacing;
         }
     }
 
     /// <summary>Generate floor.</summary>
     public void CreateFloor()
     {
-        var position = Origin +
-            Vector3.down * GridSpacing +
-            Vector3.forward * 0.05f;
+        var position = Origin;
         for (int y = 0; y < gridHeight; ++y)
         {
             for (int x = 0; x < gridWidth; ++x)
             {
-                Instantiate(floorPrefab, position + Vector3.down * GridSpacing * y + Vector3.right * GridSpacing * x, Quaternion.identity, room);
+                Instantiate(floorPrefab, position + Vector3.back * GridSpacing * y + Vector3.right * GridSpacing * x, Quaternion.identity, room);
             }
         }
     }
