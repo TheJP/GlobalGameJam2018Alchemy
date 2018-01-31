@@ -151,54 +151,43 @@ public class LayoutController : MonoBehaviour
     /// <summary>Spawn player in the middle of the floor.</summary>
     public void SpawnPlayer()
     {
-        Vector3 position = Origin +
-            Vector3.down * GridSpacing * (gridHeight / 2 + 0.5f) +
-            Vector3.right * GridSpacing * (gridWidth / 2) +
-            Vector3.back * 25f;
-        player = Instantiate(playerPrefab, position, Quaternion.Euler(-90f, 0f, 0f), transform.parent);
+        // Spawn alchemist high up in the air. Landing near to the door
+        Vector3 position = DoorPosition +
+            Vector3.forward * 2f * GridSpacing +
+            Vector3.up * 25f;
+        player = Instantiate(playerPrefab, position, Quaternion.identity, transform.parent);
     }
 
+    /// <summary>Spawn all workbenches that are given as prefabs for initial spawning.</summary>
     private void CreateBenches()
     {
-        Vector3 position = Origin +
-            Vector3.down * GridSpacing +
-            Vector3.right * GridSpacing * 2;
-
+        var position = Origin;
         var workBenches = new List<GameObject>();
+
+        // Spawn all workbenches
         for (int i = 0; i < initialWorkbenches.Length; ++i)
         {
-            var bench = Instantiate(initialWorkbenches[i], position, initialWorkbenches[i].transform.rotation, benches);
-            workBenches.Add(bench);
-            position += Vector3.right * GridSpacing * 1.5f;
+            var rotation = initialWorkbenches[i].transform.rotation;
+            workBenches.Add(Instantiate(initialWorkbenches[i], position, rotation, benches));
+            position += Vector3.right * GridSpacing * 2f;
         }
 
-        var book = workBenches.Select(b => b.GetComponent<RecipeBook>()).First(b => b != null);
-        var recipeCreator = book.RecipeCreator;
-
-        foreach (var bench in workBenches)
+        // Assign the correct recipes to each workbench
+        var recipeCreator = workBenches.Select(b => b.GetComponent<RecipeBook>()).First(b => b != null).RecipeCreator;
+        var recipeLists = new Dictionary<string, List<Recipe>>()
         {
-            Workbench workbench = bench.GetComponent<Workbench>();
-            switch (workbench?.recipeKey ?? "default")
-            {
-                case "oven":
-                    workbench.MyRecipes = recipeCreator.BakeRecipes;
-                    break;
-                case "kettle":
-                    workbench.MyRecipes = recipeCreator.TeaRecipes;
-                    break;
-                case "cauldron":
-                    workbench.MyRecipes = recipeCreator.CauldronRecipes;
-                    break;
-                case "mortar":
-                    workbench.MyRecipes = recipeCreator.MortarRecipes;
-                    break;
-                case "dest":
-                    workbench.MyRecipes = recipeCreator.DestillRecipes;
-                    break;
-                case "tower":
-                    break;
+            ["oven"] = recipeCreator.BakeRecipes,
+            ["kettle"] = recipeCreator.TeaRecipes,
+            ["cauldron"] = recipeCreator.CauldronRecipes,
+            ["mortar"] = recipeCreator.MortarRecipes,
+            ["dest"] = recipeCreator.DestillRecipes,
 
-            }
+        };
+        foreach (var workbench in workBenches
+            .Select(bench => bench.GetComponent<Workbench>())
+            .Where(bench => bench != null && bench.recipeKey != null && recipeLists.ContainsKey(bench.recipeKey)))
+        {
+            workbench.MyRecipes = recipeLists[workbench.recipeKey];
         }
     }
 }
