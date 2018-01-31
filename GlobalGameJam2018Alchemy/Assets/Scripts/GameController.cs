@@ -25,8 +25,10 @@ public class GameController : MonoBehaviour
         {
             if (!GetComponent<NetworkController>().IsSinglePlayer)
             {
-                // we always need to return something, otherwise an endless loop might occur.
+                // Ingredients are coming via network and thus we only keep this coroutine running
+                // because later a singleplayer game might be started.
                 yield return new WaitForSeconds(singlePlayerIgredientSpawnInterval);
+                continue;
             }
             var inputs = GetComponent<LayoutController>().InteractivePipes.Values
                 .Where(pipe => pipe.Pipe.Direction == PipeDirection.ToAlchemist).ToArray();
