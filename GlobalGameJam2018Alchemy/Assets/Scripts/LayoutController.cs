@@ -88,13 +88,14 @@ public class LayoutController : MonoBehaviour
     /// <summary>Generate input pipes using the given <see cref="LevelConfig"/>.</summary>
     public void CreatePipes(LevelConfig levelConfig)
     {
-        var position = Origin + Vector3.down * GridSpacing * 2;
+        var position = Origin +
+            Vector3.back * 3f * GridSpacing;
         foreach (var pipeConfig in levelConfig.Pipes.OrderBy(p => p.Order))
         {
-            var pipe = Instantiate(pipePrefab, position, Quaternion.identity, pipes);
+            var pipe = Instantiate(pipePrefab, position, pipePrefab.transform.rotation, pipes);
             pipe.Pipe = pipeConfig;
-            this.interactivePipes.Add(pipeConfig.Id, pipe);
-            position += Vector3.down * GridSpacing;
+            interactivePipes.Add(pipeConfig.Id, pipe);
+            position += Vector3.back * GridSpacing;
         }
     }
 
@@ -114,7 +115,7 @@ public class LayoutController : MonoBehaviour
             // Create wall segments
             for (int i = 1; i < (turn % 2 == 0 ? gridWidth : gridHeight) - 1; ++i)
             {
-                if (turn == 1 && i == gridHeight / 2)
+                if (Vector3.Distance(position, DoorPosition) < 0.1f * GridSpacing)
                 {
                     // Add door in the middle of the right wall
                     Instantiate(doorWallPrfab, position, rotation, room);
@@ -161,7 +162,8 @@ public class LayoutController : MonoBehaviour
     /// <summary>Spawn all workbenches that are given as prefabs for initial spawning.</summary>
     private void CreateBenches()
     {
-        var position = Origin;
+        var position = Origin +
+            Vector3.back * 1f * GridSpacing;
         var workBenches = new List<GameObject>();
 
         // Spawn all workbenches
