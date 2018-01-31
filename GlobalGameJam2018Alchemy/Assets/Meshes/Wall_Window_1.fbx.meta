@@ -10,6 +10,7 @@ ModelImporter:
     2100000: MAT_LabWall
     2100002: MAT_LabWood
     2100004: Mat_LabGlass
+    2100006: MAT_LabWall.002
     2300000: //RootNode
     3300000: //RootNode
     4300000: Wall_Window_1
