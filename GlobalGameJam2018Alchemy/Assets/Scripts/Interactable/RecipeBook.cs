@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
 using GlobalGameJam2018Networking;
 using UnityEngine;
 using UnityEngine.UI;
@@ -50,18 +48,19 @@ public class RecipeBook : MonoBehaviour, IInteractable
         return false;
     }
 
-    public void createRecipes() {
+    public void createRecipes()
+    {
         this.RecipeCreator = new RecipeCreator();
 
         StringBuilder sbDestill = new StringBuilder();
-        /*
-        sbDestill.Append(this.RecipeCreator.MyToString(this.RecipeCreator.DestillRecipes));
-        */
+
+        // sbDestill.Append(this.RecipeCreator.MyToString(this.RecipeCreator.DestillRecipes));
+
         sbDestill.Append("Destill Recipes : ");
         sbDestill.AppendLine();
         sbDestill.Append("Liquid COLORX = Slimeessence COLORX\nPowder COLORX = Powderessence COLORX \nSteam COLORX = Steamessence COLORX \nHerbPowder COLORX = Herbessence COLORX");
         sbDestill.AppendLine();
-        
+
         StringBuilder sbMortar = new StringBuilder();
         sbMortar.Append("Mortar Recipes : ");
         sbMortar.AppendLine();
@@ -88,7 +87,7 @@ public class RecipeBook : MonoBehaviour, IInteractable
 
         this.TextLeft.text = sbDestill.ToString() + "\n" + sbMortar.ToString();
 
-        this.TextMid.text = sbTea.ToString() + ""+ sbCauldron.ToString();
+        this.TextMid.text = sbTea.ToString() + "" + sbCauldron.ToString();
 
         this.TextRight.text = sbBaking.ToString();
     }
@@ -103,30 +102,29 @@ public class RecipeBook : MonoBehaviour, IInteractable
         ManualDisable = false;
         CancelInvoke();
         Invoke("DisableDisplay", 10.0f);
-        
+
     }
 
-    public void DisableDisplay() {
-        if (!ManualDisable) {
-        MyCanvas.enabled= false;
+    public void DisableDisplay()
+    {
+        if (!ManualDisable)
+        {
+            MyCanvas.enabled = false;
         }
     }
 
-    void Awake() {
+    void Awake()
+    {
         createRecipes();
         MyCanvas.enabled = false;
     }
 
-    void Start()
-    {
-    
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        if (MyCanvas.isActiveAndEnabled && !workaround) {
-            if (Input.GetButtonUp("Jump") || Input.GetKeyDown(KeyCode.Escape)){ 
+        if (MyCanvas.isActiveAndEnabled && !workaround)
+        {
+            if (Input.GetButtonUp("Jump") || Input.GetKeyDown(KeyCode.Escape))
+            {
                 ManualDisable = true;
                 MyCanvas.enabled = false;
             }
