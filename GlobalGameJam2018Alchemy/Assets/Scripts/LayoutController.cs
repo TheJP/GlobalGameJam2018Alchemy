@@ -7,8 +7,15 @@ using UnityEngine;
 
 public class LayoutController : MonoBehaviour
 {
+    /// <summary>
+    /// Space between the centre of two directly adijacent grid tiles.
+    /// </summary>
     public const float GridSpacing = 1f;
-    public static readonly Vector3 Origin = new Vector3(0.5f, 0.5f, 0f);
+
+    /// <summary>
+    /// Origin of the level creation. This is at the same time the location of the door.
+    /// </summary>
+    public static readonly Vector3 Origin = new Vector3(0f, 0f, 0f);
 
     [Tooltip("GameObject that will contain all the pipes.")]
     public Transform pipes;
@@ -65,14 +72,12 @@ public class LayoutController : MonoBehaviour
 
     public void CreateLevel(LevelConfig levelConfig)
     {
-        transform.parent.eulerAngles = new Vector3(0f, 0f, 0f);
         ClearLevel();
         CreatePipes(levelConfig);
         CreateWalls();
         CreateFloor();
         SpawnPlayer();
         CreateBenches();
-        transform.parent.eulerAngles = new Vector3(90f, 0f, 0f);
     }
 
     /// <summary>Generate input pipes using the given <see cref="LevelConfig"/>.</summary>
@@ -91,7 +96,7 @@ public class LayoutController : MonoBehaviour
     /// <summary>Automatically create the walls around the lab of the lab.</summary>
     public void CreateWalls()
     {
-        var position = Origin + (Vector3.down + Vector3.right) * (GridSpacing / 2f);
+        var position = Origin + Vector3.left * GridSpacing * (gridWidth / 2f);
         var direction = Vector3.right;
         var rotation = Quaternion.identity;
         // Create 4 walls
@@ -111,8 +116,8 @@ public class LayoutController : MonoBehaviour
             }
             // Create corner
             Instantiate(cornerPrefab, position, rotation, room);
-            rotation *= Quaternion.Euler(Vector3.back * 90);
-            direction = Quaternion.Euler(Vector3.back * 90) * direction;
+            rotation *= Quaternion.Euler(Vector3.up * 90);
+            direction = Quaternion.Euler(Vector3.up * 90) * direction;
             position += direction * GridSpacing;
         }
     }
