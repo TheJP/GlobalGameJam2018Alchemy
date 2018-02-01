@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour
 
     public IEnumerator SpawnIngredients()
     {
-        var types = System.Enum.GetValues(typeof(ItemType)) as ItemType[];
+        var types = new[] { ItemType.Herb, ItemType.Liquid, ItemType.Powder, ItemType.Steam };
         var colours = System.Enum.GetValues(typeof(IngredientColour)) as IngredientColour[];
         while (true)
         {
