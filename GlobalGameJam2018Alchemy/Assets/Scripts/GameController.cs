@@ -40,14 +40,17 @@ public class GameController : MonoBehaviour
         network = GetComponent<NetworkController>();
         layout = GetComponent<LayoutController>();
 
+        // Always run, because it is a multiplayer game.
+        Application.runInBackground = true;
+
         // Handle game start
         GetComponent<UserInterfaceController>().GameStarted += () =>
         {
-            if (ingredientSpawning != null) { StopCoroutine(ingredientSpawning); }
-            ingredientSpawning = StartCoroutine(SpawnIngredients());
             if (network.IsSinglePlayer)
             {
                 layout.CreateSingleplayerLevel();
+                if (ingredientSpawning != null) { StopCoroutine(ingredientSpawning); }
+                ingredientSpawning = StartCoroutine(SpawnIngredients());
                 StartEnemySpawning();
             }
         };
