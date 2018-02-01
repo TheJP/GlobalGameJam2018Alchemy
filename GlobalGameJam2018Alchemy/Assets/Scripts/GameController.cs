@@ -1,4 +1,5 @@
-﻿using GlobalGameJam2018Networking;
+﻿using BansheeGz.BGSpline.Components;
+using GlobalGameJam2018Networking;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -7,16 +8,33 @@ using UnityEngine;
 [RequireComponent(typeof(NetworkController))]
 public class GameController : MonoBehaviour
 {
+    /// <summary>Travel time of enemies in seconds.</summary>
+    private const float EnemyTravelTime = 60f;
+
     [Tooltip("In Singleplayer: Spawn igredient every x seconds.")]
     public int singlePlayerIgredientSpawnInterval = 5;
 
     [Tooltip("Gold balance of the alchemist.")]
     public int gold;
 
+    public BGCcCursor cursor;
+    public Enemy[] enemies;
+
     public event System.Action<bool> GameOver;
 
-    private void Start() => StartCoroutine(SpawnIngredients());
+    private void Start()
+    {
+        StartCoroutine(SpawnIngredients());
+        var enemy = Instantiate(enemies[0]);
+        enemy.cursor = cursor;
+        enemy.arrivalTime = Time.time + EnemyTravelTime;
+    }
 
+
+    /// <summary>
+    /// Spawn ingredients automatically if it is a singleplayer game.
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator SpawnIngredients()
     {
         var types = new[] { ItemType.Herb, ItemType.Liquid, ItemType.Powder, ItemType.Steam };

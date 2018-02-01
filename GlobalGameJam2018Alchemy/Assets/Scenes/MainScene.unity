@@ -1426,7 +1426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63d73577a97e88f46a8e79a16417bfaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onlySinglePlayer: 0
+  onlySinglePlayer: 1
   usernameInput: {fileID: 1269888682}
   addressInput: {fileID: 582484620}
   portInput: {fileID: 516713939}
@@ -1507,6 +1507,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   singlePlayerIgredientSpawnInterval: 10
   gold: 0
+  cursor: {fileID: 1732602477}
+  enemies:
+  - {fileID: 114519944238098868, guid: 12de916f40fede4448909d86ce97f3e2, type: 2}
 --- !u!114 &691358950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2298,7 +2301,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1644314251}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Cursor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2396,7 +2399,7 @@ GameObject:
   - component: {fileID: 1732602480}
   - component: {fileID: 1732602473}
   m_Layer: 0
-  m_Name: Path
+  m_Name: EnemyPath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2627,7 +2630,7 @@ MonoBehaviour:
     curve: {fileID: 1732602479}
     fieldsValues: []
   - controlType: 1
-    positionLocal: {x: 0, y: 0, z: 0}
+    positionLocal: {x: 0.0155424625, y: 0, z: -0.6623506}
     controlFirstLocal: {x: -0.018382262, y: -0.031301856, z: -0.14642487}
     controlSecondLocal: {x: 0.018382262, y: 0.031301856, z: 0.14642487}
     pointTransform: {fileID: 0}
