@@ -9,13 +9,13 @@ public class NetworkController : MonoBehaviour
 {
     private readonly Queue<Action> invokes = new Queue<Action>();
     private AlchemyNetwork Network { get; }
-    public LevelConfig Level { get; private set; } = null;
     public string PlumberName { get; private set; } = null;
     public bool Connected => PlumberName != null;
-    public bool IsSinglePlayer { get; private set; } = false;
+    public bool IsSinglePlayer { get; private set; } = true;
 
     public event Action ServerConnected;
     public event Action ServerStopped;
+    public event Action<LevelConfig> StartMultiplayerLevel;
 
     public NetworkController()
     {
@@ -24,20 +24,20 @@ public class NetworkController : MonoBehaviour
         Network.Connected += plumberName =>
         {
             PlumberName = plumberName;
-            IsSinglePlayer = false;
             ServerConnected?.Invoke();
         };
-        Network.ServerStopped += () => PlumberName = null;
-        Network.ServerStopped += () => ServerStopped?.Invoke();
-        Network.LevelStarted += levelConfig =>
+        Network.ServerStopped += () =>
         {
-            Level = levelConfig;
-            GetComponent<LayoutController>().CreateLevel(levelConfig);
+            ServerStopped?.Invoke();
+            PlumberName = null;
+            IsSinglePlayer = true;
         };
+        Network.LevelStarted += levelConfig => StartMultiplayerLevel?.Invoke(levelConfig);
         Network.ReceivedIngredient += (ingredient, pipe) =>
         {
             var pipes = GetComponent<LayoutController>().InteractivePipes;
             if (pipes.ContainsKey(pipe.Id)) { pipes[pipe.Id].AddItem(ingredient); }
+            else { Debug.LogError($"Got ingredient on invalid pipe '{pipe.Id}'"); }
         };
     }
 
@@ -52,20 +52,14 @@ public class NetworkController : MonoBehaviour
     /// <param name="port">Port on which the Plumbers game is runnning.</param>
     public void Connect(string username, string hostname, int port = NetworkBase.DefaultPort)
     {
+        IsSinglePlayer = false;
         Network.Connect(username, hostname, port);
     }
 
-    public void Disconnect() => Network.Disconnect();
-
-    /// <summary>Method that is called if the user clicks on single player.</summary>
-    public void PlaySinglePlayer()
+    public void Disconnect()
     {
-        GetComponent<LayoutController>().CreateLevel(LevelConfig.Builder("Singleplayer")
-            .AddPipe(PipeDirection.ToAlchemist, 0)
-            .AddPipe(PipeDirection.ToAlchemist, 1)
-            .AddPipe(PipeDirection.ToPipes, 2)
-            .Create());
         IsSinglePlayer = true;
+        Network.Disconnect();
     }
 
     private void Update()

@@ -6,6 +6,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(LayoutController))]
 [RequireComponent(typeof(NetworkController))]
+[RequireComponent(typeof(UserInterfaceController))]
 public class GameController : MonoBehaviour
 {
     /// <summary>Travel time of enemies in seconds.</summary>
@@ -17,38 +18,84 @@ public class GameController : MonoBehaviour
     [Tooltip("Gold balance of the alchemist.")]
     public int gold;
 
+    [Tooltip("Cursor of the path on which the enemies travel.")]
     public BGCcCursor cursor;
+
+    [Tooltip("Enemies that are spawned by the game controller.")]
     public Enemy[] enemies;
 
     public event System.Action<bool> GameOver;
 
+    private NetworkController network;
+    private LayoutController layout;
+
+    private Coroutine ingredientSpawning;
+    private Coroutine enemySpawning;
+
     private void Start()
     {
-        StartCoroutine(SpawnIngredients());
-        var enemy = Instantiate(enemies[0]);
+        network = GetComponent<NetworkController>();
+        layout = GetComponent<LayoutController>();
+
+        // Handle game start
+        GetComponent<UserInterfaceController>().GameStarted += () =>
+        {
+            if (ingredientSpawning != null) { StopCoroutine(ingredientSpawning); }
+            ingredientSpawning = StartCoroutine(SpawnIngredients());
+            if (network.IsSinglePlayer)
+            {
+                layout.CreateSingleplayerLevel();
+                StartEnemySpawning();
+            }
+        };
+
+        // Handle level start
+        network.StartMultiplayerLevel += level =>
+        {
+            layout.CreateLevel(level);
+            StartEnemySpawning();
+        };
+    }
+
+    /// <summary>Starts to spawn enemy waves.</summary>
+    private void StartEnemySpawning()
+    {
+        if (enemySpawning != null) { StopCoroutine(enemySpawning); }
+        enemySpawning = StartCoroutine(SpawnEnemies());
+    }
+
+    private IEnumerator SpawnEnemies()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(EnemyTravelTime);
+            if (enemies.Length > 0)
+            {
+                SpawnEnemy(enemies[Random.Range(0, enemies.Length)]);
+            }
+        }
+    }
+
+    /// <summary>Spawns an enemy using the given prefab.</summary>
+    /// <param name="enemyPrefab">Prefab used to spawn the enemy.</param>
+    private void SpawnEnemy(Enemy enemyPrefab)
+    {
+        var enemy = Instantiate(enemyPrefab);
         enemy.cursor = cursor;
         enemy.arrivalTime = Time.time + EnemyTravelTime;
     }
-
 
     /// <summary>
     /// Spawn ingredients automatically if it is a singleplayer game.
     /// </summary>
     /// <returns></returns>
-    public IEnumerator SpawnIngredients()
+    private IEnumerator SpawnIngredients()
     {
         var types = new[] { ItemType.Herb, ItemType.Liquid, ItemType.Powder, ItemType.Steam };
         var colours = System.Enum.GetValues(typeof(IngredientColour)) as IngredientColour[];
         while (true)
         {
-            if (!GetComponent<NetworkController>().IsSinglePlayer)
-            {
-                // Ingredients are coming via network and thus we only keep this coroutine running
-                // because later a singleplayer game might be started.
-                yield return new WaitForSeconds(singlePlayerIgredientSpawnInterval);
-                continue;
-            }
-            var inputs = GetComponent<LayoutController>().InteractivePipes.Values
+            var inputs = layout.InteractivePipes.Values
                 .Where(pipe => pipe.Pipe.Direction == PipeDirection.ToAlchemist).ToArray();
             if (inputs.Length > 0)
             {

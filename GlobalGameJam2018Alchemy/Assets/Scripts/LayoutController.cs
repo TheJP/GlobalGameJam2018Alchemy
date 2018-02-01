@@ -85,6 +85,15 @@ public class LayoutController : MonoBehaviour
         CreateBenches();
     }
 
+    public void CreateSingleplayerLevel()
+    {
+        CreateLevel(LevelConfig.Builder("Singleplayer")
+            .AddPipe(PipeDirection.ToAlchemist, 0)
+            .AddPipe(PipeDirection.ToAlchemist, 1)
+            .AddPipe(PipeDirection.ToPipes, 2)
+            .Create());
+    }
+
     /// <summary>Generate input pipes using the given <see cref="LevelConfig"/>.</summary>
     public void CreatePipes(LevelConfig levelConfig)
     {
