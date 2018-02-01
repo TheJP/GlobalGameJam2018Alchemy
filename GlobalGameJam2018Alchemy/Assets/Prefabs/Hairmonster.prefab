@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 136601506101312032}
   - component: {fileID: 114519944238098868}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Hairmonster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
