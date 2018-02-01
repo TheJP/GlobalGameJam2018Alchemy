@@ -21,8 +21,11 @@ public class GameController : MonoBehaviour
     [Tooltip("Cursor of the path on which the enemies travel.")]
     public BGCcCursor cursor;
 
+    [Tooltip("Transform in which the enemies are grouped.")]
+    public Transform enemies;
+
     [Tooltip("Enemies that are spawned by the game controller.")]
-    public Enemy[] enemies;
+    public Enemy[] enemyPrefabs;
 
     public event System.Action<bool> GameOver;
 
@@ -53,6 +56,8 @@ public class GameController : MonoBehaviour
         network.StartMultiplayerLevel += level =>
         {
             layout.CreateLevel(level);
+            // Remove enemies from previous levels
+            foreach(Transform enemy in enemies) { Destroy(enemy.gameObject); }
             StartEnemySpawning();
         };
     }
@@ -69,9 +74,9 @@ public class GameController : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(EnemyTravelTime);
-            if (enemies.Length > 0)
+            if (enemyPrefabs.Length > 0)
             {
-                SpawnEnemy(enemies[Random.Range(0, enemies.Length)]);
+                SpawnEnemy(enemyPrefabs[Random.Range(0, enemyPrefabs.Length)]);
             }
         }
     }
