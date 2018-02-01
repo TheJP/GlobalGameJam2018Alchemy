@@ -1507,7 +1507,7 @@ MonoBehaviour:
   singlePlayerIgredientSpawnInterval: 10
   gold: 0
   cursor: {fileID: 1732602477}
-  enemiess: {fileID: 1651400653}
+  enemies: {fileID: 1651400653}
   enemyPrefabs:
   - {fileID: 114519944238098868, guid: 12de916f40fede4448909d86ce97f3e2, type: 2}
 --- !u!114 &691358950
@@ -2342,7 +2342,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1651400652}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.432494, y: -17.122967, z: 1.8651085}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

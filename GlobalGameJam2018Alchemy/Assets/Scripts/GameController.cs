@@ -85,7 +85,7 @@ public class GameController : MonoBehaviour
     /// <param name="enemyPrefab">Prefab used to spawn the enemy.</param>
     private void SpawnEnemy(Enemy enemyPrefab)
     {
-        var enemy = Instantiate(enemyPrefab);
+        var enemy = Instantiate(enemyPrefab, enemies);
         enemy.cursor = cursor;
         enemy.arrivalTime = Time.time + EnemyTravelTime;
     }

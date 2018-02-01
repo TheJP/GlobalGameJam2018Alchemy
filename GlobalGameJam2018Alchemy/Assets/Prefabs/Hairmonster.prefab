@@ -259,8 +259,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61f88dc223fcc1f4b9dcff8a6a454bd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackStrength: 1
-  attackSpeed: 1
+  attackStrength: 5
+  attackSpeed: 0.1
+  hitRange: 2
   cursor: {fileID: 0}
   arrivalTime: 0
 --- !u!136 &136601506101312032

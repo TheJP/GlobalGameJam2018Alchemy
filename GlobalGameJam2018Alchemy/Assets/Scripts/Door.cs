@@ -14,10 +14,10 @@ public class Door : MonoBehaviour
     public int Health
     {
         get { return health; }
-        set
+        private set
         {
-            if (slider != null) { slider.value = health / (float)startingHealth; }
             health = value;
+            if (slider != null) { slider.value = health / (float)startingHealth; }
         }
     }
 
