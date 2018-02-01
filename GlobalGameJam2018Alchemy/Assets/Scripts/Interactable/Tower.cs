@@ -68,7 +68,7 @@ public class Tower : MonoBehaviour, IInteractable {
 
     void CreateSecondDemand() {
         if (!CheckDemand(EnergyAmunitionList, EnergyAmunitionFirstList)) {
-            GetComponent<Door>().Health =- 50;
+            GetComponent<Door>().Attack(50);
         }
 
         TimeLeft = 300.0f;
@@ -79,7 +79,7 @@ public class Tower : MonoBehaviour, IInteractable {
 
     void CreateThirdDemand() {
         if (!CheckDemand(EnergyAmunitionList, EnergyAmunitionSecondList)) {
-            GetComponent<Door>().Health =- 50;
+            GetComponent<Door>().Attack(50);
         }
 
         TimeLeft = 300.0f;
@@ -91,7 +91,7 @@ public class Tower : MonoBehaviour, IInteractable {
 
     public void CheckWinCondition() {
         if (!CheckDemand(EnergyAmunitionList, EnergyAmunitionThirdList)) {
-            GetComponent<Door>().Health =- 50;
+            GetComponent<Door>().Attack(50);
         }
         MyTextDemand.text = "You win the game!";
     }
