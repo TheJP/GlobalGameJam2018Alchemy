@@ -220,7 +220,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemDisplay: {fileID: 1501722969686016, guid: 39e9b4137ae1d0e44b0ce22cb387f4a5,
     type: 2}
-  camera: {fileID: 2068895989}
+  mainCamera: {fileID: 2068895989}
+  speed: 0.7
 --- !u!1 &2068895986
 GameObject:
   m_ObjectHideFlags: 0
