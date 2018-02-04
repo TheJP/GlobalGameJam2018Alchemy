@@ -54,7 +54,10 @@ GameObject:
   - component: {fileID: 4417192281751546}
   - component: {fileID: 54418174161216278}
   - component: {fileID: 136601506101312032}
+  - component: {fileID: 82526143040870674}
   - component: {fileID: 114519944238098868}
+  - component: {fileID: 114735894374323838}
+  - component: {fileID: 114955970217281650}
   m_Layer: 0
   m_Name: Hairmonster
   m_TagString: Untagged
@@ -231,6 +234,86 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
+--- !u!82 &82526143040870674
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1686791603528206}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &95688945895413736
 Animator:
   serializedVersion: 3
@@ -266,6 +349,39 @@ MonoBehaviour:
   secondsOfAnimationUntilHit: 1.3333334
   cursor: {fileID: 0}
   arrivalTime: 0
+  charge: {fileID: 114735894374323838}
+  hit: {fileID: 114955970217281650}
+--- !u!114 &114735894374323838
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1686791603528206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88040511a9387e14cb048ad089ac5e0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: cd9aa7328be7cc74b8f881294f85a5bf, type: 3}
+  - {fileID: 8300000, guid: 9e7c85306a6273f4e839ad0d6e539f20, type: 3}
+  - {fileID: 8300000, guid: ef0f810fd33c2a747a94ff7103b02f94, type: 3}
+  - {fileID: 8300000, guid: 60e151125a6f4c4499ca5d92332f7903, type: 3}
+--- !u!114 &114955970217281650
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1686791603528206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88040511a9387e14cb048ad089ac5e0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: 464b455e274c0b2468b802d0cdca2bc4, type: 3}
+  - {fileID: 8300000, guid: 3b982363186e830408ce9ecde9654214, type: 3}
+  - {fileID: 8300000, guid: 6f25d77a0eb3d7d49a4f474385284534, type: 3}
 --- !u!136 &136601506101312032
 CapsuleCollider:
   m_ObjectHideFlags: 1

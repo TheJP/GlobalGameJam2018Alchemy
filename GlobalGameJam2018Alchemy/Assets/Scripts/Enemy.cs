@@ -26,6 +26,12 @@ public class Enemy : MonoBehaviour
     [Tooltip("Time at which the enemy should arrive. (Together with the spawn time this also determines the speed of the enemy.)")]
     public float arrivalTime;
 
+    [Tooltip("Sound player that is used for the charging part of the attack.")]
+    public SoundPlayer charge;
+
+    [Tooltip("Sound player that is used for the hitting part of the attack.")]
+    public SoundPlayer hit;
+
     private float travelDuration;
     private BGCcCursorObjectRotate rotator;
     private Door door;
@@ -60,11 +66,13 @@ public class Enemy : MonoBehaviour
                 door.Attack(attackStrength);
                 lastAttack = Time.time;
                 isHitting = false;
+                hit?.PlaySound();
             }
             if (!isHitting && Time.time - lastAttack + secondsOfAnimationUntilHit >= attackCooldown)
             {
                 animator.SetTrigger("Attack");
                 isHitting = true;
+                charge?.PlaySound();
             }
         }
     }

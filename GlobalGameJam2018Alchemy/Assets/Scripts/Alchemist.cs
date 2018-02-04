@@ -5,7 +5,12 @@ using UnityEngine;
 
 public class Alchemist : MonoBehaviour
 {
-    private const float EPSILON = 1e-3f;
+    [Tooltip("Noises that the alchemists makes while doing his alchemystical things.")]
+    public SoundPlayer oldManSounds;
+
+    public ItemDisplay itemDisplay;
+    private Quaternion itemRotation;
+
     private IItem currentItem = null;
     private IItem CurrentItem
     {
@@ -13,17 +18,12 @@ public class Alchemist : MonoBehaviour
         set { currentItem = value; itemDisplay?.Display(value); }
     }
 
-    public ItemDisplay itemDisplay;
-    private Quaternion itemRotation;
-
-    private void Start()
-    {
-        itemRotation = itemDisplay.transform.rotation;
-    }
+    private void Start() => itemRotation = itemDisplay.transform.rotation;
 
     private void Update()
     {
         itemDisplay.transform.rotation = itemRotation;
+        if (Input.GetButtonUp("Jump")) { oldManSounds?.PlaySound(); }
     }
 
     private void OnTriggerStay(Collider other)
