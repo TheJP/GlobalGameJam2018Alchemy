@@ -52,7 +52,8 @@ public class ItemDisplay : MonoBehaviour
         {
             case IngredientColour.Black: return Color.black;
             case IngredientColour.Blue: return Color.blue;
-            case IngredientColour.Green: return Color.green;
+            // Color.green is too close to yellow and can be confused for Colorblind
+            case IngredientColour.Green: return new Color(0, 0.4f, 0f);
             case IngredientColour.Orange: return new Color(1f, 0.5f, 0f);
             case IngredientColour.Red: return Color.red;
             case IngredientColour.Violet: return new Color(0.5f, 0f, 1f);

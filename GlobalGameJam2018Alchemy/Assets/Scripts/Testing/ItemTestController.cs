@@ -15,12 +15,14 @@ public class ItemTestController : MonoBehaviour
     public Camera mainCamera;
     public float speed = 0.7f;
 
+    public Color green;
+
     private ItemType[] items = new[] { ItemType.Herb, ItemType.Liquid, ItemType.Powder, ItemType.Steam };
     private IngredientColour[] coloursIng = new[]
     {
         IngredientColour.Yellow,
-        IngredientColour.Green,
         IngredientColour.Orange,
+        IngredientColour.Green,
 
         IngredientColour.Red,
         IngredientColour.Violet,
@@ -33,8 +35,8 @@ public class ItemTestController : MonoBehaviour
     private ProcessedItem.ProcessedItemColor[] coloursProcessed = new[]
     {
         ProcessedItem.ProcessedItemColor.Yellow,
-        ProcessedItem.ProcessedItemColor.Green,
         ProcessedItem.ProcessedItemColor.Orange,
+        ProcessedItem.ProcessedItemColor.Green,
 
         ProcessedItem.ProcessedItemColor.Red,
         ProcessedItem.ProcessedItemColor.Violet,
