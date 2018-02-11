@@ -33,8 +33,7 @@ public class UserInterfaceController : MonoBehaviour
         Assert.IsNotNull(mainMenuGroup);
 
         // Main menu user input validation
-        int _;
-        portInput.onValidateInput += (input, characterIndex, addedChar) => int.TryParse(addedChar.ToString(), out _) ? addedChar : '\0';
+        portInput.onValidateInput += (input, characterIndex, addedChar) => char.IsDigit(addedChar) ? addedChar : '\0';
         usernameInput.onValidateInput += (input, characterIndex, addedChar) => char.IsLetterOrDigit(addedChar) ? addedChar : '\0';
 
         // Handle network callbacks
@@ -92,10 +91,11 @@ public class UserInterfaceController : MonoBehaviour
 
         if (string.IsNullOrWhiteSpace(username)) { ShowWarning("Invalid Username"); return; }
         if (string.IsNullOrWhiteSpace(address)) { ShowWarning("Invalid Address"); return; }
+        if (port < 0 || port > 65000) { ShowWarning("Invalid Port"); return; }
 
         try
         {
-            if (port < 0 || port > 65000) { network.Connect(username, address); }
+            if (port == 0) { network.Connect(username, address); }
             else { network.Connect(username, address, port); }
         }
         catch (Exception)
