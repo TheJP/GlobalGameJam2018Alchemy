@@ -9,14 +9,16 @@ using UnityEngine.UI;
 [RequireComponent(typeof(GameController))]
 public class UserInterfaceController : MonoBehaviour
 {
+    [Header("Main Menu")]
+    public Canvas mainMenu;
     public InputField usernameInput;
     public InputField addressInput;
     public InputField portInput;
 
     public Text infoText;
-
     public Image background;
-    public Canvas mainMenu;
+
+    [Header("Game Menu")]
     public Canvas gameMenu;
 
     public event Action GameStarted;
@@ -57,7 +59,6 @@ public class UserInterfaceController : MonoBehaviour
         target = 0f;
         startTime = Time.time;
         mainMenuGroup.interactable = false;
-        gameMenu.gameObject.SetActive(true);
     }
     private void SwitchToMainMenu()
     {
@@ -69,11 +70,14 @@ public class UserInterfaceController : MonoBehaviour
 
     private void Update()
     {
-        // Animation transition in and transition out
+        // Main menu: Animation transition in and transition out
         var interpolated = Mathf.Lerp(1f - target, target, Time.time - startTime);
         mainMenuGroup.alpha = interpolated;
         if (mainMenu.enabled && interpolated <= 0f) { mainMenu.enabled = false; }
         if (!mainMenu.enabled && interpolated > 0f) { mainMenu.enabled = true; }
+
+        // Game menu
+        if (Input.GetButtonUp("Menu")) { gameMenu.gameObject.SetActive(!gameMenu.gameObject.activeInHierarchy); }
     }
 
     public void ClickedSinglePlayer()
@@ -102,7 +106,6 @@ public class UserInterfaceController : MonoBehaviour
         {
             ShowWarning("Could not connect to Server");
         }
-
     }
 
     public void ClickedQuitToMenu()

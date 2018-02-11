@@ -566,7 +566,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd47ad2aaf4922f4c84e110105e7d8ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 1682997104}
+  animator: {fileID: 500917146}
 --- !u!65 &294590681
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1064,6 +1064,11 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 463677265}
+--- !u!95 &500917146 stripped
+Animator:
+  m_PrefabParentObject: {fileID: 9500000, guid: d4b1a5bcbc073b141858448daeb56268,
+    type: 3}
+  m_PrefabInternal: {fileID: 572739089}
 --- !u!1 &509948195
 GameObject:
   m_ObjectHideFlags: 0
@@ -1331,6 +1336,10 @@ Prefab:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: c1382b31fdbba414398db45d2717fbb9, type: 2}
+    - target: {fileID: 9500000, guid: d4b1a5bcbc073b141858448daeb56268, type: 3}
+      propertyPath: m_CullingMode
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d4b1a5bcbc073b141858448daeb56268, type: 3}
   m_IsPrefabParent: 0
@@ -1593,13 +1602,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63d73577a97e88f46a8e79a16417bfaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainMenu: {fileID: 1528760172}
   usernameInput: {fileID: 1269888682}
   addressInput: {fileID: 582484620}
   portInput: {fileID: 516713939}
   infoText: {fileID: 1324226475}
   background: {fileID: 684950729}
-  mainMenu: {fileID: 1528760172}
   gameMenu: {fileID: 1291038711}
+  musicButton: {fileID: 294590680}
 --- !u!4 &691358947
 Transform:
   m_ObjectHideFlags: 0
@@ -2517,11 +2527,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &1682997104 stripped
-Animator:
-  m_PrefabParentObject: {fileID: 9500000, guid: d4b1a5bcbc073b141858448daeb56268,
-    type: 3}
-  m_PrefabInternal: {fileID: 572739089}
 --- !u!1 &1701821320
 GameObject:
   m_ObjectHideFlags: 0
