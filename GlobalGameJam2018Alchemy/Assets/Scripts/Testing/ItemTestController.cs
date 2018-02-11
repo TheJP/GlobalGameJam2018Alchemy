@@ -15,12 +15,14 @@ public class ItemTestController : MonoBehaviour
     public Camera mainCamera;
     public float speed = 0.7f;
 
+    public Color green;
+
     private ItemType[] items = new[] { ItemType.Herb, ItemType.Liquid, ItemType.Powder, ItemType.Steam };
     private IngredientColour[] coloursIng = new[]
     {
         IngredientColour.Yellow,
-        IngredientColour.Green,
         IngredientColour.Orange,
+        IngredientColour.Green,
 
         IngredientColour.Red,
         IngredientColour.Violet,
@@ -33,8 +35,8 @@ public class ItemTestController : MonoBehaviour
     private ProcessedItem.ProcessedItemColor[] coloursProcessed = new[]
     {
         ProcessedItem.ProcessedItemColor.Yellow,
-        ProcessedItem.ProcessedItemColor.Green,
         ProcessedItem.ProcessedItemColor.Orange,
+        ProcessedItem.ProcessedItemColor.Green,
 
         ProcessedItem.ProcessedItemColor.Red,
         ProcessedItem.ProcessedItemColor.Violet,
@@ -66,9 +68,16 @@ public class ItemTestController : MonoBehaviour
             curY--;
         }
 
+        {
+            ItemDisplay display = Instantiate(ItemDisplay, new Vector3(START_X + 2, 0, curY), rotationTop).GetComponent<ItemDisplay>();
+            display.Display(new MoneyMaker("Cat Wizard", int.MaxValue, ItemType.Processed));
+            curY--;
+        }
+
         StartCoroutine(ColourChanging());
         StartCoroutine(ItemChanging());
         StartCoroutine(BothChanging());
+        StartCoroutine(Blinking());
     }
 
     // Update is called once per frame
@@ -158,9 +167,14 @@ public class ItemTestController : MonoBehaviour
             {
                 item = new Ingredient(items[itemIndex], coloursIng[colourIndex]);
             }
-            else
+            else if(itemIndex < maxItems)
             {
                 item = new ProcessedItem(itemsProcessed[itemIndex - items.Length], coloursProcessed[colourIndex]);
+            }
+            else
+            {
+                item = new MoneyMaker("Cat Wizard", int.MaxValue, ItemType.Processed);
+                colourIndex--;
             }
             display.Display(item);
 
@@ -175,6 +189,20 @@ public class ItemTestController : MonoBehaviour
                 itemIndex = 0;
             }
             yield return new WaitForSeconds(1);
+        }
+    }
+
+    IEnumerator<YieldInstruction> Blinking()
+    {
+        ItemDisplay display = Instantiate(ItemDisplay, new Vector3(START_X + 1, 0, START_Y + 1), rotationTop).GetComponent<ItemDisplay>();
+        var item = new MoneyMaker("Cat Wizard", int.MaxValue, ItemType.Processed);
+
+        while (true)
+        {
+            display.Display(item);
+            yield return new WaitForSeconds(0.5f);
+            display.HideAll();
+            yield return new WaitForSeconds(0.5f);
         }
     }
 }

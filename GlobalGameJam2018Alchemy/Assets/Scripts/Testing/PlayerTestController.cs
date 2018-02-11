@@ -27,14 +27,24 @@ public class PlayerTestController : PrefabLibraryBase
         Input.Pipe = config.Pipes.First();
         Input.AddItem(new Ingredient(ItemType.Herb, IngredientColour.Green));
 
-        var recipeHack = new List<Recipe> {
-            new Recipe(new List<ItemSignature> { new IngredientSignature(ItemType.Herb, IngredientColour.Black) }, () => new Ingredient(ItemType.Herb, IngredientColour.Blue), 5),
-            new Recipe(new List<ItemSignature> { new IngredientSignature(ItemType.Herb, IngredientColour.Blue) }, () => new Ingredient(ItemType.Herb, IngredientColour.Green), 5),
-            new Recipe(new List<ItemSignature> { new IngredientSignature(ItemType.Herb, IngredientColour.Green) }, () => new Ingredient(ItemType.Herb, IngredientColour.Orange), 5),
-            new Recipe(new List<ItemSignature> { new IngredientSignature(ItemType.Herb, IngredientColour.Orange) }, () => new Ingredient(ItemType.Herb, IngredientColour.Red), 5),
-            new Recipe(new List<ItemSignature> { new IngredientSignature(ItemType.Herb, IngredientColour.Red) }, () => new Ingredient(ItemType.Herb, IngredientColour.Violet), 5),
-            new Recipe(new List<ItemSignature> { new IngredientSignature(ItemType.Herb, IngredientColour.Violet) }, () => new Ingredient(ItemType.Herb, IngredientColour.Yellow), 5),
-            new Recipe(new List<ItemSignature> { new IngredientSignature(ItemType.Herb, IngredientColour.Yellow) }, () => new Ingredient(ItemType.Herb, IngredientColour.Black), 5),};
+        var recipeHack = new List<Recipe>
+        {
+            new Recipe(new List<ItemSignature> { new IngredientSignature(ItemType.Herb, IngredientColour.Black) }, () =>  new ProcessedItem(ProcessedItem.ProcessedItemType.Herbessence, ProcessedItem.ProcessedItemColor.Blue), 5),
+            new Recipe(new List<ItemSignature> { new IngredientSignature(ItemType.Herb, IngredientColour.Blue) }, () =>   new ProcessedItem(ProcessedItem.ProcessedItemType.Herbessence, ProcessedItem.ProcessedItemColor.Green), 5),
+            new Recipe(new List<ItemSignature> { new IngredientSignature(ItemType.Herb, IngredientColour.Green) }, () =>  new ProcessedItem(ProcessedItem.ProcessedItemType.Herbessence, ProcessedItem.ProcessedItemColor.Orange), 5),
+            new Recipe(new List<ItemSignature> { new IngredientSignature(ItemType.Herb, IngredientColour.Orange) }, () => new ProcessedItem(ProcessedItem.ProcessedItemType.Herbessence, ProcessedItem.ProcessedItemColor.Red), 5),
+            new Recipe(new List<ItemSignature> { new IngredientSignature(ItemType.Herb, IngredientColour.Red) }, () =>    new ProcessedItem(ProcessedItem.ProcessedItemType.Herbessence, ProcessedItem.ProcessedItemColor.Violet), 5),
+            new Recipe(new List<ItemSignature> { new IngredientSignature(ItemType.Herb, IngredientColour.Violet) }, () => new ProcessedItem(ProcessedItem.ProcessedItemType.Herbessence, ProcessedItem.ProcessedItemColor.Yellow), 5),
+            new Recipe(new List<ItemSignature> { new IngredientSignature(ItemType.Herb, IngredientColour.Yellow) }, () => new ProcessedItem(ProcessedItem.ProcessedItemType.Herbessence, ProcessedItem.ProcessedItemColor.Black), 5),
+
+            new Recipe(new List<ItemSignature> { new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Herbessence, ProcessedItem.ProcessedItemColor.Black) }, () =>  new ProcessedItem(ProcessedItem.ProcessedItemType.Herbessence, ProcessedItem.ProcessedItemColor.Blue), 5),
+            new Recipe(new List<ItemSignature> { new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Herbessence, ProcessedItem.ProcessedItemColor.Blue) }, () =>   new ProcessedItem(ProcessedItem.ProcessedItemType.Herbessence, ProcessedItem.ProcessedItemColor.Green), 5),
+            new Recipe(new List<ItemSignature> { new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Herbessence, ProcessedItem.ProcessedItemColor.Green) }, () =>  new ProcessedItem(ProcessedItem.ProcessedItemType.Herbessence, ProcessedItem.ProcessedItemColor.Orange), 5),
+            new Recipe(new List<ItemSignature> { new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Herbessence, ProcessedItem.ProcessedItemColor.Orange) }, () => new ProcessedItem(ProcessedItem.ProcessedItemType.Herbessence, ProcessedItem.ProcessedItemColor.Red), 5),
+            new Recipe(new List<ItemSignature> { new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Herbessence, ProcessedItem.ProcessedItemColor.Red) }, () =>    new ProcessedItem(ProcessedItem.ProcessedItemType.Herbessence, ProcessedItem.ProcessedItemColor.Violet), 5),
+            new Recipe(new List<ItemSignature> { new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Herbessence, ProcessedItem.ProcessedItemColor.Violet) }, () => new ProcessedItem(ProcessedItem.ProcessedItemType.Herbessence, ProcessedItem.ProcessedItemColor.Yellow), 5),
+            new Recipe(new List<ItemSignature> { new ProcessedItemSignature(ProcessedItem.ProcessedItemType.Herbessence, ProcessedItem.ProcessedItemColor.Yellow) }, () => new ProcessedItem(ProcessedItem.ProcessedItemType.Herbessence, ProcessedItem.ProcessedItemColor.Black), 5),
+        };
 
         for(int i = 0; i < Things.Length; i++)
         {
