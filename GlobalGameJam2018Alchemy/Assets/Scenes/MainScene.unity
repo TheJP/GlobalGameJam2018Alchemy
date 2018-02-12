@@ -1584,6 +1584,7 @@ GameObject:
   - component: {fileID: 691358950}
   - component: {fileID: 691358949}
   - component: {fileID: 691358948}
+  - component: {fileID: 691358951}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -1609,7 +1610,6 @@ MonoBehaviour:
   infoText: {fileID: 1324226475}
   background: {fileID: 684950729}
   gameMenu: {fileID: 1291038711}
-  musicButton: {fileID: 294590680}
 --- !u!4 &691358947
 Transform:
   m_ObjectHideFlags: 0
@@ -1698,6 +1698,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62211051dd4c6104b9a6d683b6af3b88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &691358951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 691358945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c602b0a24c8462499b183c877665f4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controlledCamera: {fileID: 1336384625}
 --- !u!1 &919907018
 GameObject:
   m_ObjectHideFlags: 0
@@ -2332,7 +2344,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 100
   field of view: 60
   orthographic: 0
   orthographic size: 5

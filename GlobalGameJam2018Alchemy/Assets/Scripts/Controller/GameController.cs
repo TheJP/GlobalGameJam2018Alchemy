@@ -28,6 +28,7 @@ public class GameController : MonoBehaviour
     public Enemy[] enemyPrefabs;
 
     public event System.Action<bool> GameOver;
+    public event System.Action LevelStarted;
 
     private NetworkController network;
     private LayoutController layout;
@@ -52,6 +53,7 @@ public class GameController : MonoBehaviour
                 if (ingredientSpawning != null) { StopCoroutine(ingredientSpawning); }
                 ingredientSpawning = StartCoroutine(SpawnIngredients());
                 StartEnemySpawning();
+                LevelStarted?.Invoke();
             }
         };
 
@@ -62,6 +64,7 @@ public class GameController : MonoBehaviour
             // Remove enemies from previous levels
             foreach(Transform enemy in enemies) { Destroy(enemy.gameObject); }
             StartEnemySpawning();
+            LevelStarted?.Invoke();
         };
     }
 
