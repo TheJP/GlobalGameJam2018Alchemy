@@ -19,6 +19,16 @@ public class CameraController : MonoBehaviour
     [Tooltip("Speed of the camera movement when cursor is at the edge of the screen")]
     public float cameraMovementSpeed = 1f;
 
+    [Header("Zoom")]
+    [Tooltip("Speed with which the camera is zoomed in or out")]
+    public float zoomSpeed = 5f;
+
+    [Tooltip("Minimal distance of the camera from the ground (xz-plane)")]
+    public float minZoomDistance = 0.2f;
+
+    [Tooltip("Maximal distance of the camera from the ground (xz-plane)")]
+    public float maxZoomDistance = 10f;
+
     private Vector3 origin;
     private bool active = false;
 
@@ -83,9 +93,14 @@ public class CameraController : MonoBehaviour
             controlledCamera.transform.position += direction.normalized * cameraMovementSpeed;
         }
 
+        // Zoom in and out
+        var scrolling = -Input.GetAxis("Mouse ScrollWheel");
+        controlledCamera.transform.position += Vector3.up * scrolling * zoomSpeed;
+
         // Restrict camera movement
         var position = controlledCamera.transform.position;
         position.x = Mathf.Clamp(position.x, origin.x - maxCameraMovement, origin.x + maxCameraMovement);
+        position.y = Mathf.Clamp(position.y, minZoomDistance, maxZoomDistance);
         position.z = Mathf.Clamp(position.z, origin.z - maxCameraMovement, origin.z + maxCameraMovement);
         controlledCamera.transform.position = position;
     }

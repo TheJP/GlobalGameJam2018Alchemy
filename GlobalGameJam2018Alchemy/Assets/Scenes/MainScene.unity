@@ -1714,6 +1714,9 @@ MonoBehaviour:
   doubleClickThreshold: 0.3
   moveWhileDistanceFromEdge: 10
   cameraMovementSpeed: 0.5
+  zoomSpeed: 5
+  minZoomDistance: 2
+  maxZoomDistance: 50
 --- !u!1 &919907018
 GameObject:
   m_ObjectHideFlags: 0
