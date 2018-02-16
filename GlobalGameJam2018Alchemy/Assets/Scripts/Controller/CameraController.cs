@@ -10,8 +10,14 @@ public class CameraController : MonoBehaviour
     [Tooltip("Maximal allowed distance from original position in any direction")]
     public float maxCameraMovement = 50f;
 
-    [Tooltip("Time in seconds between two clicks, that counts them as double click.")]
+    [Tooltip("Time in seconds between two clicks, that counts them as double click")]
     public float doubleClickThreshold = 1f;
+
+    [Tooltip("Move the camera while the mouse is this distance from the edge of the window")]
+    public float moveWhileDistanceFromEdge = 10f;
+
+    [Tooltip("Speed of the camera movement when cursor is at the edge of the screen")]
+    public float cameraMovementSpeed = 1f;
 
     private Vector3 origin;
     private bool active = false;
@@ -62,6 +68,19 @@ public class CameraController : MonoBehaviour
             // Move camera
             var newTarget = IntersectGround();
             controlledCamera.transform.position += (target - newTarget);
+        }
+
+        // Move the camera while the cursor is at the edge of the screen
+        // Don't move while in development evironment, beacuse it's annoying
+        // if the camera moves when one wants to use the Scene View or Inspector
+        if (!tracking && !Debug.isDebugBuild)
+        {
+            var direction = Vector3.zero;
+            if(Input.mousePosition.x <= moveWhileDistanceFromEdge) { direction.x = -1; }
+            if (Input.mousePosition.y <= moveWhileDistanceFromEdge) { direction.z = -1; }
+            if (Input.mousePosition.x >= Screen.width - moveWhileDistanceFromEdge) { direction.x = 1; }
+            if (Input.mousePosition.y >= Screen.height - moveWhileDistanceFromEdge) { direction.z = 1; }
+            controlledCamera.transform.position += direction.normalized * cameraMovementSpeed;
         }
 
         // Restrict camera movement
