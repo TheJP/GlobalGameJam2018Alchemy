@@ -1710,6 +1710,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controlledCamera: {fileID: 1336384625}
+  maxCameraMovement: 50
+  doubleClickThreshold: 0.3
 --- !u!1 &919907018
 GameObject:
   m_ObjectHideFlags: 0
