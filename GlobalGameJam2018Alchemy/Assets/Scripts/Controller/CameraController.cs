@@ -9,7 +9,6 @@ public class CameraController : MonoBehaviour
     private Vector3 origin;
     private bool active = false;
 
-    private Vector3 cameraStartPosition;
     private Vector3 target;
     private bool tracking = false;
 
@@ -30,7 +29,6 @@ public class CameraController : MonoBehaviour
         if (!active) { return; }
         if (Input.GetMouseButtonDown(CameraMouseButton))
         {
-            cameraStartPosition = controlledCamera.transform.position;
             target = IntersectGround();
             tracking = true;
         }
@@ -38,7 +36,7 @@ public class CameraController : MonoBehaviour
         if (tracking)
         {
             var newTarget = IntersectGround();
-            controlledCamera.transform.position = cameraStartPosition + (target - newTarget);
+            controlledCamera.transform.position += (target - newTarget);
         }
     }
 
