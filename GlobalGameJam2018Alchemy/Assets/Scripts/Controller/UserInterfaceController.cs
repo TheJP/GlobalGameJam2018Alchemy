@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
@@ -112,6 +113,15 @@ public class UserInterfaceController : MonoBehaviour
     {
         if (!network.IsSinglePlayer) { network.Disconnect(); }
         SceneManager.LoadScene(0);
+    }
+
+    public void ClickedExit()
+    {
+#if UNITY_EDITOR
+        EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 
     private void ShowWarning(string warning) => StartCoroutine(DisplayWarning(warning));
